@@ -1,0 +1,7 @@
+{{#if (or data.description data.i18nDescription)}}
+    {{#if data.i18nDescription}} 
+        {{{data.i18nDescription}}}
+    {{else}}
+        {{{data.description}}}
+    {{/if}}
+{{/if}}

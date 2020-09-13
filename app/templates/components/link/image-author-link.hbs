@@ -1,0 +1,23 @@
+{{#if isInViewport}}
+{{#if (or imageInfoAutonomous data.pictureSymlinkCore)}}
+<div class="img-caption-container">
+{{#if imageInfoAutonomous}}
+    <img alt="{{data.name}}" 
+        class="img-responsive" 
+        src="{{imageUrl}}/{{entity}}/{{data.id}}_{{data.webPath}}/{{imageAlias}}">
+    <h1>
+        {{info/image-info data=dataImageInfo}}
+    </h1>
+{{else}}
+{{#if data.pictureMediumSymlink}}
+    <img alt="{{data.name}}" 
+        class="img-responsive" 
+        src="{{imageUrl}}/{{entity}}/{{data.id}}_{{data.webPath}}/{{data.pictureMediumSymlink}}">     
+    <h1>
+        {{info/image-info data=data}}
+    </h1>
+{{/if}}
+{{/if}}
+</div>
+{{/if}}   
+{{/if}}

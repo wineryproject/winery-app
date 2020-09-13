@@ -1,0 +1,53 @@
+{{snippet/social-network-snippet title=(t 'nav.wineries')}}
+{{#layout/container/index-layout-container}}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <div class='form-group'>
+                    <div class="col-sm-4 w-card-title">
+                        {{t "nav.wineries"}}
+                        {{snippet/badge-snippet color-class='label-default' value=model.nbToDisplay}}
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-8 input-group input-group-lg">
+                        {{search/inner-search-filter 
+                            countryFilter=true 
+                            grapeFilter=true
+                            setCountryFilter="setCountryFilter"
+                            setGrapeFilter="setGrapeFilter"
+                            countryWebPath=country
+                            grapeWebPath=grape
+                            perspective="wineries"
+                            }}
+                        <input 
+                            value={{searchFreeText}} 
+                            onKeyUp={{action 'handleInnerFilter' value="target.value"}} 
+                            type="text" 
+                            class="form-control" 
+                            autofocus="true" 
+                            placeholder={{t "nav.search"}} />
+                    </div>
+
+                </div>
+            </h1>
+            {{search/inner-search-pager
+                perspective="wineries.index"
+                hasFilter=hasFilter 
+                hasCountryFilter=hasCountryFilter
+                country = country
+                hasGrapeFilter=hasGrapeFilter
+                grape = grape
+                hasRegionFilter = hasRegionFilter
+                region = region
+                }}
+        </div>
+    </div>
+
+    {{wp/desc/winery-desc}}
+
+    <div class="row">
+        {{card/winery/winery-card-list 
+            wineries=model.wineries 
+            perspective=perspective 
+            addTitle="false"}}
+    </div>
+{{/layout/container/index-layout-container}}

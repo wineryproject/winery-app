@@ -1,0 +1,4 @@
+{{!-- link/appellation-token-link--}} 
+{{#each appellations as |appellation|}} 
+{{#link-to 'appellations.appellation' (format-to-web-path appellation)}}{{appellation}}{{/link-to}}{{#if (eq appellation appellations.lastObject)}}.{{else}}, {{/if}}
+{{/each}}

@@ -1,0 +1,24 @@
+{{#layout/card/layout-card-overview}}
+{{#layout/container/index-layout-container}}
+{{#if (cond myParams.payplan_id 'not_in' "free,intermediate,pro")}}
+No Payplan!!!
+{{else}}
+
+<div class="container">
+	<div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="panel text-center price-panel {{payplan-class myParams.payplan_id 'panel'}}">
+            {{payplan-header category=myParams.payplan_id}}
+            {{payplan/payplan-price category=myParams.payplan_id}}
+            {{payplan-free model=model.payplan category=myParams.payplan_id}}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+{{payplan/request-form model=model}}
+        </div>
+	</div>
+</div>
+
+{{/if}}
+{{/layout/container/index-layout-container}}
+{{/layout/card/layout-card-overview}}

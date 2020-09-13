@@ -1,0 +1,7 @@
+{{#if (cond perspective 'not_in' 'overview')}}
+{{#link-to 'countries.regions.places.place' data.countryWebPath data.regionWebPath data.webPath}}{{data.name}}{{/link-to}}
+{{/if}}
+{{#if (cond perspective 'in' 'search,overview')}}
+&rarr;&nbsp;{{#link-to 'countries.regions.region' data.countryWebPath data.regionWebPath}}{{data.regionName}}{{/link-to}}&nbsp;
+{{#link-to 'countries.country' data.countryWebPath}}{{data.countryName}}&nbsp;{{snippet/flag-icon flagIcon=data.countryFlagIcon size='48'}}{{/link-to}}
+{{/if}}

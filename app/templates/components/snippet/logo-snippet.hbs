@@ -1,0 +1,10 @@
+{{!-- remove logo-snippet to replace by logo-link --}}
+{{#if isInViewport}}
+<div class="img-caption-container">
+    <img
+        alt="logo {{label.webPath}}"
+        class="img-responsive" 
+        src="{{imageUrl}}/label/{{label.id}}_{{label.webPath}}/logo.jpg"
+        width="{{width}}" >
+</div>
+{{/if}}

@@ -1,0 +1,33 @@
+<form class="form-horizontal" {{action 'request' model on='submit'}}>
+<fieldset>
+
+<legend>{{t "sentence.registration-of-an-event"}}</legend>
+
+{{form/form-input isValid=isValidFirstName name='firstName' label=(t "field.first-name") required='true' autofocus='true' modelValue=model.firstName placeHolder=(t "field.first-name")}}
+
+{{form/form-input isValid=isValidLastName name='lastName' label=(t "field.last-name") required='true' modelValue=model.lastName placeHolder=(t "field.last-name")}}
+
+{{form/input-email isValid=isValidEmail modelValue=model.email required='true'}}
+
+{{form/form-input isValid=isValidDomain name='event' label=(t "field.event") required='true' modelValue=model.domain placeHolder=(t "field.domain")}}
+
+{{form/input-textarea isValid=isValidDomain name='description' label=(t "field.description") required='true' modelValue=model.domain placeHolder=(t "field.description")}}
+
+<div class="form-group">
+{{form/input-date name='from' label=(t "field.from") required='true' modelValue=model.from }}
+{{form/input-date name='to' label=(t "field.to") required='true' modelValue=model.to }}
+</div>
+
+<br/>
+<!-- address -->
+{{form/form-address}}
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-8">
+    <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-primary" disabled={{isDisabled}}>{{t "action.request-event"}}</button>
+  </div>
+</div>
+</fieldset>
+</form>

@@ -1,0 +1,23 @@
+#adv-search {
+    padding: 10px 0 0 0;
+}
+
+#adv-search .nlk-dropdown {
+    left: -220px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+}
+
+#adv-search-str {
+    min-width: 140px;
+}
+
+.adv-search-target {
+    margin: 5px 0 0 0;
+    font-size: smaller;
+}

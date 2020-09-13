@@ -1,0 +1,56 @@
+<!--footer-->
+<footer class="footer" role="navigation">
+      <div class="container-fluid">
+        <div class="row">
+            {{#footer/footer-box title=(t "nav.contact")}}
+            <div class="footerp">
+                <p><b> <a href="mailto:thewineryproject@gmail.com">thewineryproject@gmail.com</a></b></p>
+                <p><b> {{#link-to 'cookies'}}{{t "nav.cookies"}}{{/link-to}}</b></p>
+            </div>
+            <div class="social-icons">
+                <ul class="nomargin">
+                    {{#if (not-eq environment "production")}}
+                    <a href="https://www.facebook.com/wineryproject"><i class="fa fa-facebook-square fa-3x social social-fb" id="social-fb"></i></a>
+                    {{!--
+                    <a href="https://plus.google.com/+wineryproject"><i class="fa fa-google-plus-square fa-3x social social-gp" id="social-gp"></i></a>
+                    --}}
+                    {{/if}}
+                    <a href="https://twitter.com/wineryproject"><i class="fa fa-twitter-square fa-3x social social-tw" id="social-tw"></i></a>
+                    <a href="mailto:thewineryproject@gmail.com"><i class="fa fa-envelope-square fa-3x social social-em" id="social-em"></i></a>
+                </ul>
+            </div>
+            {{/footer/footer-box}}
+            {{#footer/footer-box title=(t "nav.get-involved")}}
+            <div class="footerp">
+                {{!--TODO when root entities w/ code => display this part
+                <p><b> {{#link-to 'code' (query-params origin="todo origin")}}{{t "nav.code"}}{{/link-to}}</b></p>
+                --}}
+                <p><b> {{#link-to 'features'}}{{t "nav.join"}}{{/link-to}}</b></p>
+                <p><b> {{#link-to 'developer'}}{{t "nav.developers"}}{{/link-to}}</b></p>
+                <p><b> {{#link-to 'contributor'}}{{t "nav.contributors"}}{{/link-to}}</b></p>
+                <p><b> {{#link-to 'legal-mentions'}}{{t "nav.legal-mentions"}}{{/link-to}}</b></p>
+            </div>
+            <div class="social-icons">
+                <ul class="nomargin">
+                    <a href="https://www.github.com/wineryproject"><i class="fa fa-github-square fa-3x social-fb" id="social"></i></a>
+                </ul>
+            </div>
+            {{/footer/footer-box}}
+            {{#footer/footer-box title=(t "nav.something-missing")}}
+            <div class="footerp">
+                <p><b> {{#link-to "payplans.request" 'free'}}{{t "nav.add-winery-for-free"}}{{/link-to}}</b></p>
+                <p><b> {{#link-to 'feedback'}}{{t "sentence.drop-feedback"}}{{/link-to}}</b></p>
+            </div>
+            {{/footer/footer-box}}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="copyright">
+                    © 2019, Winery project, All rights reserved
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

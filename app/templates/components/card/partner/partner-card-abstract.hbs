@@ -1,0 +1,14 @@
+{{!-- partner-card-abstract --}}
+{{#layout/card/layout-card-abstract}}
+<div class="media-body fnt-smaller">
+    <h3 class="media-heading">
+        {{#if (eq data.hasLogo 1)}}
+            {{link/logo-link entity="partner" entityId=data.id entityWebPath=data.webPath width=80}}{{!--logo should be square or fix width--}}
+        {{/if}}
+        {{data.name}}
+    </h3>
+    <h4>
+       {{data.webSite}}
+    </h4>
+</div>
+{{/layout/card/layout-card-abstract}}

@@ -1,0 +1,129 @@
+<header class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand">{{#link-to 'application' }}<span class="glyphicon glyphicon-home"/>{{/link-to}}</a>
+      <a href="#" class="navbar-brand" id="ddl-language" onclick={{action 'menuClick' 'language'}}>
+        <span class="fa fa-language"/>
+      </a>
+      <ul id="change-language" class="dropdown-menu {{if isLanguageDdlDisplayed 'show'}}" aria-labelledby="themes-language">
+      {{language/menu-list availableTranslation=availableTranslation}}
+      </ul>
+{{!-- in new nav-bar.hbs
+https://codepen.io/jstneg/pen/pvyYdw 
+--}}
+      {{#if authManager.currentUser}}
+      {{!-- TODO https://codepen.io/jstneg/pen/pvyYdw --}}
+        <a href="#" class="navbar-brand" onclick={{action 'menuClick' 'user'}} data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="fa fa-user"/>
+        </a>
+        <ul id="ddl-user" class="dropdown-menu {{if isUserDdlDisplayed 'show'}}">
+          <li>
+            {{#link-to "accounts.info"}}
+              <span>
+                {{authManager.currentUser.email}} <span class="fa fa-ellipsis-v pull-right"/>
+              </span>
+            {{/link-to}}
+          </li>
+          <li>
+            <a href="#" {{action 'invalidateSession'}}>
+              <span>
+              {{t "nav.logout"}}<span class="fa fa-sign-out pull-right text-secondary"/>
+              </span>
+            </a>
+          </li>
+        </ul>
+      {{else}}
+        <a href="#" class="navbar-brand" onclick={{action 'menuClick' 'admin'}}>
+          <span class="fa fa-cog"/>
+        </a>
+        <ul id="ddl-user" class="dropdown-menu {{if isAdminDdlDisplayed 'show'}}">
+          <li>
+            {{#link-to "accounts.login"}}
+              <span>
+                {{t 'nav.login'}} <span class="fa fa-sign-in pull-right"/>
+              </span>
+            {{/link-to}}
+          </li>
+          <li>
+            <a href="{{userRegistrationUrl}}" >
+              <span>
+                {{t 'action.self-register'}} <span class="fa fa-user pull-right"/>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="{{userPasswordForgottenUrl}}" >
+              <span>
+                {{t 'nav.reset-password'}} <span class="fa fa-key pull-right"/>
+              </span>
+            </a>
+          </li>
+        </ul>
+      {{/if}}
+      {{#if hasShoppingCart}}
+          {{#link-to 'purchase.index' class="navbar-brand"}}
+            {{snippet/icon-badge-snippet icon-class='fa fa-shopping-cart' color-class='w-badge-danger' value=nbOfItemsInCart}}
+          {{/link-to}}
+      {{/if}}
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        {{#link-to "search" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse"><span class="fa fa-search"/></a>
+        {{/link-to}}
+
+        {{#link-to "events.index" (query-params timeline='CURRENT,FUTURE' orderBy='from_date_asc') tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">
+            {{t "nav.events"}}</a>
+        {{/link-to}}
+
+        {{#link-to "wineries.index" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.wineries"}}</a>
+        {{/link-to}}
+
+{{!--
+        {{#link-to "countries.index" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.countries"}}</a>
+        {{/link-to}}
+        {{#link-to "appellations" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.appellations"}}</a>
+        {{/link-to}}
+        {{#link-to "grapes" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.grapes"}}</a>
+        {{/link-to}}
+--}}
+{{!--
+{{#if (eq environment "production")}}
+        {{#link-to "wineries.index" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.wineries"}}</a>
+        {{/link-to}}
+{{/if}}
+--}}
+        {{#link-to "features" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.features"}}</a>
+        {{/link-to}}
+
+        {{#link-to "blog" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.blog"}}</a>
+        {{/link-to}}
+        
+        {{#link-to "stats" (query-params year='null' country='null' region='null' isBio='null') tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.stats"}}</a>
+        {{/link-to}}
+
+{{!--
+        {{#link-to "payplans" tagName="li" }}
+          <a href="#" class='nav-item nav-link' data-toggle="collapse" data-target=".navbar-collapse">{{t "nav.prices"}}</a>
+        {{/link-to}}
+ --}}
+      </ul>
+    </div>
+  </div>
+</header>
+

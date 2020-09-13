@@ -1,0 +1,190 @@
+<tr valign="bottom">
+{{#if (and (cond perspective 'in' 'event,event-winery') (eq showLogo true))}}
+    <td>
+        {{!-- logo --}}
+        {{#if product.hasProductLogo}}
+            {{link/logo-link entity="product" entityId=product.productId entityWebPath=product.productWebPath width=30}}{{!--logo should be square or fix width--}}
+        {{else}}
+            {{#if product.hasProductImage}}
+                {{link/image-link entity="product" entityId=product.productId entityWebPath=product.productWebPath width=30}}{{!--logo should be square or fix width--}}
+            {{else}}
+                {{#if product.hasWineryLogo}}
+                    {{link/logo-link entity="winery" entityId=product.wineryId entityWebPath=product.wineryWebPath width=40}}{{!--logo should be square or fix width--}}
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    </td>
+{{/if}}
+    <td>
+        {{!-- year --}}
+        <b>
+        {{#snippet/badge-snippet color-class='label-default' }}
+            {{snippet/product-year-snippet year=product.year}}
+        {{/snippet/badge-snippet}}
+        </b>
+    </td>
+    <td>
+        {{!-- product --}}      
+         <b>
+             {{link/to-product-link data=product}}
+        </b>
+        {{!-- label/wine/wine-appellation-label product=product displayLabel=false --}}
+            {{#if product.appellationClassificationAcronym}}
+                {{snippet/badge-snippet color-class='label-default' value=product.appellationClassificationAcronym}}
+            {{/if}}
+
+        {{#if product.hasProductTechnicalSheet}}
+        <div class="no-print">
+            {{link/technical-sheet-link entity="product" entityId=product.productId entityWebPath=product.productWebPath}}
+        </div>
+        {{/if}}
+    </td>
+{{#if (and (cond perspective 'in' 'event,event-winery') (eq showOrigin true))}}
+    <td> 
+        {{!-- origin --}}
+        {{!-- "field.origin" product.country--}} 
+        {{snippet/flag-icon flagIcon=product.countryFlagIcon size='24'}}
+        {{product.region}} 
+        {{#link-to 'wineries.winery' product.wineryWebPath}}
+            {{product.winery}}
+        {{/link-to}}
+    </td>
+{{/if}}
+    <td> 
+        {{!-- characteristics --}}
+        {{snippet/product-color-badge-snippet product=product}}
+
+        {{link/cepage-token-link cepages=product.cepages showPercent=true}}
+
+        {{#if (cond product.isBio '==' 1)}}<b>{{t "field.bio"}}</b> {{snippet/validation-check-success isValid=true}}
+        {{/if}}
+
+        {{!--TODO replace product.productColorName by product.colorName--}}
+        {{#if (not-eq product.productColorName 'RED')}}
+        {{#if product.sweetness}} {{t (i18n-ref 'ref-data.sweetness-' product.sweetness)}}
+        {{/if}}
+        {{/if}}
+        {{#if (eq product.productColorName 'RED')}}
+        {{#if product.puissance}} {{t (i18n-ref 'ref-data.puissance-' product.puissance)}}
+        {{/if}}
+        {{/if}}
+        {{#if product.bubbleness}} {{t (i18n-ref 'ref-data.bubbleness-' product.bubbleness)}}
+        {{/if}}
+{{!--TODO remove duplicate --}}
+    </td>
+    <td>
+        {{!-- format --}}
+        <b>
+            {{!product.quantity}} {{!product.wineRecipientName}} {{!--product.wineRecipientWebPath--}}
+            {{#if (not-eq product.quantity 1)}}
+                {{product.quantity}} x 
+            {{/if}}
+            {{product.wineRecipientVolumeInMl}}.ml
+        </b>
+    </td>
+    
+{{#if (eq product.currencyName "Euro")}}
+    {{#if (cond perspective 'in' 'event,event-winery')}}
+        {{#if showEventPrice}}
+            <td>
+                {{#if isEditableEventPrice}}
+                    <div class="input-group">
+                        {{input 
+                            value=product.eventPrice
+                            class="form-control" 
+                        }} 
+                            <span class="input-group-addon input-group-addon-small">&euro;</span>                   
+                    </div>
+                {{else}}
+                    {{product.eventPrice}} &euro; 
+                    {{#if (gt product.showHomeEventPriceDelta 1)}}
+                        ({{product.homeToEventPriceIncPerc}}% {{snippet/variation-arrow-snippet data=product.homeToEventPriceIncPerc  upColor="red" downColor="green"}})
+                    {{/if}}
+                {{/if}}
+            </td>
+        {{/if}}
+        {{#if showEventPresalePrice}}
+            <td> 
+                {{product.eventPreOrderPrice}} &euro;
+                {{#if (gt product.showHomePresalePriceDelta 1)}}
+                    ({{product.homeToPreOrderPriceIncPerc}}% {{snippet/variation-arrow-snippet data=product.homeToPreOrderPriceIncPerc  upColor="red" downColor="green"}})
+                {{/if}}
+            </td>
+        {{/if}}
+    {{/if}} {{!-- end event perspective --}}
+
+    {{#if showWineryPrice}}
+            <td>
+            {{displayPrice}} &euro;
+            </td>
+    {{/if}}
+
+{{else}}{{!-- not euro--}}
+    {{#if showEventPrice}}
+        <td> {{product.eventPrice}} {{product.currencyName}} </td>
+    {{/if}}
+    {{#if showEventPresalePrice}}
+        <td> {{product.eventPreOrderPrice}} {{product.currencyName}} </td>
+    {{/if}}
+    {{#if (cond perspective 'in' 'event,event-winery')}}
+        {{#if showWineryPrice}}
+            <td> {{product.homePrice}} {{product.currencyName}} </td>
+        {{/if}}
+    {{/if}}
+{{/if}}
+
+{{!-- for winery-event : quantity --}}
+{{#if showCustomerQuantity}} 
+    {{#if isEditableCustomerQuantity}} 
+        <td>
+            {{!-- customer quantity --}}
+            {{input 
+                value=customerQuantity
+                class="form-control" 
+                type="number" 
+                width="5"
+                size="10"
+                min="0"
+            }}
+        </td>
+    {{else}} {{!-- for winery-event --}}
+        <td>
+            {{!-- customer quantity --}}
+            {{customerQuantity}}
+        </td>
+    {{/if}}
+    <td class="col-sm-1 col-md-1 text-right">
+        {{!-- compute price --}}
+        <strong>{{customerPriceDisplay}} &euro;</strong>
+    </td>
+{{else if showPurchaseOrder}}
+    <td class="no-print">
+        <span class="pull-left">
+        {{!-- improve perf!! event on class not icon --}}
+        {{!TODO MODAL-WITH-OBJECT to refactor}}
+        {{!TODO display price (product.eventPrice} or product.eventPreOrderPrice)}}
+            <i class="fa fa-shopping-cart fa-2x" 
+                onClick={{
+                    action "setProductItemPriceId" 
+                    product.productItemPriceId 
+                    product.productId 
+                    product.wineryId
+                    product.productWebPath
+                    product.wineryWebPath
+                    product.priceType
+                    product.eventId
+                    displayPrice
+                    product.currencyName
+                    }}>
+            </i>
+            {{#if (gt numberInShoppingCart 0)}} 
+            {{!--snippet/badge-snippet color-class='label-danger' 
+            value=numberInShoppingCart--}}
+            <span class="badge w-badge-danger badge-notify">{{numberInShoppingCart}}</span>
+            {{/if}}
+        </span>  
+{{!--TODO remove duplicate end --}}
+    </td>
+{{/if}}
+{{!-- euro--}}
+</tr>

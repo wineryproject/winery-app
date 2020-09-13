@@ -1,0 +1,20 @@
+<span class="fnt-smaller fnt-arial">{{!-- fnt-lighter --}}
+    <i class="fa fa-address-card-o"/>
+    {{!--TODO PROD2 add contact --}}
+    {{data.contact}} 
+    {{#if data.contactStreet1}}
+        - 
+        {{data.contactStreet1}}
+        {{data.contactStreet2}} 
+    {{/if}}
+    - 
+    {{data.contactPostCode}}
+    {{data.contactCity}}
+{{#if showPhones}}
+{{#if data.contactPhone}}
+    <br/>
+    <i class="fa fa-phone"/>
+    {{data.contactPhone}}
+{{/if}}
+{{/if}}
+</span>

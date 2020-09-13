@@ -1,0 +1,23 @@
+{{#each model as |condition|}}
+{{#if (cond category '==' 'free')}}
+{{payplan-condition 
+    quantity=condition.freeOfferQuantity 
+    check=condition.freeOffer 
+    condition=condition
+    number-class='pay-plan-free-number'}}
+{{/if}}
+{{#if (cond category '==' 'intermediate')}}
+{{payplan-condition 
+    quantity=condition.intermediateOfferQuantity 
+    check=condition.intermediateOffer 
+    condition=condition
+    number-class='pay-plan-intermediate-number'}}
+{{/if}}
+{{#if (cond category '==' 'pro')}}
+{{payplan-condition 
+    quantity=condition.proOfferQuantity 
+    check=condition.proOffer 
+    condition=condition
+    number-class='pay-plan-pro-number'}}
+{{/if}}
+{{/each}}

@@ -1,0 +1,80 @@
+{{!--purchase-order--}}
+{{#layout/card/layout-card-overview}}
+{{#if (eq environment "production")}}
+{{/if}}
+
+    {{snippet/watermark-snippet label=(t "sentence.experimental-feature")}}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+        {{#if edit}}
+            {{t "field.purchase-order"}}
+        {{else}}
+            {{t "field.confirm-purchase-order"}}
+        {{/if}}
+            </h1>
+        </div>
+    </div>
+    <br/>
+{{#if (gt data.productLines.length 0)}}
+
+    <div class="form-group">
+        {{card/user/user-card-overview data=currentUser}}
+    </div>
+
+{{#each data.wineryProductLines as |wineryProductLine|}}
+    {{order/purchase-winery-order data=wineryProductLine remove="removeProductItemId" edit=edit}}
+{{/each}}
+    <div class="row col-sm-12 col-md-10 col-md-offset-1">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td><h3>{{t "field.total"}}</h3></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right"><h3><strong>{{data.totalPriceDisplay}} &euro;</strong></h3></td>
+                </tr>
+                <tr>
+                    <td>
+                        {{#if edit}}
+                        <button type="button" class="btn btn-danger btn-media" {{action 'remove'}}>
+                                <i class="glyphicon glyphicon-remove">
+                            </i> {{t "action.remove-all"}}
+                        </button>
+                        {{else}}
+                        <button type="button" class="btn btn-default" {{action 'cancel'}}>
+                                <span class="glyphicon glyphicon-remove">
+                            </span> {{t "action.cancel"}}
+                        </button>
+                        {{/if}}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        {{#if edit}}
+                        <button type="button" class="btn btn-success pull-right" {{action "checkout"}}>
+                            {{t "action.checkout"}} <span class="glyphicon glyphicon-play">
+                            </span>
+                        </button>
+                        {{else}}
+                        <button type="button" class="btn btn-success pull-right" {{action "order"}}>
+                            {{t "action.confirm"}}  <span class="glyphicon glyphicon-play">
+                            </span>
+                        </button>
+                        {{/if}}
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{{else}}
+    <br/>
+    <div class="row">
+        {{t "sentence.empty-shopping-cart"}}
+    </div>
+{{/if}}
+{{/layout/card/layout-card-overview}}

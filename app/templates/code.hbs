@@ -1,0 +1,29 @@
+<div class="container">
+  <fieldset>
+
+    <legend>{{t "nav.code"}} for {{entity}} {{entityValue}}</legend>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" >{{t "sentence.add-png"}}</label>
+      <div class="col-md-8">
+        <img src={{pngUrl}} alt="product" style="border:5px solid black">
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{form/input-textarea modelValue=model.description rows="3" label=(t "sentence.copy-code") modelValue=pngHtmlCode}}
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" >{{t "sentence.add-pdf"}}</label>
+      <div class="col-md-8">
+        {{js-pdf src=pdfUrl}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{form/input-textarea modelValue=model.description id="code-pdf" rows="3" label=(t "sentence.copy-code") modelValue=pdfHtmlCode}}
+    </div>
+
+  </fieldset>
+</div>

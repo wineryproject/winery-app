@@ -1,0 +1,54 @@
+{{#if data.shippingCosts}}
+<br/>
+<h3>{{t "field.shipping-costs"}}</h3>
+<br/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            {{t "field.origin"}}
+            </th>
+
+            <th>
+            {{t "field.destination"}}
+            </th>
+
+            <th>
+            {{t "field.quantity"}}
+            </th>
+
+            <th>
+            {{t "field.format"}}
+            </th>
+
+            <th>
+            {{t "field.price"}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data.shippingCosts as |shippingCost index|}}
+        <td>
+            {{!--shippingCost.countryOriginName--}}
+            {{t (i18n-ref 'ref-data.country-' (lowercase shippingCost.countryOriginName))}}
+        </td>
+        <td>&rarr;
+            {{!--shippingCost.countryTargetName--}}
+            {{t (i18n-ref 'ref-data.country-' (lowercase shippingCost.countryOriginName))}}
+        </td>
+        <td>{{shippingCost.quantity}}</td>
+        <td>
+            {{shippingCost.volumeInMl}} .ml
+            ({{shippingCost.volumeName}})
+        </td>
+        <td>{{shippingCost.price}} 
+            {{#if (eq shippingCost.currencyName "Euro")}}
+                &euro;
+            {{else}}
+                {{shippingCost.currencyHtmlEntity}}
+            {{/if}}
+            </td>
+        {{/each}}
+    </tbody>
+</table>
+{{/if}}  

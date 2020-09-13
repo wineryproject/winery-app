@@ -1,0 +1,275 @@
+{{snippet/social-network-snippet title=(t 'nav.stats')}}
+<div class="container-fluid">
+    <div class="container container-pad">
+        <h1>{{t 'field.statistics'}}</h1>
+        <h3 class="w-feature">{{t 'sentence.events-by-year-and-country'}} </h3>
+        <h3>
+{{#each model.EventsPerYearStatOut as |item index|}}
+    {{#link-to 'stats' (query-params year=item.year eventCountryWebPath=item.eventCountryWebPath country=null region=null isWineryBio=null)}}
+        {{#if (and (eq (concat "" item.year) year) (eq item.eventCountryWebPath eventCountryWebPath))}}
+            <button type="button" class="btn btn-warning" >
+                {{snippet/flag-icon flagIcon=(country-flag item.eventCountryWebPath) size='24'}}
+                {{item.year}} ({{item.nb}})
+            </button>
+        {{else}}
+            <button type="button" class="btn btn-warning stat-btn" >
+                {{snippet/flag-icon flagIcon=(country-flag item.eventCountryWebPath) size='24'}}
+                {{item.year}} ({{item.nb}})
+            </button>
+        {{/if}}
+    {{/link-to}}
+{{/each}}
+        </h3>
+
+{{#if year}}
+    {{!--<h3>{{t 'field.filters'}} </h3>--}}
+    <h4 class="w-feature">{{t 'sentence.exhibitor-country-origin'}}</h4>
+    {{#each model.statFiltersOut as |item index|}}
+        {{#if (eq item.type 'country')}}
+            {{#link-to 'stats' (query-params year=item.year country=item.webPath region='null' isWineryBio=null)}}
+                {{#if (eq item.webPath country)}}
+                    <button type="button" class="btn btn-warning" >
+                        {{snippet/flag-icon flagIcon=item.flagIcon size='24'}}
+                        <b>{{item.name}} ({{item.nbDistinctWineries}})</b>
+                    </button>
+                {{else}}
+                    <button type="button" class="btn btn-warning stat-btn">
+                        {{snippet/flag-icon flagIcon=item.flagIcon size='24'}}
+                        {{item.name}} ({{item.nbDistinctWineries}})
+                    </button>
+                {{/if}}
+            {{/link-to}}
+        {{/if}}
+    {{/each}}
+
+    <h4 class="w-feature">{{t 'sentence.exhibitor-region-origin'}}</h4>
+    {{#each model.statFiltersOut as |item index|}}
+        {{#if (eq item.type 'region')}}
+            {{#link-to 'stats' (query-params year=item.year region=item.webPath)}}    
+                {{#if (eq item.webPath region)}}
+                <button type="button" class="btn btn-primary stat-btn active">
+                    <b>{{item.name}} ({{item.nbDistinctWineries}})</b>
+                </button>
+                {{else}}
+                    {{#if countryInfo}}
+                        {{#if (eq countryInfo.id item.parentId)}}
+                            <button type="button" class="btn btn-primary stat-btn">
+                                {{item.name}} ({{item.nbDistinctWineries}})
+                            </button>
+                        {{/if}}
+                       
+                    {{else}}
+                        <button type="button" class="btn btn-primary stat-btn">
+                            {{item.name}} ({{item.nbDistinctWineries}})
+                        </button>
+                    {{/if}}
+                {{/if}}
+            {{/link-to}}
+        {{/if}}
+    {{/each}}
+
+
+    <h4 class="w-feature">{{t 'field.bio'}}</h4>
+    <h5> {{t "nav.wineries"}} {{t 'field.bio'}} {{stats.nbDistinctWineriesBio}}/{{stats.nbDistinctWineries}} - {{t 'field.no-bio'}} {{stats.nbDistinctWineriesNoBio}}/{{stats.nbDistinctWineries}}
+        <br/>
+        <div class="progress">
+            {{#link-to 'stats' (query-params isWineryBio=true)}}
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{html-safe stats.pcBioDistinctWineries}}%">
+                    {{t 'field.bio'}} {{stats.pcBioDistinctWineries}} %
+                </div>
+            {{/link-to}}
+            {{#link-to 'stats' (query-params isWineryBio=false)}}
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{html-safe stats.pcNoBioDistinctWineries}}%">
+                    {{t 'field.no-bio'}} {{stats.pcNoBioDistinctWineries}} %
+                </div>
+            {{/link-to}}
+        </div>
+    </h5>
+    <h5> {{t "field.exhibitors"}} {{t 'field.bio'}} {{stats.nbExhibitorsBio}}/{{stats.nbExhibitors}} - {{t 'field.no-bio'}} {{stats.nbExhibitorsNoBio}}/{{stats.nbExhibitors}}
+        <br/>
+        <div class="progress">
+            {{#link-to 'stats' (query-params isWineryBio=true)}}
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{html-safe stats.pcBioExhibitors}}%">
+                    {{t 'field.bio'}} {{stats.pcBioExhibitors}} %
+                </div>
+            {{/link-to}}
+            {{#link-to 'stats' (query-params isWineryBio=false)}}
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:{{html-safe stats.pcNoBioExhibitors}}%">
+                    {{t 'field.no-bio'}} {{stats.pcNoBioExhibitors}} %
+                </div>
+            {{/link-to}}
+        </div>
+    </h5>
+{{#if showGrades}}
+    <h4 class="w-feature">{{t 'field.cepages'}} 
+    {{#if cepageFilter}}
+        <i class="fa fa-minus w-circle" onclick={{perform closeCepageFilter}} > </i>
+    {{else}}
+        <i class="fa fa-plus w-circle" onclick={{perform findGrades}} > </i>
+    {{/if}}
+    </h4>
+    {{#if cepageFilter}}
+        {{#each cepageFilter.StatCepageFiltersOut as |item index|}}
+            {{#link-to 'stats' (query-params grades=item.cepageWebPath)}}
+                {{#if (and grades (cond item.cepageWebPath 'in' grades))}}
+               {{!-- TODO remove duplication --}} 
+                    <button type="button" class="btn btn-primary stat-btn active">
+                        {{item.cepageName}} 
+                        (
+                            {{#if isWineryBio}}
+                                {{#if (eq isWineryBio "true")}}
+                                    {{item.nbDistinctWineriesBio}}
+                                {{/if}}
+                                {{#if (eq isWineryBio "false")}}
+                                    {{item.nbDistinctWineriesNotBio}}
+                                {{/if}}
+                            {{else}}
+                                {{item.nbDistinctWineries}}
+                            {{/if}}
+                        )
+                    </button>
+                {{else}}
+                    <button type="button" class="btn btn-primary stat-btn">
+                        {{item.cepageName}} 
+                        (
+                            {{#if isWineryBio}}
+                                {{#if (eq isWineryBio "true")}}
+                                    {{item.nbDistinctWineriesBio}}
+                                {{/if}}
+                                {{#if (eq isWineryBio "false")}}
+                                    {{item.nbDistinctWineriesNotBio}}
+                                {{/if}}
+                            {{else}}
+                                {{item.nbDistinctWineries}}
+                            {{/if}}
+                        )
+                    </button>
+                {{/if}}
+            {{/link-to}}
+        {{/each}}
+
+{{!-- TODO add chart w/ bio/not bio
+{{chart/stats/stats-timeline-chart dataSource=cepagesDataSource}}
+--}}
+    {{/if}}
+{{/if}}
+    <hr>
+
+    <h2>
+        {{year}}
+        {{#if country}}
+        {{#link-to 'stats' (query-params year=year country=null)}}
+            <button type="button" class="btn btn-warning stat-btn">
+                {{snippet/flag-icon flagIcon=countryStoreInfo.flagIcon size='24'}}
+                <b>{{countryStoreInfo.name}}</b>
+                <i class="fa fa-times text-danger"></i>
+            </button>  
+            {{/link-to}}         
+        {{/if}}       
+        {{#if region}}
+        {{#link-to 'stats' (query-params year=year region=null)}}
+            <button type="button" class="btn btn-primary stat-btn">
+                <b>{{regionInfo.name}}</b>
+                <i class="fa fa-times text-danger"></i>
+            </button> 
+            {{/link-to}}
+        {{/if}}     
+        {{#if grades}}
+        {{#link-to 'stats' (query-params year=year grades=null)}}
+            <button type="button" class="btn btn-primary stat-btn">
+                <b>{{grades}}</b> {{!-- todo split of coma list--}}
+                <i class="fa fa-times text-danger"></i>
+            </button> 
+            {{/link-to}}
+        {{/if}}     
+        {{#if (eq isWineryBio 'true')}}  
+            {{#link-to 'stats' (query-params isWineryBio=null)}}
+            <button type="button" class="btn btn-success stat-btn" >
+                <b>{{t 'field.bio'}}</b>
+                <i class="fa fa-times text-danger"></i>
+            </button> 
+            {{/link-to}}
+        {{/if}}
+        {{#if (eq isWineryBio 'false')}}  
+            {{#link-to 'stats' (query-params isWineryBio=null)}}
+            <button type="button" class="btn btn-danger stat-btn">
+                <b>{{t 'field.no-bio'}}</b>
+                <i class="fa fa-times text-danger"></i>
+            </button> 
+            {{/link-to}}
+        {{/if}}
+
+    </h2>   
+
+    <h5 class="w-feature">
+        {{#if (eq chunkPeriodGranularity 'month')}}
+            {{t 'sentence.number-events-per-month'}} 
+            {{#link-to 'stats' (query-params chunkPeriodGranularity='week')}}
+                <button type="button" class="btn btn-warning">{{t 'field.week'}}</button>
+            {{/link-to}}
+        {{else}}
+            {{t 'sentence.number-events-per-week'}} 
+            {{#link-to 'stats' (query-params chunkPeriodGranularity='month')}}
+                <button type="button" class="btn btn-warning">{{t 'field.month'}}</button>
+            {{/link-to}}
+        {{/if}}
+    </h5>
+{{#if (gt model.eventsExhibitorsStatOut.length 0)}}        
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    {{#if (eq chunkPeriodGranularity 'month')}}
+                	    <th>{{t "field.month"}}</th>
+                    {{else}}
+                        <th>{{t "field.week"}}</th>
+                    {{/if}}
+
+                	<th colspan="2">{{t "nav.events"}}</th>
+                    <th colspan="2">{{t "field.exhibitors"}}</th>
+                	{{!--<th>eventDetails</th>--}}
+
+            	</tr>
+            </thead>
+            <tbody>
+{{#each model.eventsExhibitorsStatOut as |item index| }} 
+            	<tr>
+                    {{#if (eq chunkPeriodGranularity 'month')}}
+                    <td>{{moment-format item.periodBeginning 'MMMM'}}</td>
+                    {{else}}
+                    <td>{{moment-format item.periodBeginning 'D MMMM'}} &rarr; {{moment-format item.periodEnding 'D MMMM'}}</td>
+                    {{/if}}
+                	<td>
+                        {{snippet/badge-snippet color-class='label-default' value=item.nbOfEvents}}
+                    </td>
+                    <td>
+{{#each item.eventDetails as |i index|}}
+{{#link-to 'events.event' i.eventWebPath}}{{i.eventName}}{{/link-to}}
+<br/>
+{{/each}}
+                    </td>
+                	<td>
+                        {{snippet/badge-snippet color-class='label-default' value=item.nbOfExhibitors}}
+                    </td>
+                	<td>
+{{#each item.exhibitorDetails as |i index|}}
+{{link/to-winery-link data=i}}
+<br/>
+{{/each}}
+                    </td>
+                	
+            	</tr>
+{{/each}}
+            </tbody>
+		</table>
+{{else}}       
+    {{t 'sentence.no-event-found'}}
+{{/if}}
+
+
+    <hr>
+
+
+{{/if}}
+
+    </div>
+</div>

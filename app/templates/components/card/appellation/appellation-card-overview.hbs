@@ -1,0 +1,103 @@
+{{snippet/social-network-snippet title=data.appellation.name}}
+<div class="row">
+    <div class="col-md-12">
+        <h1 style="display: inline">{{data.appellation.name}} 
+            {{snippet/badge-snippet 
+                color=data.appellation.colorRgb 
+                value=(i18n-default (t (i18n-ref 'ref-data.color-' data.appellation.colorName)) data.appellation.colorName)
+                }}
+        </h1>
+        <h3 style="display: inline">&nbsp;&rarr;&nbsp;
+            {{link/to-region-link data=data.appellation}}&nbsp;{{link/to-country-link data=data.appellation}}
+        </h3>
+        <h4>
+            {{snippet/badge-snippet color-class='label-default' value=data.appellation.appellationClassificationAcronym}}
+            {{data.appellation.appellationClassificationName}} 
+        </h4>
+        {{!-- TODO if creation within last month 
+        {{t "field.last-update"}} {{moment-from-now data.appellation.lastModification}} {{!--{{moment-from-now (now) hideSuffix=true}} <br/>
+        --}}
+        {{!--Type {{dataw.appellation.bubbleness}}, {{data.appellation.sweetness}} <br/>--}}
+        
+        {{!--{{label/wine/wine-characteristics-label product=data.appellation}}--}}
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="font-size: :40px;">
+    {{!--change with webpath --}}
+        {{#if data.appellation.pictureId}}
+            <img alt="{{data.name}}" class="img-responsive" src="{{baseUrl}}/winyWeb/data/files/file/{{data.appellation.pictureId}}"/>
+        {{else}}
+            {{!--"{{baseUrl}}""--}}
+            {{!--upload appellation bottle picture--}}
+            {{upload/image-upload color=data.appellation.colorRgb entity="appellation" webpath=appellation.webpath}}
+            
+        {{/if}}
+    </div>
+</div>
+
+<div class="panel-group">
+
+    {{snippet/description-panel-snippet data=data.appellation i18n="field.appellation"}}
+
+    {{#if data.appellation.composition}}
+        {{#if data.appellation.anyGrape}}
+            {{#snippet/panel-snippet heading=(t "sentence.made-by-any-of-following-grapes") }}
+                {{table/appellation/appellation-composition-table appellation=data.appellation displayLabel=false}}
+            {{/snippet/panel-snippet}}
+        {{else}}   
+            {{#snippet/panel-snippet heading=(t "field.assembly") }}
+                {{table/appellation/appellation-composition-table appellation=data.appellation displayLabel=false}}
+            {{/snippet/panel-snippet}}
+        {{/if}}
+    {{/if}}
+
+    {{#if (or data.appellation.sweetness data.appellation.bubbleness)}}
+        {{#snippet/panel-snippet heading=(t "field.characteristics") }}
+            {{label/wine/wine-characteristics-label product=data.appellation displayLabel=false perspective="appellation"}}
+        {{/snippet/panel-snippet}}
+    {{/if}}
+        
+    {{#if data.conservationMethod}}
+        {{#snippet/panel-snippet heading=(t "field.conservation") }}
+            {{table/conservation/appellation-conservation-table data=data.conservationMethod displayLabel=false}}
+        {{/snippet/panel-snippet}}
+    {{/if}}
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pad-10  btm-mrg-20 property-listing"> {{!--brdr box-shad--}}
+            {{#if data.appellation.pictureSymlinkCore}}
+            <div class="media">
+                {{link/appellation/appellation-author-first data=data.appellation}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="tab" href="#wineries-pill"><h4>{{pill-title (t "nav.wineries") data.wineries.length}}</h4></a></li>
+  <li><a data-toggle="tab" href="#places-pill"><h4>{{pill-title (t "nav.places") data.places.length}}</h4></a></li>
+</ul>
+<div class="tab-content">
+  <div id="wineries-pill" class="tab-pane fade in active">
+        {{card/winery/winery-card-list wineries=data.wineries perspective='appellation' addTitle="false"}}
+  </div>
+  <div id="places-pill" class="tab-pane fade">
+        {{card/place/place-card-list places=data.places perspective='appellation' addTitle="false"}}
+  </div>
+</div>
+{{!--
+{{#bs-tab type="pills" as |tab|}}
+   {{#tab.pane title=(pill-title (t "nav.wineries") data.wineries.length)}}
+        {{card/winery/winery-card-list wineries=data.wineries perspective='appellation' addTitle="false"}}
+   {{/tab.pane}}
+   {{#tab.pane title=(pill-title (t "nav.places") data.places.length)}}
+        {{card/place/place-card-list places=data.places perspective='appellation' addTitle="false"}}
+   {{/tab.pane}}
+{{/bs-tab}}
+ --}}

@@ -1,0 +1,95 @@
+<tr>
+    {{#if edit}}
+    <td class="col-sm-1 col-md-1">
+        <button type="button" class="btn btn-danger btn-media" {{action 'remove' data.productItemPriceId data.priceType data.eventId on='click'}}>
+            <i class="glyphicon glyphicon-remove"></i> {{t "action.remove"}}
+        </button>
+    </td>
+    {{/if}}
+    <td class="col-sm-6 col-md-4">
+        <div class="media">
+        {{!-- 
+        <a class="thumbnail pull-left" href="#"> 
+            add wine image if any + metadata 
+            <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> 
+            </a>
+            --}}
+            <div class="media-body">
+                <h4 class="media-heading">
+                    {{#if edit}}
+                        {{link/to-product-link data=data}}
+                    {{else}}
+                        {{data.product}}
+                    {{/if}}
+                </h4>
+                <h5 class="media-heading">
+{{!--TODO remove duplicate 
+        {{#if (eq data.productYear 1900)}}
+            {{snippet/badge-snippet color-class='label-default' 
+                value=(i18n-default (t "sentence.non-millesime") "Non millésimé")
+                }}
+        {{else}}
+            {{snippet/badge-snippet color-class='label-default' value=data.productYear}}
+        {{/if}}
+        --}}
+
+{{#snippet/badge-snippet color-class='label-default' }}
+    {{snippet/product-year-snippet year=data.productYear}}
+{{/snippet/badge-snippet}}
+
+
+                </h5>
+                {{snippet/product-color-badge-snippet product=data}}
+                {{!-- 
+                <span>{{t "field.format"}} </span><span class="text-success"><strong>{{data.productFormat}}</strong></span>
+                --}}
+
+            </div>
+        </div>
+    </td>
+    <td class="col-sm-2 col-md-2">
+        {{snippet/badge-snippet color-class='label-default' value=data.appellationClassificationAcronym}}
+        {{data.appellationName}}
+    </td>
+    {{#if (not-eq edit)}}
+    <td></td>
+    {{/if}}
+    <td style="text-align: right" >{{!-- format --}}
+        {{#if (not-eq data.productFormatQuantity 1)}}
+            {{data.productFormatQuantity}} x 
+        {{/if}}
+        {{data.productFormat}}.ml
+    </td>
+    <td class="col-sm-1 col-md-1 text-center">
+        <strong>{{data.productPrice}} &euro;</strong>
+        <br/>
+        {{t (i18n-ref 'ref-data.price-type-at-' data.priceType)}}
+        {{#if data.eventId}}
+            {{#if edit}}
+                {{#link-to 'events.event' data.eventWebPath}}{{data.eventName}}{{/link-to}}
+            {{else}}
+                {{data.eventName}}
+            {{/if}}
+        {{/if}}
+    </td>
+    <td class="col-sm-1 col-md-1" style="text-align: center">
+    {{#if edit}}
+        {{input 
+            value=data.quantity 
+            class="form-control" 
+            type="number" 
+            min="1"
+        }}
+     {{else}}
+        {{data.quantity}}
+    {{/if}}
+    </td>
+    
+    <td class="col-sm-1 col-md-1 text-right"><strong>{{data.totalPriceDisplay}} &euro;</strong></td>
+
+</tr>
+{{!-- 
+<tr>
+    Check this out https://www.youtube.com/results?search_query=Shopping+Cart+Part+ember
+</tr>
+--}}

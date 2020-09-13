@@ -1,0 +1,28 @@
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.country
+    forwardActionFilter='addWineryFilter'
+    dataType="wineryCountry"
+    i18n=(t "nav.countries")
+    i18nRefDataPrefix="ref-data.country-"
+    }}
+{{snippet/pager-container-filter-snippet 
+    data=data.region
+    forwardActionFilter='addWineryFilter'
+    dataType="wineryRegion"
+    i18n=(t "nav.regions")
+    }}
+{{!--snippet/pager-container-filter-snippet 
+    data=data.cepage
+    forwardActionFilter='addWineryFilter'
+    dataType="wineryCepage"
+    i18n=(t "nav.grades")
+    --}}
+{{snippet/pager-container-filter-snippet 
+    data=data.bio
+    forwardActionFilter='addWineryFilter'
+    dataType="wineryBio"
+    i18n=(t "field.bio")
+    i18nRefDataPrefix="field.b-"
+    }}
+{{/if}}

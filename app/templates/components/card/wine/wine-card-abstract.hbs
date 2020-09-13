@@ -1,0 +1,81 @@
+{{#layout/card/layout-card-abstract}}
+{{snippet/ribbon-snippet date=product.creationDate beforeNbDays='20' label=(t "field.new")}}
+<h3 class="media-heading">
+    {{#if product.hasLogo}}
+        {{#link/logo-link entity="product" entityId=product.id entityWebPath=product.productWebPath width=80}}{{/link/logo-link}}
+    {{else}}
+        {{#if product.pictureSymlinkCore}}{{!--TODO replace by product.hasPicture--}}
+            {{#link/first-image-link 
+                entity="product" 
+                entityId=product.id 
+                entityWebPath=product.productWebPath
+                width=80 
+                data=product}}
+            {{/link/first-image-link}}
+        {{else}}
+            {{#if (cond perspective '==' 'search')}}
+                {{t "field.wine"}}
+            {{/if}}
+        {{/if}}
+    {{/if}}
+
+    {{link/to-product-link data=product}}
+    {{#if (cond perspective '==' 'search')}}
+    &rarr; {{link/to-winery-link data=product}}
+    {{/if}}
+
+    {{#if hasShoppingCart}}
+        <small class="pull-right">
+            {{snippet/icon-badge-snippet icon-class='fa fa-shopping-cart' color-class='w-badge-danger' value=nbOfItemsInCart}}
+        </small>
+    {{/if}}
+</h3>
+<div class="pad-10  btm-mrg-20 property-listing"> {{!--brdr box-shad--}}
+    <div class="media">
+        {{label/wine/wine-appellation-label product=product displayLabel=false}}
+        {{#if product.detail}}<b>{{t "field.details"}}</b> {{product.detail}}{{/if}}
+        <br/>
+
+        {{label/wine/wine-characteristics-label product=product displayLabel=true}}
+
+        {{#if product.colorRgb}}
+             <b>{{t "field.color"}}</b> 
+            {{snippet/product-color-badge-snippet product=product}}<br/>
+        {{/if}}
+        {{#if product.cepages}}<b>{{t "field.cepages"}} </b>
+        {{link/cepage-token-link cepages=product.cepages showPercent=true}}
+        <br/>
+        {{/if}}
+
+        {{#if (cond product.isBio '==' 1)}}<b>{{t "field.bio"}}</b> {{snippet/validation-check-success isValid=true}}
+        <br/>
+        {{/if}}
+
+        {{#label/wine/wine-vintage-label product=product}}{{/label/wine/wine-vintage-label}}
+
+        {{#if product.startConsumptionNbOfYear}}
+        {{label/wine/wine-consumption-label product=product}}
+        <br/>
+        {{/if}}
+
+        {{#if product.preservingTemperature}} 
+            {{label/wine/wine-temperature-label product=product}}
+            <br/>
+        {{/if}}
+
+        {{#if product.priceMin}}
+        <b>{{t "nav.prices"}}</b>
+            {{!--TODO refactor as component --}}
+        {{#if (eq product.priceMin product.priceMax)}}
+            {{product.priceMin}} &euro;
+        {{else}}
+            {{t "field.price-from"}} {{product.priceMin}} &euro; {{t "field.to"}} {{product.priceMax}} &euro;
+        {{/if}}
+        {{/if}}
+
+        {{!-- for next property do not forget to add <br/> at the end --}}
+
+    </div>
+</div>
+{{/layout/card/layout-card-abstract}}
+            

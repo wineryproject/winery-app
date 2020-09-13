@@ -1,0 +1,38 @@
+{{!--https://codepen.io/ajaypatelaj/pen/prHjD--}}
+<span class="input-group-btn">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="adv-search-drop">
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <ul class="dropdown-menu">
+        {{#if countryFilter}}
+            {{!--TUTO-DDAU-bubble-up-component(1-component-child-template)--}}
+            {{search/inner-search-country-filter 
+                countries=countries 
+                sendCountry="sendCountry" 
+                countryWebPath=countryWebPath
+                }}
+        {{/if}}
+        {{#if appellationFilter}}
+            {{search/inner-search-appellation-filter 
+                appellations=appellations 
+                sendAppellation="sendAppellation"
+                appellationWebPath=appellationWebPath
+                }}
+        {{/if}}
+        {{#if grapeFilter}}
+            {{search/inner-search-grape-filter 
+                grapes=grapes 
+                sendGrape="sendGrape"
+                grapeWebPath=grapeWebPath
+                }}
+        {{/if}}
+        {{#if colorFilter}}
+            {{search/inner-search-color-filter 
+                colors=colors 
+                sendColor="sendColor"
+                color=color
+                perspective=perspective
+                }}
+        {{/if}}
+    </ul>
+</span>

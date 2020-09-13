@@ -1,0 +1,100 @@
+{{snippet/social-network-snippet title=(concat (t "field.event") (concat (concat ' ' model.event.eventName) (concat ' - ' model.winery.domain)))}}
+{{#layout/card/layout-card-overview}}
+{{#layout/container/index-layout-container}}
+<div class="row">
+    <div class="col-sm-6">
+{{card/event/event-card-abstract data=model.event}}
+    </div>
+    <div class="col-sm-6">
+    {{card/winery/winery-card-abstract-item 
+        data=model.winery
+        perspective="winery-event"
+        }}
+    </div>
+</div>
+<div class="row">
+    {{card/event/event-wine-card-list 
+        data=model
+        perspective='event-winery' 
+        addTitle="false"
+        priceType="event"
+        products=model.products
+        showPurchaseOrder=model.event.hasPurchaseOrder
+        showSorter=false
+        showLogo=false
+        showOrigin=false
+        showPricesRow=false
+        showEventPrice=true
+        showEventPresalePrice=false
+        showWineryPrice=false
+        showFilter=false
+        isEditableEventPrice=model.hasWineryEventOwnership
+        showCustomerQuantity=model.hasWineryEventOwnership
+        isEditableCustomerQuantity=true
+        setEventWineFilter="forwardToEventCardOverview"}}
+</div>
+
+{{#if model.hasWineryEventOwnership}}
+{{#if totalPrice}}
+<div class="row">
+    <div class="container">
+        <div class="btn btn-primary pull-right">
+            <b>{{t "field.total"}} {{totalPriceDisplay}} &euro;</b>
+        </div>
+    </div>
+</div>
+{{/if}}
+{{/if}}
+
+<div class="row">
+{{#if model.hasWineryEventOwnership}}
+    {{#if totalPrice}}
+    <br/>
+    <div class="container">
+        {{!--Order Invoice facility for Winery owner
+        Buy and invoice-
+        <button type="button" {{action "order"}} class="btn btn-success">  
+            {{t "action.order"}} <span class="fa fa-file">
+            </span>
+        </button>
+        --}}
+        {{#link-to 'events.wineries.order' model.event.eventWebPath model.winery.webPath}}
+        <button type="button" class="btn btn-success">  
+            {{t "action.order"}} <span class="fa fa-file">
+            </span>
+        </button>
+        {{/link-to}}
+        <button type="button" {{action "resetOrder"}} class="btn btn-danger">  
+            {{t "action.reset-order"}} <span class="fa fa-refresh">
+            </span>
+        </button>
+    </div>
+    {{/if}}
+    <br/>
+    <div class="container">
+        {{#link-to 'events.wineries.scan' model.event.eventWebPath model.winery.webPath}}
+        <button type="button" {{action "getCustomerInfo"}} class="btn btn-success"> 
+            {{t "action.read-customer-info"}} <span class="fa fa-user">
+            </span>
+        </button>
+        {{/link-to}}
+    </div>
+{{else}}
+    <br>
+    <div class="container">
+        {{!--Print Product grid pdf (fix price): just add number --}} 
+        <button type="button" {{action "printWineryEventPriceList"}} class="btn btn-success">  
+            {{t "action.print-price-list"}} <span class="glyphicon glyphicon-print">
+            </span>
+        </button>
+                {{!--Print Product grid pdf (fix price): just add number --}} 
+        <button type="button" {{action "showSlides"}} class="btn btn-success">  
+            {{t "action.show-slides"}} <span class="fa fa-file">
+            </span>
+        </button>
+    </div>
+{{/if}}
+</div>
+
+{{/layout/container/index-layout-container}}
+{{/layout/card/layout-card-overview}}

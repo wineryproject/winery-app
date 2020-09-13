@@ -1,0 +1,44 @@
+<span>
+    {{name}}
+    {{!-- 
+    <a onclick={{action 'forwardActionSorter'}} 
+        data-value="up" 
+        data-type={{d.type}}>
+        <i class="fa fa-caret-up"></i>
+    </a>
+    <a onclick={{action 'forwardActionSorter'}} 
+        data-type={{d.type}}>
+        <i class="fa fa-caret-down"></i>
+    </a>
+--}}
+{{#if show}}
+    {{#if (eq d.direction "up")}}
+        <a onclick={{action 'forwardActionSorter'}}  
+            data-type={{d.type}}
+            >
+            <i class="fa fa-caret-up fa-2x"></i>
+        </a>
+    {{else}}
+        <a onclick={{action 'forwardActionSorter'}} 
+            data-value="up" 
+            data-type={{d.type}}
+            >
+            <i class="fa fa-caret-up"></i>
+        </a>
+    {{/if}}
+    {{#if (eq d.direction "down")}}
+        <a onclick={{action 'forwardActionSorter'}} 
+            data-type={{d.type}}
+            >
+            <i class="fa fa-caret-down fa-2x"></i>
+        </a>
+    {{else}}
+        <a onclick={{action 'forwardActionSorter'}} 
+            data-value="down" 
+            data-type={{d.type}}
+            >
+            <i class="fa fa-caret-down"></i>
+        </a>
+    {{/if}}
+{{/if}}
+</span>

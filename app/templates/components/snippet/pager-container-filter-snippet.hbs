@@ -1,0 +1,25 @@
+{{#if data}}
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager">
+        <li class="filter-tag" align="left"><b>{{i18n}}</b></li>
+        {{#each data as |d|}}
+            {{#if i18nRefDataPrefix}}
+                {{snippet/li-filter-tag-snippet 
+                    data=d 
+                    forwardActionFilter='addProductFilter'
+                    styleHighlight=d.active
+                    dataType=dataType
+                    i18nValue=(concat i18nRefDataPrefix (lowercase d.name))
+                    }}
+            {{else}}
+                {{snippet/li-filter-tag-snippet 
+                    data=d 
+                    forwardActionFilter='addProductFilter'
+                    styleHighlight=d.active
+                    dataType=dataType
+                    }}
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>
+{{/if}}

@@ -1,0 +1,534 @@
+// app/styles/main.scss
+@import 'abstracts/colors';
+@import "abstracts/layout";
+
+body {
+  padding-top: $body-padding;//70px;
+}
+
+.big-lead {
+  font-size: 21px;//40px;
+}
+
+.price-panel,
+.price-panel > .panel-heading {
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.price-panel:hover {
+  box-shadow: 0 0 30px rgba(0,0,0, .2);
+}
+.price-panel:hover > .panel-heading {
+  box-shadow: 0 0 30px rgba(0,0,0, .2) inset;
+}
+
+.price-panel > .panel-heading {
+  color: white;
+  text-shadow: 0 3px 0 rgba(50,50,50, .6);
+  border-radius: 0;
+  box-shadow: 0 5px 0 rgba(50,50,50, .2) inset;
+}
+.price-panel > .panel-body {
+  color: white;
+  text-shadow: 0 3px 0 rgba(50,50,50, .3);
+}
+.price-panel > .list-group {
+  font-weight: 600;
+}
+.price-panel > .panel-footer {
+  box-shadow: 0 3px 0 rgba(0,0,0, .3);
+}
+
+.panel-grey > .panel-heading {
+  background-color: $grey-deep;
+  border-color: #b7b7b7;
+}
+.pay-plan-free-number{
+  background-color: $grey-deep;
+}
+.pay-plan-intermediate-number{
+  background-color: $blue-deep;
+}
+.pay-plan-pro-number{
+  background-color: $green-deep;
+}
+
+
+.panel-grey > .panel-body {
+  background-color: #808080;
+}
+
+.panel-blue > .panel-heading {
+  background-color: $blue-deep;
+  border-color: #78aee1;
+}
+.panel-blue > .panel-body {
+  background-color: #73a3d4;
+}
+
+.panel-green > .panel-heading {
+  background-color: $green-deep;
+  border-color: #71df71;
+}
+.panel-green > .panel-body {
+  background-color: #65c965;
+}
+
+.panel-red > .panel-heading {
+  background-color: #d04e50;
+  border-color: #ff6062;
+}
+.panel-red > .panel-body {
+  background-color: #ef5a5c;
+}
+
+
+.row-masonry {
+ -moz-column-width: 18em;
+ -webkit-column-width: 18em;
+ -moz-column-gap: 1em;
+ -webkit-column-gap:1em; 
+  
+}
+
+.item-masonry {
+ display: inline-block;
+ padding:  .25rem;
+ width:  100%; 
+}
+
+.well-masonry {
+ position:relative;
+ display: block;
+}
+// bootstrap override
+.pager {
+  padding-left: 0;
+  margin: 10px 0;
+  list-style: none;
+  text-align: center;
+}
+
+/*pills http://jsfiddle.net/2Mf5v/ */
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,.nav-pills > li > a:hover {
+  text-decoration: none;
+  font-weight: bold;
+  border-radius:0px;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: $color-pill-bottom;
+  color: #000 !important;
+  background-color: transparent !important;
+}
+.nav-pills > li > a{
+    border-radius:0px;
+}
+
+
+/*
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,.nav-tabs > li > a:hover {
+  text-decoration: none;
+  font-weight: bold;
+  border-radius:0px;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: $color-pill-bottom;
+  color: #000 !important;
+  background-color: transparent !important;
+}
+.nav-tabs > li > a{
+    border-radius:0px;
+}
+
+*/
+
+.nav-tabs > li.rounded.active > a,
+.nav-tabs > li.rounded.active > a:hover,
+.nav-tabs > li.rounded.active > a:focus
+ {
+    background-color:cadetblue;
+    font-weight:bolder;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+   color:orange;
+}
+.nav-tabs > li.rounded > a
+ {
+    background-color:cadetblue;
+    font-weight:bolder;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+   color:white;
+}
+
+/*
+.nav-tabs2 > li.rounded.active > a,
+.nav-tabs2 > li.rounded.active > a:hover,
+.nav-tabs2 > li.rounded.active > a:focus
+ {
+    background-color:cadetblue;
+    font-weight:bolder;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+   color:orange;
+}
+.nav-tabs2 > li.rounded > a
+ {
+    background-color:cadetblue;
+    font-weight:bolder;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+   color:white;
+}
+*/
+/*cursor*/
+#toTop{display:block;position:fixed;right:-10px;bottom:58px;cursor:pointer;width:27px;background:rgba(255,255,255,.8);color:#636363;opacity:0;text-align:center;text-decoration:none;font-size:14px;line-height:27px;vertical-align:middle;border-radius:30px;z-index:999;transition:.25s;border:1px solid rgba(0,0,0,.7);-webkit-background-clip:padding-box;background-clip:padding-box}
+#toTop.show{right:8px;opacity:1}
+#toTop:hover{background:rgba(0,0,0,.1)}
+
+/*login*/
+.window{background:#fff;margin:5% auto 0;max-width:640px;overflow:hidden;border-radius:5px;box-shadow:0 1px 3px rgba(0,0,30,.5)}
+.tab_menu{list-style-type:none;padding:0;margin:0;border:1px solid #f0f1f4;border-left:0;border-right:0;text-align:center}
+.tab_menu li,.tab_menu a{display:inline-block;padding:10px 0;margin:0 15px;cursor:pointer;color:#71767a;border-bottom:2px solid transparent;line-height:24px}
+.tab_menu li:hover,.tab_menu a:hover{color:#0a88d3}
+.tab_menu .selected{color:#0a88d3;border-bottom:2px solid #0a88d3}
+.tab_menu+div{background:#f7f8fa}
+.tab_menu+div>div{max-width:1800px;margin:auto;padding:22px 20px}
+.tab_menu+div .flex_grid{margin:0}
+.btn-fb{
+  color: #fff;
+  background-color:#3b5998;
+}
+.btn-fb:hover{
+  color: #fff;
+  background-color:#496ebc 
+}
+.btn-tw{
+  color: #fff;
+  background-color:#55acee;
+}
+.btn-tw:hover{
+  color: #fff;
+  background-color:#59b5fa;
+}
+.btn-gg{
+  color: #fff;
+  background-color:#d73d32;
+}
+.btn-gg:hover{
+  color: #fff;
+  background-color:#d33934;
+}
+.btn-xl {
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.account-footer {
+  padding:20px 25px;
+  background:#f7f7f7;
+  font-size:13px;
+  line-height:1.7;
+  text-align:center;
+}
+
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.icon-bar-social {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* social share */
+.mobile-social-share {
+  //background: none repeat scroll 0 0 #EEEEEE;
+  //display: block !important;
+  display: inline;
+  min-height: 70px !important;
+  margin: 50px 0;
+}
+
+.mobile-social-share h3 {
+  color: inherit;
+  float: left;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 25px 25px 0 25px;
+}
+
+.share-group {
+  float: right;
+  margin: 18px 25px 0 0;
+}
+
+.btn-group {
+  display: inline-block;
+  font-size: 0;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.mobile-social-share ul {
+  float: right;
+  list-style: none outside none;
+  margin: 0;
+  min-width: 61px;
+  padding: 0;
+}
+
+.share {
+  min-width: 17px;
+}
+
+.mobile-social-share li {
+  display: block;
+  font-size: 18px;
+  list-style: none outside none;
+  margin-bottom: 3px;
+  margin-left: 4px;
+  margin-top: 3px;
+}
+
+.btn-share {
+  background-color: #BEBEBE;
+  border-color: #CCCCCC;
+  color: #333333;
+}
+
+.share-button {
+  background-color: #BEBEBE;
+  border-color: #CCCCCC;
+  color: #333333;
+}
+
+.btn-twitter {
+  background-color: $twitter-color !important;
+  color:$white!important;
+}
+
+.twitter-share-button {
+  background-color: $twitter-color !important;
+  color:$white!important;
+}
+
+.btn-facebook {
+  background-color: $facebook-color !important;
+  color:$white!important;
+}
+
+.btn-google {
+  background-color: $google-color !important;
+  color:$white!important;
+}
+
+.btn-linkedin {
+  background-color: $linkedin-color !important;
+  color:$white!important;
+}
+
+.btn-code {
+  background-color: $code-color !important;
+  color:$white!important;
+}
+
+.btn-pdf {
+  background-color: $pdf-color !important;
+  color:$white!important;
+}
+
+.btn-pinterest {
+  background-color: $pinterest-color !important;
+  color:$white!important;
+}
+
+.btn-mail {
+  background-color: $mail-color !important;
+  color:$white!important;
+}
+
+.caret {
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid rgba(0, 0, 0, 0);
+  border-top: 4px solid;
+  display: inline-block;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  width: 0;
+}
+
+#socialShare {
+  max-width:59px;
+  margin-bottom:18px;
+}
+
+#socialShare > a{
+  padding: 6px 10px 6px 10px;
+}
+
+@media (max-width : 320px) {
+  #socialHolder{
+      padding-left:5px;
+      padding-right:5px;
+  }
+  
+  .mobile-social-share h3 {
+      margin-left: 0;
+      margin-right: 0;
+  }
+  
+  #socialShare{
+      margin-left:5px;
+      margin-right:5px;
+  }
+  
+  .mobile-social-share h3 {
+      font-size: 15px;
+  }
+}
+
+@media (max-width : 238px) {
+  .mobile-social-share h3 {
+      font-size: 12px;
+  }
+}
+
+.right-inner-addon {
+    position: relative;
+}
+
+//Drop down
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+// hr
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: .5;
+  &:before {
+    content: '';
+    // use the linear-gradient for the fading effect
+    // use a solid background color for a solid bar
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+    // this is really the only tricky part, you need to specify the background color of the container element...
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+}
+
+.pager-container {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+// https://www.cssportal.com/blog/css-social-media-sidebar/
+// stick social media
+#sticky-social {
+   right: 0;
+   position: fixed;
+   top: 150px;
+}
+#sticky-social ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+#sticky-social button {
+  background-color: inherit;
+  background: #333;
+  color: #fff;
+  display: block;
+  height: 35px;
+  font: 16px "Open Sans", sans-serif;
+  line-height: 35px;
+  position: relative;
+  text-align: center;
+  width: 35px;
+  padding : 0;
+  border-width: 0;
+}
+
+
+/* features */
+.w-feature {
+    width: auto;
+    background-color: #fff;
+    padding: 8px 12px;
+    border-left: 6px solid $feature-side-color;
+    word-wrap: break-word;
+}
+
+//.feature > ul > a

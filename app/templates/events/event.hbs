@@ -1,0 +1,10 @@
+{{#layout/card/layout-card-overview}}
+{{#if model.event}}
+    {{card/event/event-card-overview data=model forwardFromEventCardOverview="setEventWineFilter"}}
+{{else}}
+    <h2>{{t "sentence.event-not-found"}}</h2>
+    <h4>
+        {{#link-to 'events.index'}}{{t "sentence.all-events"}}{{/link-to}}
+    </h4>
+{{/if}}
+{{/layout/card/layout-card-overview}}

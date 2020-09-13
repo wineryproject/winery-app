@@ -1,0 +1,8 @@
+{{#link-to 'countries.country' data.countryWebPath}}
+{{!--{{data.countryName}}&nbsp;--}}
+{{#if size}}
+{{snippet/flag-icon flagIcon=data.countryFlagIcon size=size}}
+{{else}}
+{{snippet/flag-icon flagIcon=data.countryFlagIcon size=48}}
+{{/if}}
+{{/link-to}}

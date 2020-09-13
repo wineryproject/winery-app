@@ -1,0 +1,21 @@
+{{!-- app/templates/components/layout/container/layout-account-container.hbs --}}
+<div id="login-container" style="padding:10px">
+    <div class="window" style="max-width:400px">
+        <div style="padding:20px 25px">
+{{yield}}
+        </div>
+        <div class="account-footer">
+{{#if (cond perspective "==" "login")}}
+            <a href="/accounts/reset_password/">{{t "nav.reset-password"}}</a>
+{{/if}}
+{{#if (cond perspective "==" "registration")}}
+        <div class="form-check">
+            <input type="checkbox" id="accept-terms">
+            <a href="/accounts/term-of-service/">{{t "field.accept-terms"}}</a>
+        </div>
+
+{{/if}}
+        </div>
+    </div>
+</div>
+<br/>

@@ -1,0 +1,82 @@
+{{!--layout/image/layout-image-overview--}}
+{{snippet/social-network-snippet title=data.region.name}}
+<div class="row">
+    <div class="col-md-12">
+        <h1 style="display: inline">{{data.region.name}}</h1>
+        <h3 style="display: inline">&nbsp;&rarr;&nbsp;
+            {{#link-to 'countries.country' data.region.countryWebPath}}
+            {{i18n-default (t (i18n-ref 'ref-data.country-' data.region.countryWebPath)) data.region.countryName}}&nbsp;
+            {{snippet/flag-icon flagIcon=data.region.countryFlagIcon size=48}}{{/link-to}}
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pad-10  btm-mrg-20 overview"> {{!--brdr box-shad--}}
+            <div class="media">
+                <div class="pull-left" >
+                    {{#if data.region.pictureSymlinkCore}}
+                        <div class="pull-left" >
+                        {{link/region/region-image-first data=data.region}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="media-body fnt-smaller">
+                    <div class="panel-group">
+                        {{#snippet/panel-snippet heading=(t "nav.region") }}
+                            {{#if (or data.region.description data.region.i18nDescription)}}
+                                {{#if data.region.i18nDescription}} 
+                                    {{{data.region.i18nDescription}}}
+                                {{else}}
+                                    {{data.region.description}}
+                                {{/if}}
+                                <br/>
+                                <br/>
+                            {{/if}}
+                            {{!-- TODO investigate where region.cepageNames come from redundant with winery cepage and confusing --}}
+                            {{#if data.region.cepageNames}}
+                            {{label/grape/grape-main-label cepages=data.region.cepages}}
+                            <br/>
+                            {{/if}}
+                            {{#if data.region.wineryCepageNames}}
+                            {{#card/card-label}}{{t "field.cepages"}}{{/card/card-label}} 
+                                {{link/cepage-token-link cepages=data.region.wineryCepages}}
+                            <br/>
+                            {{/if}}        
+                        {{/snippet/panel-snippet}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="tab" href="#wineries-pill"><h4>{{pill-title (t "nav.wineries") data.wineries.length}}</h4></a></li>
+  <li><a data-toggle="tab" href="#places-pill"><h4>{{pill-title (t "nav.places") data.places.length}}</h4></a></li>
+  <li><a data-toggle="tab" href="#appellations-pill"><h4>{{pill-title (t "nav.appellations") data.appellations.length}}</h4></a></li>
+</ul>
+<div class="tab-content">
+  <div id="wineries-pill" class="tab-pane fade in active">
+        {{card/winery/winery-card-list wineries=data.wineries perspective='region' addTitle="false"}}
+  </div>
+  <div id="places-pill" class="tab-pane fade">
+        {{card/place/place-card-list places=data.places perspective='region' addTitle="false"}}
+  </div>
+  <div id="appellations-pill" class="tab-pane fade">
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='region' addTitle="false"}}
+  </div>
+</div>
+{{!-- 
+{{#bs-tab type="pills" as |tab|}}
+   {{#tab.pane title=(pill-title (t "nav.wineries") data.wineries.length)}}
+        {{card/winery/winery-card-list wineries=data.wineries perspective='region' addTitle="false"}}
+   {{/tab.pane}}
+   {{#tab.pane title=(pill-title (t "nav.places") data.places.length)}}
+        {{card/place/place-card-list places=data.places perspective='region' addTitle="false"}}
+   {{/tab.pane}}
+   {{#tab.pane title=(pill-title (t "nav.appellations") data.appellations.length)}}
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='region' addTitle="false"}}
+   {{/tab.pane}}
+{{/bs-tab}}
+--}}

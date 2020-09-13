@@ -1,0 +1,18 @@
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}    
+    <div class="col-sm-12">
+        <h2>{{t "nav.regions"}} {{#if (cond perspective '==' 'grade')}}cultivating this grade{{/if}}
+{{#if (cond regions.length '>' 0)}}    
+            {{snippet/badge-snippet color-class='label-success' value=regions.length}}
+{{/if}}
+        </h2>
+    </div>
+{{/if}}
+{{#if (cond regions.length '>' 0)}}
+{{#each regions as |region index|}}
+    <div class="col-sm-6">   
+{{card/region/region-card-abstract region=region perspective=perspective}}
+    </div>
+{{/each}}
+{{/if}}
+</div>

@@ -1,0 +1,42 @@
+{{snippet/social-network-snippet title=data.place.name}}
+<h1 style="display:inline-block">{{data.place.name}}</h1>
+<h2 style="display:inline-block">{{link/place/place-reference-link data=data.place perspective='overview' flag-size='48'}}</h2>
+<div class="pad-10  btm-mrg-20 overview"> {{!--brdr box-shad--}}
+    <div class="media">
+        {{#if data.place.pictureSymlinkCore}}
+            <div class="pull-left" >
+                {{link/place/place-image-first data=data.place}}
+            </div>
+        {{/if}}
+        <div class="media-body fnt-smaller">
+            {{#if data.place.description}}{{data.place.description}}
+            {{/if}}
+            <br/>
+        </div>
+    </div>
+</div>
+
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="tab" href="#wineries-pill"><h4>{{pill-title (t "nav.wineries") data.wineries.length}}</h4></a></li>
+  <li><a data-toggle="tab" href="#appellations-pill"><h4>{{pill-title (t "nav.appellations") data.appellations.length}}</h4></a></li>
+</ul>
+<div class="tab-content">
+  <div id="wineries-pill" class="tab-pane fade in active">
+        {{card/winery/winery-card-list wineries=data.wineries perspective='place' addTitle="false"}}
+  </div>
+  <div id="appellations-pill" class="tab-pane fade">
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='place' addTitle="false"}}
+  </div>
+</div>
+
+{{!-- 
+{{#bs-tab type="pills" as |tab|}}
+   {{#tab.pane title=(pill-title (t "nav.wineries") data.wineries.length)}}
+        {{card/winery/winery-card-list wineries=data.wineries perspective='place' addTitle="false"}}
+   {{/tab.pane}}
+   {{#tab.pane title=(pill-title (t "nav.appellations") data.appellations.length)}}
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='place' addTitle="false"}}
+   {{/tab.pane}}
+{{/bs-tab}}
+--}}

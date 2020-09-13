@@ -1,0 +1,21 @@
+{{#if data}}
+<b>{{t "field.name"}}</b> {{data.name}}<br/>
+<b>{{t "field.duration"}} {{t "field.min"}}</b> 
+{{data.durationMin}} 
+{{i18n-default (t (i18n-ref 'ref-data.durationunit-' data.durationUnit)) data.durationUnit}}
+<br/>
+{{#if (cond data.durationMax ">" "0")}}
+<b>{{t "field.duration"}} {{t "field.max"}}</b> 
+{{data.durationMax}} {{i18n-default (t (i18n-ref 'ref-data.durationunit-' data.durationUnit)) data.durationUnit}}<br/>
+{{/if}}
+{{#if data.typeName}}
+<b>{{t "field.type"}} </b> {{data.typeName}}<br/>
+{{/if}}
+{{#if data.vatMaterial}}
+<b>{{t "field.recipient"}} </b> {{data.vatMaterial}}<br/>
+{{/if}}
+
+{{#card/conservation/conservation-processing-card-list conservationProcessings=data.conservationProcessings}}
+{{/card/conservation/conservation-processing-card-list}}
+
+{{/if}}

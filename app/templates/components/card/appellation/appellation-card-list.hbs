@@ -1,0 +1,29 @@
+{{!-- layout/card/layout-card-list param name, appelation and template --}}
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}
+    <div class="col-sm-12">
+        <h2>{{t "nav.appellations"}}
+{{#if (cond appellations.length '>' 0)}}    
+{{snippet/badge-snippet color-class='label-success' value=appellations.length}}
+{{/if}}
+   </h2>     
+    </div>
+{{/if}}
+{{#if (cond appellations.length '>' 0)}} 
+{{#each appellations as |appellation index|}} 
+    <div class="col-sm-6">   
+{{card/appellation/appellation-card-abstract-item data=appellation depth='region' perspective=perspective}}
+    </div>
+{{/each}}
+{{else}}
+    <div class="col-sm-12">
+        {{#layout/sentence/sentence-no-result}}
+        {{t "sentence.no-appellation-registered-yet"}}
+        <br/>
+        {{#link-to "feedback" (query-params origin="missing-appellation")}}{{t "sentence.if-it-misses-one-drop-feedback"}}
+        {{/link-to}}
+        {{/layout/sentence/sentence-no-result}}
+    </div>
+{{/if}}
+</div>
+

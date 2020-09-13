@@ -1,0 +1,31 @@
+{{#if (cond perspective "in" "winery-event,event")}}
+    {{#if data.eventWineryParticipation.0.booth}}
+    {{!-- TODO level pre--}}
+        <div class="ribbon-on-card orange no-print">
+            <span>
+                {{t "field.booth"}} {{data.eventWineryParticipation.0.booth}}
+            </span>
+        </div>
+    {{/if}}
+{{/if}}
+{{#if (eq perspective "winery")}}
+    {{#if (cond (number-of-days data.creationDate) '<' 20)}} 
+        <div class="ribbon-on-card red">
+            <span>{{t "field.new"}} {{!-- moment-from-now date locale=locale--}}
+            {{!--moment-diff (now) data.creationDate precision='day' float=true--}}
+            </span>
+        </div>
+    {{/if}}
+{{/if}}
+{{#if (or data.isBio data.isBioDynamic)}}
+    <div class="ribbon-on-card-2 bio">
+        <span>
+            {{#if data.isBio}}
+                {{t "field.bio"}}
+            {{/if}}
+            {{#if data.isBioDynamic}}
+                {{t "field.bio-dynamic"}}
+            {{/if}}
+        </span>
+    </div>
+{{/if}}

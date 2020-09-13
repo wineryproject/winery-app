@@ -1,0 +1,21 @@
+<section class="newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content">
+                    <h2>{{t 'sentence.newsletter-subcription'}}</h2>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-envelope"></span>
+                        </span>
+                        {{input id="category" name="category" type="email" value=email class="form-control" placeholder=(t "sentence.please-add-your-email-address") required="true"}}
+
+                        <span class="input-group-btn">
+                            <button disabled={{isDisabled}} class="btn" type="submit" onclick={{action 'request'}}>{{t 'action.subscribe-now'}}</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,7 @@
+{{#layout/card/layout-card-overview}}
+{{#if model.winery.domain}}
+    {{card/winery/winery-card-overview data=model setWineryProductFilter="setWineryProductFilter"}}
+{{else}}
+    <h2>{{t "sentence.winery-not-found"}}</h2>
+{{/if}}
+{{/layout/card/layout-card-overview}}

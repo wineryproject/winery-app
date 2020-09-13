@@ -1,0 +1,66 @@
+<tr>
+    <td>
+        {{!-- 
+        {{#if (eq data.year 1900)}}
+            {{i18n-default (t "sentence.non-millesime") "Non millésimé"}}
+        {{else}}
+            {{data.year}}
+        {{/if}}
+        --}}
+        {{snippet/product-year-snippet year=data.year}}
+    </td>
+    <td>
+        
+        {{!-- comment for migration priceMin -> price
+        {{data.priceMin}}
+        
+        {{#if (not-eq data.priceMin data.priceMax)}}&nbsp;&rarr;&nbsp;{{data.priceMax}}{{/if}}
+--}}
+        {{data.price}}
+
+        {{#if (eq data.currencyName "Euro")}}
+            &euro;
+        {{else}}
+            {{data.currencyName}}
+        {{/if}} 
+        
+        {{#if data.priceValidUntil}}
+        
+            {{!--lowercase (t "field.until-date")--}} 
+            {{t "field.until-date"}} 
+            
+            {{moment-format data.priceValidUntil 'DD MMMM YYYY'}}
+            {{#if (is-before data.priceValidUntil)}}
+                ({{moment-from-now data.priceValidUntil locale=locale}})
+            {{/if}}
+            
+        {{/if}}   
+
+        {{!--{{#if (not-eq environment "production")}} {{/if}}--}}
+            {{!--#link-to 'purchase.index' (query-params productItemId=data.productItemId quantity=1) --}}
+{{!-- https://bootsnipp.com/snippets/featured/shopping-cart-bs-3 --}}
+
+            <span class="pull-right">
+            <i class="fa fa-shopping-cart fa-2x" 
+            {{!-- //TODO MODAL-WITH-OBJECT to refactor--}}
+                onClick={{
+                    action "setProductItemId" 
+                    data.productItemPriceId 
+                    data.productId 
+                    data.wineryId
+                    data.productWebPath
+                    data.wineryWebPath
+                    data.price
+                    data.currencyName
+                    }}></i>
+            {{#if (gt numberInShoppingCart 0)}} 
+            {{!--snippet/badge-snippet color-class='label-danger' value=numberInShoppingCart--}}
+            <span class="badge w-badge-danger badge-notify">{{numberInShoppingCart}}</span>
+            {{/if}}
+            </span>        
+        
+        
+        
+    </td>
+    {{!-- quantity (nb of bottle) --}}
+</tr>

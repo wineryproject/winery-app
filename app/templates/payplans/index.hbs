@@ -1,0 +1,51 @@
+{{#layout/card/layout-card-overview}}
+{{#layout/container/index-layout-container}}
+	<div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="panel text-center price-panel {{payplan-class 'free' 'panel'}}">
+            {{payplan-header category='free'}}
+            {{payplan/payplan-price category='free'}}
+            {{payplan-free model=model category='free'}}  
+            {{payplan/request-button category="free" }}         
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="panel text-center price-panel {{payplan-class 'intermediate' 'panel'}}">
+            {{payplan-header category='intermediate'}}
+            {{payplan/payplan-price category='intermediate'}}
+            {{payplan-free model=model category='intermediate'}}
+            {{!-- 
+            {{payplan/request-button category="intermediate"}}
+             <div class="panel-footer">
+              {{#link-to "wizard.show" "intermediate"}}<div class="btn btn-lg btn-block btn-primary">Wizard!</div>{{/link-to}}
+            </div>    
+            --}}   
+            <div class="panel-footer">
+              <div class="btn btn-lg btn-block btn-primary " disabled>{{t "action.not-yet-available"}}</div>
+            </div>    
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="panel text-center price-panel {{payplan-class 'pro' 'panel'}}">
+            {{payplan-header category='pro'}}
+            {{payplan/payplan-price category='pro'}}
+            {{payplan-free model=model category='pro'}} 
+            {{!--  
+            {{payplan/request-button category="pro"}}
+            --}}
+             <div class="panel-footer">
+              <div class="btn btn-lg btn-block btn-success " disabled>{{t "action.not-yet-available"}}</div>
+            </div>   
+          </div>
+        </div>
+	</div>
+{{!--
+         {{#ember-wormhole to="destination"}}
+          {{modal-request-plan isVisible=payplanModal title=payplanTitle payplanValue=payplanValue}}
+        {{/ember-wormhole}}
+        --}}
+{{/layout/container/index-layout-container}}
+{{/layout/card/layout-card-overview}}
+

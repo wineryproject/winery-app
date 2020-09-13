@@ -1,0 +1,6 @@
+<div class="form-group">
+  <label class="col-md-4 control-label" for="freecomment">{{snippet/validation-check-success isValid=isValid}}{{label}}</label>
+  <div class="col-md-8">     
+      {{textarea name="freecomment" cols=(value-default cols "80") rows=(value-default rows "6") type="text" value=modelValue class="form-control" placeholder=placeHolder required=required}}                
+  </div>
+</div>

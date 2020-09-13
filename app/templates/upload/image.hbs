@@ -1,0 +1,71 @@
+<div class="container">
+<form class="form-horizontal" {{action 'upload' model on='submit'}}>
+<fieldset>
+
+<!-- Form Name -->
+<legend>{{t "nav.upload-image"}}</legend>
+
+{{upload/image-uploader}}
+<!-- Prepended text-->
+{{form/input-email modelValue=model.email isValid=isValidEmail autofocus="true"}}
+
+{{form/input-textarea modelValue=model.description label=(t "field.your-comments") isValid=isValidFreeComment placeHolder=(t "sentence.add-your-suggestions") required="true"}}
+
+{{!--order replace by int
+{{form/input-integer isValid=isValidOrder name='order' label=(t "field.order") required='true' modelValue=model.order placeHolder=(t "field.order")}}
+--}}
+{{!--TODO author first name--}}
+{{form/form-input isValid=isValidFirstName name='firstName' label=(t "field.first-name") modelValue=model.firstName placeHolder=(t "field.first-name")}}
+
+{{form/form-input isValid=isValidLastName name='lastName' label=(t "field.last-name")  modelValue=model.lastName placeHolder=(t "field.last-name")}}
+
+{{form/form-input isValid=isValidAlias name='authorAlias' label=(t "field.alias") required='true' modelValue=model.authorAlias placeHolder=(t "field.alias")}}
+
+{{!--TODO author right url--}}
+{{form/form-input isValid=isValidAuthorRightsUrl name='authorRightsUrl' label=(t "field.authorRightsUrl") required='true' modelValue=model.authorRightsUrl placeHolder=(t "field.authorRightsUrl")}}
+
+{{form/form-input isValid=isValidOriginUrl name='originUrl' label=(t "field.originUrl") required='true' modelValue=model.originUrl placeHolder=(t "field.originUrl")}}
+
+{{form/form-input isValid=isValidOriginSiteUrl name='originSiteUrl' label=(t "field.originSiteUrl") required='true' modelValue=model.originSiteUrl placeHolder=(t "field.originSiteUrl")}}
+
+{{form/form-input isValid=isValidTags name='tags' label=(t "field.tags") required='true' modelValue=model.tags placeHolder=(t "field.tags")}}
+
+{{form/input-boolean isValid=isValidAcceptTermsAndConditions name='acceptTermsAndConditions' label=(t "field.acceptTermsAndConditions") required='true' modelValue=model.acceptTermsAndConditions placeHolder=(t "field.acceptTermsAndConditions")}}
+
+<!-- Button Drop Down 
+TODO add handleOption in upload.image controller
+<div class="form-group">
+  <label class="col-md-4 control-label" for="category">{{snippet/validation-check-success isValid=isValidCategory}}{{t "field.category"}}</label>
+  <div class="col-md-8">
+    <div class="input-group">
+      {{input id="category" name="category" type="text" value=model.category class="form-control" placeholder=(t "sentence.what-is-it-about") required="true"}}
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          {{t "field.options"}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu pull-right">
+          <li><a href="#" onclick={{action 'handleOption'}}>{{t "sentence.site-improvements"}}</a></li>
+          <li><a href="#" onclick={{action 'handleOption'}}>{{t "sentence.missing-features"}}</a></li>
+          <li><a href="#" onclick={{action 'handleOption'}}>{{t "sentence.report-bug"}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+{{input id="ip" type="hidden" value=model.ip name="ip"}}
+{{input id="languageCode" type="hidden" value=model.languageCode name="languageCode"}}
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-primary" disabled={{isDisabled}}>{{t "action.send-your-image"}}</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>

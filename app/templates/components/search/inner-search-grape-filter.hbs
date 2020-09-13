@@ -1,0 +1,16 @@
+<li class="dropdown-submenu {{grapeFilterClass}}">
+    <a class="dropdown-toggle" data-toggle="dropdown">{{t "nav.grapes"}}</a>
+    <ul class="dropdown-menu">
+        {{#each grapes as |grape|}}   
+        {{#snippet/li-snippet activate=(eq grape.webPath grapeWebPath)}}
+            <a role="button" 
+                onclick={{action 'addFilter'}} 
+                class="adv-search-type" 
+                data-value="{{grape.webPath}}">
+                {{snippet/icon-snippet icon="wicon-grape-6" iconFamily="wicon" color=grape.rbg }}
+                {{capitalize grape.name}}
+            </a>
+        {{/snippet/li-snippet}}
+        {{/each}}
+    </ul>
+</li>

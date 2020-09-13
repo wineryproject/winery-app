@@ -1,0 +1,25 @@
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}
+    <div class="col-sm-12">
+        <h2>{{t "nav.partners"}} 
+{{#if (cond partners.length '>' 0)}}
+{{snippet/badge-snippet value=data.length color-class='label-success'}}
+{{/if}}
+        </h2>
+    </div>
+{{/if}}
+{{#if (cond partners.length '>' 0)}}
+{{#each partners as |partner index|}}
+    <div class="col-sm-6">
+{{card/partner/partner-card-abstract data=partner perspective=perspective}}
+    </div>
+{{/each}}
+{{else}}
+    <div class="col-sm-6">
+    {{#layout/sentence/sentence-no-result}}
+        {{t "sentence.no-partners"}}
+    {{/layout/sentence/sentence-no-result}}
+    <br/>
+    </div>
+{{/if}}
+</div>

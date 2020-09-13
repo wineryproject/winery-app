@@ -1,0 +1,31 @@
+<div class="container">
+<form class="form-horizontal" {{action 'sendDescription' model on='submit'}}>
+<fieldset>
+
+<!-- Form Name -->
+<legend>{{t "field.description"}}</legend>
+
+<!-- Prepended text-->
+{{form/input-email modelValue=model.email isValid=isValidEmail autofocus="true"}}
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="language">{{t "field.language-for-description"}}</label>
+  <div class="col-md-8">
+    {{form/input-language onSelectLanguage=(action "selectLanguage")}}
+  </div>
+</div>
+
+{{form/input-textarea modelValue=model.description label=(t "field.your-description") isValid=isValidDescription placeHolder=(t "sentence.add-your-suggestions") required="true"}}
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-primary" disabled={{isDisabled}}>{{t "action.send-your-description"}}</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>

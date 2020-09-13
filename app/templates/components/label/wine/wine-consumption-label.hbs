@@ -1,0 +1,22 @@
+{{!-- conservation garde
+{{#if product.optimumConsumptionNbOfYear}}
+<b>{{t "field.best-moment-to-consume"}}</b>
+{{product.optimumConsumptionNbOfYear}} {{t "field.years-after-harvesting"}}{{/if}}
+{{#if product.startConsumptionNbOfYear}}
+{{t "field.min"}} {{product.startConsumptionNbOfYear}}
+{{/if}}
+{{#if product.endConsumptionNbOfYear}}
+{{t "field.max"}} {{product.endConsumptionNbOfYear}}
+<br/>
+{{/if}}
+--}}
+{{!--TODO use durationMax instead of startConsumptionNbOfYear
+{{#if product.durationMax}}
+    {{t "field.conservation-garde"}}
+    {{product.durationMin}} - {{product.durationMax}} {{t "field.years"}}
+{{/if}}
+--}}
+{{#if product.startConsumptionNbOfYear}}
+    <b>{{t "field.conservation-garde"}}</b>
+    {{product.startConsumptionNbOfYear}} - {{product.endConsumptionNbOfYear}} {{t "field.years"}}
+{{/if}}

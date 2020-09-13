@@ -1,0 +1,29 @@
+
+    <div class="container">
+        <h2>Results</h2>
+        <p>eventsExhibitorsStatOut results:</p>            
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                	<th>nbOfExhibitors</th>
+                	<th>exhibitorDetails</th>
+                	<th>nbOfEvents</th>
+                	<th>eventDetails</th>
+                	<th>periodBeginning</th>
+                	<th>periodEnding</th>
+            	</tr>
+            </thead>
+            <tbody>
+{{#each model.eventsExhibitorsStatOut as |item index| }} 
+            	<tr>
+                	<td>{{item.nbOfExhibitors}}</td>
+                	<td>{{item.exhibitorDetails}}</td>
+                	<td>{{item.nbOfEvents}}</td>
+                	<td>{{item.eventDetails}}</td>
+                	<td>{{item.periodBeginning}}</td>
+                	<td>{{item.periodEnding}}</td>
+            	</tr>
+{{/each}}	
+            </tbody>
+		</table>
+    </div>

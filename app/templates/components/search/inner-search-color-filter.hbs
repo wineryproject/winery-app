@@ -1,0 +1,26 @@
+<li class="dropdown-submenu {{colorFilterClass}}">
+    <a class="dropdown-toggle" data-toggle="dropdown">{{t "field.colors"}}</a>
+    <ul class="dropdown-menu">
+        {{#each colors as |col|}}   
+        {{#snippet/li-snippet activate=(eq (lowercase col.name) (lowercase color))}}
+            <a role="button" 
+                onclick={{action 'addFilter'}} 
+                class="adv-search-type" 
+                data-value="{{col.name}}">
+                {{col.rbg}}{{!--TODO col.rbg in DistinctColorPerAppellationIn--}}
+                {{#if (eq perspective "appellations")}}
+                    {{snippet/icon-snippet icon="wicon-bottle" iconFamily="wicon" color=(color-to-rgb col.name) }}
+                {{/if}}
+                {{#if (eq perspective "grapes")}}
+                    {{snippet/icon-snippet icon="wicon-grape-6" iconFamily="wicon" color=(color-to-rgb col.name) }}
+                {{/if}}
+                {{!-- 
+                
+                {{snippet/icon-snippet icon="wicon-grape-6" iconFamily="wicon" color=(color-to-rgb col.name) }}
+                --}}
+                {{i18n-default (t (i18n-ref 'ref-data.color-' (lowercase col.name))) col.name}}
+            </a>
+        {{/snippet/li-snippet}}
+        {{/each}}
+    </ul>
+</li>

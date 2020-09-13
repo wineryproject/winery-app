@@ -1,0 +1,43 @@
+{{#if data}}
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager">
+        <li class="filter-tag"><b>{{t "field.sort"}}</b> </li>
+        {{#each data as |d|}}
+            <li class="filter-tag" style="font-weight: bold;">
+                <span>
+                    {{i18n-default (t (concat "field." d.name))}}
+                    {{#if (eq d.direction "up")}}
+                        <a onclick={{action 'forwardActionSorter'}}  
+                            data-type={{d.type}}
+                            >
+                        {{!--{{snippet/variation-arrow-snippet data="1" upColor="black" magnitude=()}}--}}
+                            <i class="fa fa-arrow-up fa-2x"></i>
+                        </a>
+                    {{else}}
+                        <a onclick={{action 'forwardActionSorter'}} 
+                            data-value="up" 
+                            data-type={{d.type}}
+                            >
+                            <i class="fa fa-arrow-up"></i>
+                        </a>
+                    {{/if}}
+                    {{#if (eq d.direction "down")}}
+                        <a onclick={{action 'forwardActionSorter'}} 
+                            data-type={{d.type}}
+                            >
+                            <i class="fa fa-arrow-down fa-2x"></i>
+                        </a>
+                    {{else}}
+                        <a onclick={{action 'forwardActionSorter'}} 
+                            data-value="down" 
+                            data-type={{d.type}}
+                            >
+                            <i class="fa fa-arrow-down"></i>
+                        </a>
+                    {{/if}}
+                </span>
+            </li>
+        {{/each}} 
+    </ul>
+</div>
+{{/if}}

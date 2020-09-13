@@ -1,0 +1,10 @@
+{{#if (not-eq environment "production")}}
+<i class="wicon wicon-bottle fa-3x" style="color : #{{color}}"></i>
+{{#link-to 'upload.image' (query-params entity=entity name=webpath) }}
+
+<i class="fa fa-plus w-circle" >
+    {{bs-tooltip title=(t "sentence.upload-appellation-bottle")}}
+</i>
+
+{{/link-to}}
+{{/if}}

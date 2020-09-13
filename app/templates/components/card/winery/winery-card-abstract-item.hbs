@@ -1,0 +1,165 @@
+{{!-- winery-card-abstract-item --}}
+{{#layout/card/layout-card-abstract}}
+{{!-- 
+<a class="pull-left" href="#" target="_parent">
+    {{#if data.hasLogo}}
+        {{link/logo-link entity="winery" entityId=data.id entityWebPath=data.webPath}}
+    {{/if}}
+</a>
+--}}
+{{#if (eq perspective "event")}}
+    {{#link-to 'events.wineries.winery' perspectiveWebPath data.webPath class='pull-left'}}
+        {{link/winery/winery-image-link data=data}}
+    {{/link-to}}
+{{else}}
+    {{#link-to 'wineries.winery' data.webPath class='pull-left'}}
+        {{link/winery/winery-image-link data=data}}
+    {{/link-to}}
+{{/if}}
+
+<div class="media-body fnt-smaller">
+    {{snippet/winery-ribbon-snippet 
+        data=data 
+        perspective=perspective}}
+    <h3 class="media-heading">
+        {{#if data.hasLogo}}
+            {{link/logo-link entity="winery" entityId=data.id entityWebPath=data.webPath width=80}}{{!--logo should be square or fix width--}}
+        {{else}}
+            {{#if (cond perspective '==' 'search')}}
+                {{t "field.winery"}}
+            {{/if}}
+        {{/if}}
+
+        {{#if (eq perspective "event")}}
+            {{#link-to 'events.wineries.winery' perspectiveWebPath data.webPath}}
+                {{data.domain}}
+            {{/link-to}}
+        {{else}}
+            {{#link-to 'wineries.winery' data.webPath}}
+                {{data.domain}}
+            {{/link-to}}
+        {{/if}}
+
+        <small class="pull-right no-print">
+            {{#if hasShoppingCart}}
+                {{snippet/icon-badge-snippet icon-class='fa fa-shopping-cart' color-class='w-badge-danger' value=nbOfItemsInCart}}
+            {{else}}
+                {{#if data.since}}
+                    {{t "field.since"}} {{data.since}}
+                {{/if}}
+            {{/if}}
+        </small>
+    </h3>
+    {{#if (cond perspective 'in' 'winery,grade,grape,search,event,event-winery')}}
+    <h3 class="fnt-medium">
+        {{link/to-region-link data=data}}
+        {{#if (not-eq perspective 'event')}}
+            {{link/to-country-link data=data size='32'}}
+        {{/if}}
+    </h3>
+    {{/if}}
+    {{#if data.productsDetails}}
+        <ul class="no-print list-unstyled">
+            <h4>{{t "nav.products"}}</h4>
+            {{#each data.productsDetails as |product|}}
+                
+                <li>
+                    <h5>
+                    {{!-- TODO merge with label/wine/wine-appellation-label --}}
+                    {{snippet/badge-snippet color-class='label-default' value=product.nb}}
+                    {{snippet/icon-snippet icon="wicon-bottle" iconFamily="wicon" color=product.colorRgb }}
+                    {{!--
+                    {{snippet/badge-snippet 
+                        color=product.colorRgb 
+                        value=(i18n-default (t (i18n-ref 'ref-data.color-' data.colorName)) product.colorName)
+                        }}
+                        --}}
+                    {{snippet/product-color-badge-snippet product=product}}
+                    
+                    {{#if product.isAppellation}}
+                        
+                            {{snippet/badge-snippet color-class='label-default' value=product.appellationAcronym}}
+                            <i class="fa fa-certificate" style="color:orange"></i>
+                            {{!-- product.appellationDescription--}} 
+                            {{#if product.appellationName}}
+                                {{#link-to 'appellations.appellation' product.appellationWebPath}}
+                                {{product.appellationName}}
+                                {{/link-to}}
+                            {{/if}}
+                        
+                    {{/if}}
+                    </h5>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+    {{!-- 
+    {{#if data.labelDetails}}
+        <ul class="list-unstyled">
+            {{#each data.labelDetails as |label|}}
+                {{snippet/logo-snippet label=label}}
+            {{/each}}
+        </ul>
+    {{/if}}
+    --}}
+    {{#if data.cepages}}
+        <ul class="list-unstyled no-print">
+            <h4>{{t "nav.grapes"}}</h4>
+            <h5>
+                <li>
+                    {{link/cepage-token-link cepages=data.cepages}}
+                </li>
+            </h5>
+        </ul>
+    {{/if}}
+    <p class="no-print hidden-xs">{{{data.description}}}</p>
+
+{{#if data.contact}}
+    <h4>
+        {{snippet/address-snippet showPhones=false data=data}}
+    </h4>
+{{/if}}
+    <h5>
+        {{snippet/email-snippet email=data.contactMail}}
+    </h5>
+    {{#if (eq perspective 'event')}}
+        {{!--   TODO ERROR same list displayed in different cards
+        {{t "sentence.event-price-list"}}
+        <i class="fa fa-plus w-circle" onclick={{perform findEventProducts}} > </i>
+
+            {{card/event/event-wine-card-list 
+                data=productList
+                products=productList.products
+                perspective='event-winery' 
+                wineryId=wineryId
+                domainId=data.domainId
+                addTitle="false"
+                priceType="event-presale"
+                showFilter=false
+                showSorter=false
+                setEventWineFilter="forwardToEventCardOverview"}}
+--}}
+    {{/if}}
+
+    {{#if data.hasPriceList}}
+        {{#if (cond perspective 'in' 'search,winery,region,appellation,grape')}}
+            {{! View event price list perspectiveEntityId }} 
+            {{t "sentence.winery-price-list"}}
+            <i class="fa fa-plus w-circle" onclick={{perform findProducts}} > </i>
+
+                {{card/event/event-wine-card-list 
+                    data=productList
+                    products=productList.products
+                    perspective=perspective
+                    wineryId=wineryId
+                    domainId=data.domainId
+                    addTitle="false"
+                    priceType="winery"
+                    showFilter=false
+                    showSorter=false
+                    setEventWineFilter="forwardToEventCardOverview"}}
+
+        {{/if}}
+    {{/if}}
+</div>
+{{/layout/card/layout-card-abstract}}

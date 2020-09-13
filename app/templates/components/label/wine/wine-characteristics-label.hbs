@@ -1,0 +1,27 @@
+{{#if displayLabel}}
+<b>{{t 'field.characteristics'}}</b>
+{{/if}} 
+{{#if (not-eq product.colorName 'RED')}}
+{{#if product.sweetness}} {{t (i18n-ref 'ref-data.sweetness-' product.sweetness)}}
+{{/if}}
+{{/if}}
+{{#if (eq product.colorName 'RED')}}
+{{#if product.puissance}} {{t (i18n-ref 'ref-data.puissance-' product.puissance)}}
+{{/if}}
+{{/if}}
+{{#if product.bubbleness}} {{t (i18n-ref 'ref-data.bubbleness-' product.bubbleness)}}
+{{/if}}
+<br/>
+{{#if (eq perspective "appellation")}}
+    {{#if (not-eq product.alcoholMin 0)}}
+    {{snippet/label-snippet value=product.alcoholMin i18n="field.alcohol-min" unit="%"}}
+    {{/if}}
+    {{#if (not-eq product.alcoholMax 0)}}
+    {{snippet/label-snippet value=product.alcoholMax i18n="field.alcohol-max" unit="%"}}
+    {{/if}}
+    {{label/wine/wine-aroma-label product=product}}
+    {{#if product.harvestingMethodName}}
+    <b>{{t "field.harvesting-method"}}</b>  {{t (i18n-ref 'ref-data.' product.harvestingMethodName)}}
+    <br/>
+    {{/if}}
+{{/if}}

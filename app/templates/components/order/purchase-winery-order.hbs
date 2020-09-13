@@ -1,0 +1,69 @@
+{{!--  order/purchase-winery-order --}}
+<div class="row">
+    <h3>
+    {{#if edit}}
+        {{#link-to 'wineries.winery' data.wineryWebPath}}
+            {{#if data.hasWineryLogo}}
+                {{link/logo-link 
+                    entity="winery" 
+                    entityId=data.wineryId 
+                    entityWebPath=data.wineryWebPath 
+                    width=100}}
+            {{/if}}
+            {{data.winery}}
+        {{/link-to}}
+    {{else}}
+        {{#if data.hasWineryLogo}}
+            {{link/logo-link 
+                entity="winery" 
+                entityId=data.wineryId 
+                entityWebPath=data.wineryWebPath 
+                width=100}}
+        {{/if}}
+        {{data.winery}}
+    {{/if}}
+    </h3>
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    {{#if edit}}
+                    <th class="text-center"> </th>
+                    {{/if}}
+                    <th class="text-left">{{t "field.product"}} - {{t "field.year"}}{{!-- {{t "field.format"}}--}}</th>
+                    {{#if (not-eq edit)}}
+                    <td class="text-center"></td>
+                    {{/if}}
+                    <th class="text-center">{{!appellation}}</th>
+                    <th class="text-center">{{t "field.format"}}</th>
+                    <th class="text-center">{{t "field.price"}}</th>
+                    <th class="text-center">{{t "field.quantity"}}</th>
+                    <th class="text-right">{{t "field.total"}}</th>
+                </tr>
+            </thead>
+            <tbody>
+    {{#each data.productLines as |productLine index|}}
+        {{order/purchase-order-line 
+            data=productLine 
+            model=data 
+            remove="removeWineryProductItemId"
+            edit=edit}}
+    {{/each}}
+                <tr>
+                    <td> <h4>{{t "field.subtotal"}}</h4></td>
+                    {{#if edit}}
+                    <th></th>
+                    {{/if}}
+                    <td></td>{{! "field.appellation"}}
+                    <td></td>{{! "field.format"}}
+                    <td></td>{{! "field.quantity"}}
+                    <td></td>{{! "field.price"}}
+                    <td></td>{{! "field.total"}}
+                    <td class="text-right"><h5><strong>{{data.totalPriceDisplay}} &euro;</strong></h5></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

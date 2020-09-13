@@ -1,0 +1,14 @@
+{{snippet/social-network-snippet title=(concat (concat model.winery.domain " ") (t "field.wines"))}}
+{{#layout/container/index-layout-container}}
+<h2 >
+    {{link/product/product-reference-link winery=model.winery}}
+</h2>
+<div class="row">
+    {{!--card/wine/wine-card-list products=model.products productAbstract=model.productAbstract--}}
+    {{card/wine/wine-card-list 
+        products=model.products 
+        productAbstract=model.productAbstract
+        forwardFromWineCardList="setProductFilter"
+        }}
+</div><!-- End row -->
+ {{/layout/container/index-layout-container}}         

@@ -1,0 +1,9 @@
+{{#power-select-multiple
+  options=availableGrades
+  selected=selectedGrades
+  onchange=(action "select")
+  as |grape|
+}}
+<strong>{{grape.name}}</strong>
+{{/power-select-multiple}}
+

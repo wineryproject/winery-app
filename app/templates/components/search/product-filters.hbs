@@ -1,0 +1,118 @@
+{{#if data.color}}
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager">
+        <li class="filter-tag" style="text-align:left"><b>{{t "field.color"}}</b></li>
+        {{#each data.color as |color|}}
+            {{snippet/li-filter-tag-snippet 
+                data=color 
+                forwardActionFilter='addProductFilter'
+                styleHighlight=color.active
+                dataType="color"
+                i18nValue=(i18n-ref 'ref-data.color-' color.name)
+                }}
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+{{#if (or data.bubbleness data.sweetness)}}
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager" style="text-align:left">
+        <li class="filter-tag"><b>{{t "nav.wine-properties"}}</b></li>
+        {{#each data.bubbleness as |b|}}
+            {{snippet/li-filter-tag-snippet 
+                data=b 
+                forwardActionFilter='addProductFilter'
+                styleHighlight=b.active
+                dataType="bubbleness"
+                i18nValue=(i18n-ref 'ref-data.bubbleness-' b.name)
+                }}
+        {{/each}}
+        {{#each data.sweetness as |b|}}
+            {{snippet/li-filter-tag-snippet 
+                data=b 
+                forwardActionFilter='addProductFilter'
+                styleHighlight=b.active
+                dataType="sweetness"
+                i18nValue=(i18n-ref 'ref-data.sweetness-' b.name)
+                }}
+        {{/each}}
+    </ul>
+</div>
+{{/if}}
+
+{{#if data.grape}}
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager">
+        <li class="filter-tag" style="text-align:left"><b>{{t "nav.grapes"}}</b></li>
+        {{#each data.grape as |g|}}
+            {{snippet/li-filter-tag-snippet 
+                data=g 
+                forwardActionFilter='addProductFilter'
+                styleHighlight=g.active
+                dataType="grape"
+                }}
+        {{/each}} 
+    </ul>
+</div>
+{{/if}}
+
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.bio
+    forwardActionFilter='addProductFilter'
+    dataType="bio"
+    i18n=(t "field.bio")
+    i18nRefDataPrefix="field.b-"
+    }}
+{{/if}}
+
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.caracteristic
+    forwardActionFilter='addProductFilter'
+    dataType="caracteristic"
+    i18n=(t "nav.wine-properties")
+    i18nRefDataPrefix="ref-data.caracteristic-"
+    }}
+{{/if}}
+
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.country
+    forwardActionFilter='addProductFilter'
+    dataType="country"
+    i18n=(t "nav.countries")
+    i18nRefDataPrefix="ref-data.country-"
+    }}
+{{/if}}
+
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.region
+    forwardActionFilter='addProductFilter'
+    dataType="region"
+    i18n=(t "nav.regions")
+    }}
+{{/if}}
+
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.year
+    forwardActionFilter='addProductFilter'
+    dataType="year"
+    i18n=(t "field.year")
+    }}
+{{/if}}
+
+{{!--
+{{#if (eq perspective "event")}}
+{{snippet/pager-container-filter-snippet 
+    data=data.order
+    forwardActionFilter='addProductFilter'
+    dataType="order"
+    i18n=(t "field.order")
+    i18nRefDataPrefix="ref-data.order-"
+    }}
+{{/if}}
+--}}

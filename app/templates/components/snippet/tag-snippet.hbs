@@ -1,0 +1,11 @@
+{{#if tags}}
+    <div class="input-group input-group-lg pager-container">
+        <ul class="pager">
+            {{#each tags as |tag|}}
+                <li class="filter-tag">
+                    <span><i class="fa fa-tag"/> {{tag}}</span>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}

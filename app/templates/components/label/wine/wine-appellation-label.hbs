@@ -1,0 +1,23 @@
+{{!-- TODO replace appelation with appellation 2 l --}}
+{{#if (or product.appelationClassificationName product.appellationClassificationName)}}
+{{#if displayLabel}}
+<b>{{t "field.appellation"}} </b>
+{{/if}}
+<i class="fa fa-certificate" style="color:orange"></i>
+{{!--<i class="w w-barrel" style="color:rgb(255, 0, 212)"></i>--}}
+{{#if product.appelationClassificationAcronym}}
+{{snippet/badge-snippet color-class='label-default' value=product.appelationClassificationAcronym}}
+ {{product.appelationClassificationName}} 
+{{/if}}
+{{#if product.appellationClassificationAcronym}}
+{{snippet/badge-snippet color-class='label-default' value=product.appellationClassificationAcronym}}
+ {{product.appellationClassificationName}} 
+{{/if}}
+{{/if}}
+{{#if product.appelationWebPath}}
+{{#link-to 'appellations.appellation' product.appelationWebPath}}
+{{product.appelationName}}{{/link-to}}
+{{/if}}
+{{#if product.appelationClassificationName}}
+<br/>
+{{/if}}

@@ -1,0 +1,24 @@
+{{!--   event-request-entrance modal
+error : Assertion Failed: Expected component:bs-modal to resolve to an Ember.Component but instead it was [object Object].
+
+{{#bs-modal open=modal onSubmit=(action "submit") onHidden=(action (mut modal) false) as |modal|}}
+  {{#modal.header}}
+    <h4 class="modal-title">
+      {{t i18nTitle}}
+    </h4>
+  {{/modal.header}}
+  {{#modal.body}}
+   <div class="form-inline" role="form">
+    <div class="row">
+        --<div class="form-group col-sm-12" style="font-weight: bold;">--
+           {{card/user/user-card-event-invitation}}
+        --</div>--
+    </div>
+  </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close)}}{{t "action.cancel"}}{{/bs-button}}
+    {{#bs-button type="success" onClick=(action modal.submit)}}{{t i18nAction}}{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}
+--}}

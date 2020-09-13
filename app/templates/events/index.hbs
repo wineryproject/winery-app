@@ -1,0 +1,90 @@
+{{snippet/social-network-snippet title=(t "nav.events")}}
+{{#layout/container/index-layout-container}}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <div class='form-group'>
+                    <div class="col-sm-4 w-card-title">
+                        {{#if (eq timeline 'PAST')}}
+                            {{t "sentence.previous-events"}}
+                        {{else}}
+                            {{t "sentence.next-events"}}
+                        {{/if}}
+                        {{snippet/badge-snippet color-class='label-default' value=model.events.nbToDisplay}}
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-8 input-group input-group-lg">
+                        {{search/inner-search-filter 
+                            countryFilter=true 
+                            grapeFilter=false
+                            setCountryFilter="setCountryFilter"
+                            countryWebPath=country
+                            perspective="events"
+                            }}
+                        <input 
+                            value={{searchFreeText}} 
+                            onKeyUp={{action 'handleInnerFilter' value="target.value"}} 
+                            type="text" 
+                            class="form-control" 
+                            autofocus="true" 
+                            placeholder={{t "nav.search"}} />
+                    </div>
+                </div>
+            </h1>
+            <br/>
+            {{search/inner-search-pager
+                perspective="events.index"
+                hasFilter=hasFilter 
+                hasCountryFilter=hasCountryFilter
+                country = country
+                hasGrapeFilter=false
+                }}
+      </div>
+    </div>
+
+
+    {{wp/desc/event-desc}}
+    <h4>
+        {{#if (eq timeline 'PAST')}}
+            {{#link-to 'events.index' (query-params timeline='CURRENT,FUTURE' orderBy='from_date_asc')}}
+            {{t "sentence.next-events"}}
+            {{/link-to}}
+        {{else}}
+            {{#link-to 'events.index' (query-params timeline='PAST' orderBy='from_date_desc')}}
+            {{t "sentence.previous-events"}}
+            {{/link-to}}
+        {{/if}}
+    </h4>
+    {{!-- TODO remove duplicate code --}}
+{{#if (gt model.eventSummary.length 0)}}
+    <div class="row">
+        <div class="col-md-12">
+{{#each model.eventSummary as |item index|}}
+    {{#link-to 'events.index' (query-params country=item.venueCountryWebPath)}}
+        {{snippet/flag-icon flagIcon=(country-flag item.venueCountryWebPath) size='48'}} &nbsp;
+        {{snippet/badge-snippet color-class='label-default' value=item.nbToDisplay}}
+    {{/link-to}}
+{{/each}}
+      </div>
+    </div>
+{{/if}}
+
+
+
+    <div class="row">
+      {{card/event/event-card-list data=model.events}}
+    </div><!-- End row -->
+
+    {{#if (gt model.events.length 0)}}
+        <h4>
+            {{#if (eq timeline 'PAST')}}
+                {{#link-to 'events.index' (query-params timeline='CURRENT,FUTURE' orderBy='from_date_asc')}}
+                {{t "sentence.next-events"}}
+                {{/link-to}}
+            {{else}}
+                {{#link-to 'events.index' (query-params timeline='PAST' orderBy='from_date_desc')}}
+                {{t "sentence.previous-events"}}
+                {{/link-to}}
+            {{/if}}
+        </h4>
+    {{/if}}
+{{/layout/container/index-layout-container}}

@@ -1,0 +1,40 @@
+{{#if (cond conservationProcessings.length '>' 0)}}
+{{#if (cond addTitle '!=' 'false')}} 
+<h3 class="panel-title">{{t "field.conservation-processings"}}</h3>
+{{/if}}
+<br/>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>{{t "field.duration"}}</th>
+            <th>{{t "field.min"}}</th>
+            <th>{{t "field.max"}}</th>
+            <th>{{t "field.recipient"}}</th>
+            <th><i class="fa fa-thermometer-half"></i> {{t "field.min"}}</th>
+            <th><i class="fa fa-thermometer-half"></i> {{t "field.max"}}</th>
+        </tr>
+    </thead>
+    <tbody>
+{{#each conservationProcessings as |conservationProcessing index|}}
+        <tr>
+            <td>
+                {{i18n-default (t (i18n-ref 'ref-data.durationunit-' conservationProcessing.durationUnit)) conservationProcessing.durationUnit}}
+            </td>
+            <td>{{conservationProcessing.durationMin}}</td>
+            <td>
+                {{#if (gt conservationProcessing.durationMax 0)}}{{conservationProcessing.durationMax}}{{/if}}
+            </td>
+            <td>{{conservationProcessing.vatMaterial}}</td>
+            <td>{{#if (gt conservationProcessing.temperatureMin 0)}}
+                    {{conservationProcessing.temperatureMin}}&nbsp;&deg;C
+                {{/if}}
+            </td>
+            <td>{{#if (gt conservationProcessing.temperatureMax 0)}}
+                    {{conservationProcessing.temperatureMax}}&nbsp;&deg;C
+                {{/if}}
+            </td>
+        </tr>
+{{/each}}
+    </tbody>
+</table>
+{{/if}}

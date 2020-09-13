@@ -1,0 +1,10 @@
+{{#if data.pictureMediumSymlink}}
+<div class="img-caption-container">
+    <img alt="{{data.name}}" 
+        class="img-responsive" 
+        src="{{imageUrl}}/product/{{data.id}}_{{data.webPath}}/first.jpg">
+    <h1>
+        {{info/image-info data=data}}
+    </h1>
+</div>
+{{/if}}

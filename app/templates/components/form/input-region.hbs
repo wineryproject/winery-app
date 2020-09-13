@@ -1,0 +1,8 @@
+{{#power-select
+  options=availableRegions
+  selected=selectedRegion
+  onchange=(action "select")
+  as |region|
+}}
+  <strong>{{region.name}}</strong>
+{{/power-select}}

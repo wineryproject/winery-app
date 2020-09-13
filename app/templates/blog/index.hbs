@@ -1,0 +1,28 @@
+{{snippet/social-network-snippet title=(t 'nav.blog')}}
+<div class="container-fluid">
+    <div class="container container-pad">
+        <h1>{{t 'nav.blog'}}</h1>
+
+{{#each model as |item index|}}
+        <h2 class="w-feature">{{item.title}}</h2>
+        <h3>
+            {{moment-format item.publicationDate 'dddd DD MMMM'}}
+        </h3>
+        <div>
+            {{{item.text}}}
+        </div>
+        {{#if item.tags}}
+            <div class="input-group input-group-lg pager-container">
+                <ul class="pager">
+                    {{#each item.tags as |tag|}}
+                        <li class="filter-tag"><span>{{tag}}</span></li>
+                    {{/each}}
+                </ul>
+            </div>
+        {{/if}}
+
+        <hr/>
+{{/each}}
+    </div>
+
+</div>

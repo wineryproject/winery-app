@@ -1,0 +1,25 @@
+{{!--snippet/swiper-thumb-snippet.hbs--}}
+<div style=" height:400px; width: 600px;">
+  <div class="swiper-container  gallery-top">
+    <div class="swiper-wrapper">
+
+{{#each data as |imageInfo index|}}
+        <div class="swiper-slide" style="background-image:url({{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg)"></div>
+{{/each}}  
+ 
+    </div>
+    <!-- Add Pagination 
+    <div class="swiper-pagination swiper-pagination-white"></div>
+    -->
+    <!-- Add Arrows -->
+    <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div>
+  </div>
+  <div class="swiper-container gallery-thumbs">
+    <div class="swiper-wrapper">
+{{#each data as |imageInfo index|}}
+        <div class="swiper-slide" style="background-image:url({{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg)"></div>
+{{/each}}  
+    </div>
+  </div>
+</div>

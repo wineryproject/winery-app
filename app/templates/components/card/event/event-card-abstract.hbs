@@ -1,0 +1,65 @@
+{{!-- event-card-abstract --}}
+{{#layout/card/layout-card-abstract}}
+<div class="media-body fnt-smaller">
+    {{snippet/event-ribbon-snippet event=data ribbonClass='ribbon-on-card' environment=environment}}
+    <h3 class="media-heading">
+        {{#if (eq data.hasLogo 1)}}
+            {{link/logo-link entity="event" entityId=data.eventId entityWebPath=data.eventWebPath width=80}}{{!--logo should be square or fix width--}}
+        {{/if}}
+        {{#link-to 'events.event' data.eventWebPath}}{{data.eventName}}{{/link-to}}
+        {{snippet/badge-snippet color-class='label-default' value=data.year}}
+        {{snippet/flag-icon flagIcon=(country-flag data.venueCountryWebPath) size='48'}}
+        <small class="pull-right">
+            {{moment-format data.fromDate 'DD MMMM YYYY'}} &rarr; {{moment-format data.toDate 'DD MMMM YYYY'}}
+        </small>
+    </h3>
+    <h5 class="no-print">
+        {{{data.description}}}
+    </h5>
+    <h4 class="no-print">
+        {{!-- remove duplicate code --}}
+        {{#if data.event.entranceFee}}
+            {{t 'field.price'}} {{data.entranceFee}} &euro;
+        {{/if}}
+        {{#if data.event.isGlassIncludedInPrice}}
+            {{t 'sentence.glass-offered'}}
+            {{#if data.event.glassPrice}}
+                ({{t 'field.event-glass-price'}} {{data.glassPrice}} &euro;)
+            {{/if}}
+        {{else}}
+            {{#if data.event.glassPrice}}
+                {{t 'field.event-glass-price'}} {{data.glassPrice}} &euro;)
+            {{/if}}
+        {{/if}}
+    </h4>
+{{#if (not-eq data.nbOfWineriesPerCountry.length 0)}}
+    <h4 class="no-print">
+        {{t "nav.wineries"}}
+        <br/>
+        {{#each data.nbOfWineriesPerCountry as |item index|}}
+                {{snippet/badge-snippet color-class='label-default' value=item.nb}} 
+                {{#link-to 'events.event' data.eventWebPath (query-params wineryCountry=item.name)}}
+                    {{snippet/flag-icon flagIcon=(country-flag item.webPath) size='24'}}
+                    {{i18n-default (t (i18n-ref 'ref-data.country-' item.webPath)) item.name}}
+                {{/link-to}}
+        {{/each}}
+        <br/>
+        {{#each data.nbOfWineriesPerRegion as |item index|}}
+                {{snippet/badge-snippet color-class='label-default' value=item.nb}}
+                {{#link-to 'events.event' data.eventWebPath (query-params wineryRegion=item.name)}}
+                    {{item.name}}
+                {{/link-to}}
+        {{/each}}
+    </h4>
+{{/if}}
+
+{{#if data.hasVenue}}
+    <h4>
+        {{snippet/address-snippet showPhones=true data=data.venue}}
+    </h4>
+{{/if}}
+    <h5>
+        {{snippet/email-snippet email=data.email}}
+    </h5>
+</div>
+{{/layout/card/layout-card-abstract}}

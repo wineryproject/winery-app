@@ -1,0 +1,48 @@
+{{#if hasFilter}}
+<div class="input-group input-group-lg">
+    <ul class="pager">
+    {{#if hasCountryFilter}}
+        <li class="filter-tag"><b>{{t "field.country"}} </b>
+        {{#link-to perspective (query-params country=null)}}
+        <span>
+            {{snippet/flag-icon flagIcon=countryFlag size='24'}}
+            {{i18n-default (t (i18n-ref 'ref-data.country-' country)) country}}
+        </span>&nbsp;<span class="fa fa-remove filter-tag"></span>
+        {{/link-to}}
+        </li>
+    {{/if}}
+    {{#if hasRegionFilter}}
+        <li class="filter-tag"><b>{{t "field.region"}} </b>
+        {{#link-to perspective (query-params region=null)}}
+        <span>{{capitalize region}}</span>&nbsp;<span class="fa fa-remove filter-tag"></span>
+        {{/link-to}}
+        </li>
+    {{/if}}
+    {{#if hasGrapeFilter}}
+        <li class="filter-tag"><b>{{t "field.cepage"}} </b>
+        {{#link-to perspective (query-params grape=null)}}
+        <span>
+            {{snippet/icon-snippet icon="wicon-grape-6" iconFamily="wicon" color=(grape-color grape) }}
+            {{capitalize grape}}</span>&nbsp;<span class="fa fa-remove filter-tag">
+        </span>
+        {{/link-to}}
+        </li>
+    {{/if}}
+    {{#if hasColorFilter}}
+        <li class="filter-tag"><b>{{t "field.color"}} </b>
+        {{#link-to perspective (query-params color=null)}}
+        <span>
+            {{#if (eq perspective "appellations")}}
+                {{snippet/icon-snippet icon="wicon-bottle" iconFamily="wicon" color=(color-to-rgb color) }}
+            {{/if}}
+            {{#if (eq perspective "grapes")}}
+                {{snippet/icon-snippet icon="wicon-grape-6" iconFamily="wicon" color=(color-to-rgb color) }}
+            {{/if}}
+            {{i18n-default (t (i18n-ref 'ref-data.color-' color)) color}}
+        </span>&nbsp;<span class="fa fa-remove filter-tag"></span>
+        {{/link-to}}
+        </li>
+    {{/if}}
+    </ul>
+</div>
+{{/if}}

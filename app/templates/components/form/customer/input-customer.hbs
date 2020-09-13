@@ -1,0 +1,9 @@
+<div class="form-group">
+    {{form/form-input isValid=isValidCustomerFirstName name='firstName' required='true' label=(t "field.first-name") modelValue=model.firstName placeHolder=(t "field.first-name")}}
+</div>
+<div class="form-group">
+    {{form/form-input isValid=isValidCustomerLastName name='lastName' required='true' label=(t "field.last-name") modelValue=model.lastName placeHolder=(t "field.last-name")}}
+</div>
+<div class="form-group">
+    {{form/input-email isValid=isValidCustomerEmail modelValue=model.email required='true'}}
+</div>

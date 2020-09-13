@@ -1,0 +1,6 @@
+<li class="list-group-item">
+    {{#if check}}<i class="fa fa-check text-success"></i>
+    {{t condition.payPlanConditionI18nEntry}} {{#if (cond quantity '>' '0')}}<span class="label {{number-class}}">{{quantity}}</span> {{/if}} 
+    {{else}}<i class="fa fa-times text-danger"></i> <strike>{{t condition.payPlanConditionI18nEntry}}</strike>
+    {{/if}}   
+</li>

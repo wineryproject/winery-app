@@ -1,0 +1,14 @@
+{{#if product.aromaNames}}
+<b>{{t "field.aromas"}}</b> 
+<div class="input-group input-group-lg pager-container">
+    <ul class="pager">
+        {{#each product.aromaNames as |aroma|}}
+            <li class="filter-tag">
+                <span>
+                    {{i18n-default (t (i18n-ref 'ref-data.aroma-' aroma)) aroma}}
+                </span>
+            </li>
+        {{/each}}
+    </ul>
+</div>
+{{/if}}

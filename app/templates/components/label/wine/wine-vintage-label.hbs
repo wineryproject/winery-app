@@ -1,0 +1,16 @@
+{{#if product.nbOfItems}}
+<b>{{t "field.number-of-millesimes"}}</b> {{#if (not-eq product.years "1900")}}{{product.nbOfItems}}. {{/if}}
+<b>
+    {{!-- label year or years --}}
+    {{#if (eq product.nbOfItems 1)}}
+        {{#if (not-eq product.years "1900")}}
+            {{t "field.year"}}
+        {{/if}}
+    {{else}}
+        {{t "field.years"}}
+    {{/if}}
+    </b> 
+    {{!-- !! TODO there are multiples years!!--}}
+    {{snippet/product-year-snippet year=product.years}}
+<br/>
+{{/if}}

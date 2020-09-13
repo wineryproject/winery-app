@@ -1,0 +1,75 @@
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}
+    <div class="col-sm-12">
+        <h2>{{t "nav.wineries"}} 
+{{#if (cond wineries.length '>' 0)}}
+{{snippet/badge-snippet value=wineries.length color-class='label-success'}}
+{{/if}}
+        </h2>
+    </div>
+{{/if}}
+{{#if (gt wineries.length 0)}}
+{{!-- pb with 2-column card
+> if put along side => does not display correctly (gaps)
+> if split by 2 and display on small device => order not correct
+
+=> 2 display possibilities
+    Mobile => on
+--}}
+    {{#if (media 'isMobile')}}
+        
+        {{#each wineries as |winery index|}}
+        <div class="col-sm-6">
+        {{card/winery/winery-card-abstract-item 
+            data=winery 
+            perspective=perspective 
+            perspectiveEntityId=perspectiveEntityId
+            perspectiveWebPath=perspectiveWebPath
+            }}
+            </div>
+        {{/each}}
+
+    {{else}}
+
+        <div class="col-sm-6">
+        {{#each wineries as |winery index|}}
+            {{#if (cond index '%' 2)}}
+            {{card/winery/winery-card-abstract-item 
+                data=winery 
+                perspective=perspective 
+                perspectiveEntityId=perspectiveEntityId
+                perspectiveWebPath=perspectiveWebPath
+                }}
+                {{/if}}
+        {{/each}}
+        </div>
+        <div class="col-sm-6">
+        {{#each wineries as |winery index|}}
+            {{#if (cond (add index 1) '%' 2)}}
+            {{card/winery/winery-card-abstract-item 
+                data=winery 
+                perspective=perspective 
+                perspectiveEntityId=perspectiveEntityId
+                perspectiveWebPath=perspectiveWebPath
+                }}
+                {{/if}}
+        {{/each}}
+        </div>
+    {{/if}}
+
+{{else}}
+    <div class="col-sm-6">
+    {{#layout/sentence/sentence-no-result}}
+        {{#if (eq perspective 'event')}}
+            {{t "sentence.no-winery-register-yet"}}
+        {{else if (eq perspective 'grape')}}
+            {{t "sentence.no-winery-harvesting-this-grape"}}
+        {{else}}
+            {{t "sentence.no-winery-register-yet"}}
+        {{/if}}
+    {{/layout/sentence/sentence-no-result}}
+    <br/>
+    {{#link-to "feedback" (query-params origin="missing-winery")}}{{t "sentence.if-it-misses-one-drop-feedback"}}{{/link-to}}
+    </div>
+{{/if}}
+</div>

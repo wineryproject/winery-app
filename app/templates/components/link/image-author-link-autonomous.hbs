@@ -1,0 +1,19 @@
+<div class="img-caption-container">
+{{#if entityId}}        
+    <img alt="{{data.name}}" 
+        class="img-responsive" 
+        src="{{baseUrl}}/images/{{entity}}/{{entityId}}_{{entityWebPath}}/{{imageAlias}}">
+{{/if}}
+    <div class="img-caption-bottom-left">
+        {{#if imageInfoAutonomous}} 
+        {{info/image-info 
+            autonomous=imageInfoAutonomous 
+            entityId=entityId 
+            entityWebPath=entityWebPath 
+            displayOrder=displayOrder}}
+        {{else}}
+        {{info/image-info
+            data=dataImageInfo}}
+        {{/if}}
+    </div>
+</div>    

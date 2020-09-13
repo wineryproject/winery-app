@@ -1,0 +1,63 @@
+{{snippet/social-network-snippet title=(i18n-default (t (i18n-ref 'ref-data.country-' data.country.webPath)) data.country.name)}}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{snippet/flag-icon flagIcon=data.country.flagIcon size=48}}&nbsp;
+            {{i18n-default (t (i18n-ref 'ref-data.country-' data.country.webPath)) data.country.name}}
+        </h1>
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pad-10  btm-mrg-20 overview"> {{!--brdr box-shad--}}
+            <div class="media">
+            {{#if data.country.pictureSymlinkCore}}
+                <div class="pull-left" >
+                    {{!--
+                    {{info/images-info entity='country' entityWebPath=data.country.webPath}}
+                    --}}
+                    {{link/country/country-image-first data=data.country}}
+                </div>            
+            {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+{{#if (not-eq environment "production")}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pad-10  btm-mrg-20 overview"> {{!--brdr box-shad--}}
+            <div class="media">
+            {{#if data.country.pictureSymlinkCore}}
+                <div class="pull-left" >
+                    {{info/images-info entity='country' entityWebPath=data.country.webPath}}
+               </div>            
+            {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="tab" href="#regions-pill"><h4>{{pill-title (t "nav.regions") data.regions.length}}</h4></a></li>
+  <li><a data-toggle="tab" href="#appellations-pill"><h4>{{pill-title (t "nav.appellations") data.appellations.length}}</h4></a></li>
+</ul>
+<div class="tab-content">
+  <div id="regions-pill" class="tab-pane fade in active">
+        {{card/region/region-card-list regions=data.regions perspective='country' addTitle="false"}}
+  </div>
+  <div id="appellations-pill" class="tab-pane fade">
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='country' addTitle="false"}}
+  </div>
+</div>
+{{!--
+{{#bs-tab type="pills" as |tab|}}
+   {{#tab.pane title=(pill-title (t "nav.regions") data.regions.length)}}
+        {{card/region/region-card-list regions=data.regions perspective='country' addTitle="false"}}
+   {{/tab.pane}}
+   {{#tab.pane title=(pill-title (t "nav.appellations") data.appellations.length)}}
+        {{card/appellation/appellation-card-list appellations=data.appellations perspective='country' addTitle="false"}}
+   {{/tab.pane}}
+{{/bs-tab}}
+--}}

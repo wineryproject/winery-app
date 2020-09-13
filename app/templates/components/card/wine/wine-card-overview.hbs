@@ -1,0 +1,187 @@
+{{#layout/container/index-layout-container}}
+{{snippet/social-network-snippet title=product.product addCode=true addPdf=true}}
+<h1>
+    {{product.product}} 
+</h1>
+<h2>       
+    {{link/product/product-reference-link winery=winery}}
+    </h2>
+<div class="pad-10 btm-mrg-20 property-listing"> {{!--brdr box-shad--}}
+    <div class="media">
+        <div class="pull-left" >
+            {{#if product.pictureSymlinkCore}}
+                <div class="pull-left" >
+                {{link/product/product-image-link data=product}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="panel-group">
+    {{#snippet/panel-snippet heading=(t "nav.wine-properties") }}
+        {{label/wine/wine-appellation-label product=product displayLabel=true}}
+        {{#if product.detail}}<b>{{t "field.details"}}</b> {{{product.detail}}}{{/if}}
+        <br/>
+        {{#if product.colorRgb}} <b>{{t "field.color"}}</b> 
+            {{snippet/product-color-badge-snippet product=product}}<br/>
+        {{/if}}
+        
+        {{label/wine/wine-characteristics-label product=product displayLabel=true}}
+
+        {{#if product.cepages}}<b>{{t "field.cepages"}} </b>
+        {{link/cepage-token-link cepages=product.cepages showPercent=true}}
+        <br/>
+        {{/if}}
+
+        {{#if (cond product.isBio '==' 1)}}<b>{{t "field.bio"}}</b> {{snippet/validation-check-success isValid=true}}
+        <br/>
+        {{/if}}
+
+        {{#label/wine/wine-vintage-label product=product}}{{/label/wine/wine-vintage-label}}
+
+        {{#if product.hasTechnicalSheet}}
+        <b>
+            {{i18n-default (t "field.technical-sheet") "Fiche technique"}}
+        </b>{{link/technical-sheet-link entity="product" entityId=product.id entityWebPath=product.webPath}}
+        <br/>
+        {{/if}}
+        
+    {{/snippet/panel-snippet}}
+
+{{#if product.hasVinificationDetails}}
+    {{#snippet/panel-snippet heading=(t "field.vinification") }}
+        {{{product.vinificationDescription}}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.conservationDurationUnit}}
+    {{#snippet/panel-snippet heading=(t "field.conservation-garde") }}
+    {{!-- 
+        {{#if product.durationMin}}
+            {{snippet/label-snippet value=product.durationMin i18n="field.min" unit=(i18n-default (t (i18n-ref 'ref-data.durationunit-' product.conservationDurationUnit)) product.conservationDurationUnit)}}
+        {{/if}}
+        {{#if product.durationMin}}
+            {{snippet/label-snippet value=product.durationMax i18n="field.max" unit=(i18n-default (t (i18n-ref 'ref-data.durationunit-' product.conservationDurationUnit)) product.conservationDurationUnit)}}
+        {{/if}}
+--}}
+        {{product.durationMin}} - {{product.durationMax}}
+        {{i18n-default (t (i18n-ref 'ref-data.durationunit-' product.conservationDurationUnit)) product.conservationDurationUnit}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.hasConsumption}}
+    {{#snippet/panel-snippet heading=(t "field.consumption") }}
+        {{label/wine/wine-consumption-label product=product}}
+        {{label/wine/wine-temperature-label product=product}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.hasMethod}}
+    {{#snippet/panel-snippet heading=(t "field.methods") }}
+        {{#if product.harvestingMethodName}}
+        <b>{{t "field.harvesting-method"}}</b>  {{t (i18n-ref 'ref-data.' product.harvestingMethodName)}}
+        <br/>
+        {{/if}}
+        {{#if product.sparklingMethodName}}
+        <b>{{t "field.sparkling-method"}}</b>  {{t (i18n-ref 'ref-data.sparkling-' product.sparklingMethodName)}}
+        <br/>
+        {{/if}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.hasChemistry}}
+    {{#snippet/panel-snippet heading=(t "field.chemistry") }}
+        {{snippet/label-snippet value=product.alcoholPercent i18n="field.alcohol" unit="%"}}
+        {{snippet/label-snippet value=product.sugarGL i18n="field.sugar" unit="g/l"}}
+        {{snippet/label-snippet value=product.totalAcidityGL i18n="field.total-acidity" unit="g/l"}}
+        {{snippet/label-snippet value=product.tanninMgL i18n="field.tannin" unit="mg/l"}}
+        {{snippet/label-snippet value=product.totalSulfiteMgL i18n="field.total-sulfite" unit="mg/l"}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.hasGeography}}
+    {{#snippet/panel-snippet heading=(t "field.geography") }}
+        {{snippet/label-snippet value=product.terroirExposition i18n="field.terroirExposition"}}
+        {{snippet/label-snippet value=product.terroirSoilType i18n="field.terroirSoilType"}}
+
+        {{snippet/label-snippet value=product.altitudeMin i18n="field.altitude-min" unit="m"}}
+        {{snippet/label-snippet value=product.altitudeMax i18n="field.altitude-max" unit="m"}}
+ 
+        {{snippet/label-snippet value=product.nbOfPlants i18n="field.nb-of-plants" }}
+        {{!--TODO nbOfPlantsPerHectar--}}
+        {{snippet/label-snippet value=product.hectolitersPerHectar i18n="field.hectoliters-per-hectar" }}
+
+        {{snippet/label-snippet value=product.pruningTypeName i18n="field.pruning-type" }}
+        {{snippet/label-snippet value=product.plantingTypeName i18n="field.planting-type" }}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+    {{#snippet/panel-snippet heading=(t "field.taste") }}
+        {{#if product.taste}}
+        <b>{{t "field.taste"}}</b> {{product.taste}}
+        <br/>
+        {{/if}}
+        {{#if product.aromaNames}}
+        {{!-- 
+        <b>{{t "field.aromas"}}</b> {{product.aromaNames}}
+        <br/>
+        --}}
+        {{label/wine/wine-aroma-label product=product}}
+        <br/>
+        {{/if}}
+        {{#if product.degustationRecommandationName}}
+        <b>{{t "field.degustation-recommandation"}}</b> {{product.degustationRecommandationName}}
+        <br/>
+        {{/if}}
+    {{/snippet/panel-snippet}}
+
+{{#if product.priceMin}}
+    {{#snippet/panel-snippet heading=(t "nav.prices") class="fa fa-money" }}
+    {{!--TODO refactor as component --}}
+    {{#if (eq product.priceMin product.priceMax)}}
+        {{product.priceMin}} &euro;
+    {{else}}
+        {{t "field.price-from"}} {{product.priceMin}} &euro; {{t "field.to"}} {{product.priceMax}} &euro;
+    {{/if}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if product.tags}}
+    {{#snippet/panel-snippet heading=(t "field.tags") class="fa fa-tags" }}
+        {{!--product.tags--}}
+    <div class="input-group input-group-lg pager-container">
+        <ul class="pager">
+            {{#each product.tags as |tag|}}
+                <li class="filter-tag"><span>{{tag}}</span></li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if (gt conservationProcessings.length 0)}}
+    {{#snippet/panel-snippet heading=(t "field.conservation") }}
+        {{#card/conservation/conservation-processing-card-list conservationProcessings=conservationProcessings}}
+        {{/card/conservation/conservation-processing-card-list}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+
+{{#if (not-eq environment "production")}}
+    {{#snippet/panel-snippet heading=(t "nav.code") class="fa fa-code" }}
+        {{#link-to 'code' (query-params origin=origin entityValue=product.product entity=(t "field.wine"))}}
+            {{t "sentence.access-code-material"}}
+        {{/link-to}}
+    {{/snippet/panel-snippet}}
+{{/if}}
+</div>
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="tab" href="#vintages-pill"><h4>{{pill-title (t "nav.vintages") vintages.length}}</h4></a></li>
+</ul>
+<div class="tab-content">
+  <div id="vintages-pill" class="tab-pane fade in active">
+        {{card/vintage/vintage-card-list vintages=vintages perspective=perspective addTitle="false"}}
+  </div>
+</div>
+{{/layout/container/index-layout-container}}

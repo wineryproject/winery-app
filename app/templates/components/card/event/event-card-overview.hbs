@@ -1,0 +1,263 @@
+{{snippet/social-network-snippet title=(concat (t "nav.events") (concat ' ' data.event.eventName))}}
+{{#layout/container/index-layout-container}}
+
+<div class="col-md-12">
+    <div class="row">
+       {{!-- ribbons --}}
+        {{snippet/event-ribbon-snippet event=data.event ribbonClass='ribbon' environment=environment}}
+        
+        <h1>
+            {{data.event.eventName}} 
+            {{snippet/badge-snippet color-class='label-default' value=data.event.year}}
+            {{#if data.event.hasLogo}}
+                {{#link/logo-link entity="event" entityId=data.event.eventId entityWebPath=data.event.eventWebPath width=120}}{{/link/logo-link}}
+            {{/if}}
+            {{snippet/flag-icon flagIcon=(country-flag data.event.venueCountryWebPath) size='48'}}
+        </h1>
+        <h2>
+            {{moment-format data.event.fromDate 'dddd DD MMMM'}} &rarr; {{moment-format data.event.toDate 'dddd DD MMMM'}}
+        </h2>
+        <h5>
+           {{{data.event.description}}}
+        </h5>
+        <div class="col-md-6">
+
+            {{snippet/tag-snippet tags=data.event.tags}}
+            {{!-- image carousel --}}
+            {{#if (gt data.event.images.length 0)}}
+                {{snippet/swiper-snippet data=data.event.images}}
+            {{/if}}
+
+            {{#if data.event.hasVenue}}  
+                <h4>
+                    {{snippet/address-snippet showPhones=true data=data.event.venue}}
+                </h4>
+            {{/if}}
+            {{#if data.event.geolocMapLongitude}}
+                <div>
+                    {{!-- google-maps g-map  //FREE-ACCESS-WINERY 3 --}}
+                    {{#g-map lat=data.event.geolocMapLatitude lng=data.event.geolocMapLongitude zoom=9 as |context|}}
+                        {{#g-map-marker context lat=data.event.geolocMapLatitude lng=data.event.geolocMapLongitude 
+                            title=data.event.eventName message=data.event.eventName as |markerContext|}}
+                            {{#g-map-infowindow markerContext}}
+                            <h5>{{data.event.eventName}}</h5>
+                            {{/g-map-infowindow}}
+                        {{/g-map-marker}}
+                    {{/g-map}}
+                    
+                </div>
+            {{/if}}
+        </div>
+        
+        <div class="col-md-6">
+            {{#if data.event.editionNumber}}
+                <h3>
+                    {{t 'field.edition-number'}} {{snippet/badge-snippet color-class='label-danger' value=data.event.editionNumber}}
+                </h3>
+            {{/if}}
+            {{#if data.event.entranceFee}}
+                <h4>
+                    {{t 'field.price'}} {{data.event.entranceFee}} &euro;
+                    {{#if data.event.isGlassIncludedInPrice}}
+                        {{t 'sentence.glass-offered'}}
+                        {{#if data.event.glassPrice}}
+                            ({{t 'field.event-glass-price'}} {{data.event.glassPrice}} &euro;)
+                        {{/if}}
+                    {{else}}
+                        {{#if data.event.glassPrice}}
+                            {{t 'field.event-glass-price'}} {{data.event.glassPrice}} &euro;)
+                        {{/if}}
+                    {{/if}}
+
+                </h4>
+            {{/if}}
+            {{#if data.event.entranceFeePresale}}{{!-- and in presale period --}}
+                <h4>
+                    {{t 'field.presale'}} {{data.event.entranceFeePresale}} &euro;
+                    {{#if data.event.presaleFeeNbDaysBeforeEvent}}
+                        ({{data.event.presaleFeeNbDaysBeforeEvent}} {{t 'sentence.days-before-event' }})
+                    {{/if}}
+                    {{#if (gt data.event.freeUnderAge 0)}}
+                        <br/>
+                        {{t 'sentence.free-under-age'}} {{data.event.freeUnderAge}}
+                    {{/if}}
+                </h4>
+                {{!-- order ticket pre-sale / or order reduction --}}
+                {{#if (not-eq environment "production")}}
+                    {{!-- if has invitation : consume request until event finished --}}                
+                    <button type="button" {{action "requestEventInvitation"}} class="btn btn-success">  
+                        {{t "action.request-invitation"}} <span class="fa fa-file">
+                        </span>
+                    </button>
+
+                    {{!-- if has presale  --}}
+                    <button type="button" {{action "requestEventFeePresale"}} class="btn btn-success">  
+                        {{t "action.request-discount"}} <span class="fa fa-file">
+                        </span>
+                    </button>
+                    {{modal/event-request-entrance 
+                        modal=requestEventInvitationModal
+                        i18nTitle = "action.request-invitation"
+                        i18nAction= "action.request-invitation"
+                    }}
+
+                    {{modal/event-request-entrance 
+                        modal=requestEventFeePresaleModal
+                        i18nTitle = "action.request-discount"
+                        i18nAction= "action.request-discount"
+                    }}
+                {{/if}}
+            {{/if}}
+
+            {{#if data.event.hasTechnicalSheet}}
+                <b>
+                    {{i18n-default (t "field.technical-sheet") "Fiche technique"}}
+                </b>
+                    {{link/technical-sheet-link entity="event" entityId=data.event.id entityWebPath=event.eventWwebPath}}
+                <br/>
+            {{/if}}
+            {{#if (or data.event.website data.event.email) }}
+                <ul class="list-inline mrg-0 btm-mrg-10">
+            {{#if data.event.website}}
+                    <li>
+                        {{snippet/website-icon-snippet website=data.event.website}}
+                    </li>
+            {{/if}}
+            {{#if data.event.email}}
+                    <li>
+                        {{snippet/email-icon-snippet email=data.event.email}}
+                    </li>
+            {{/if}}
+                </ul>
+            {{/if}}
+
+            {{!-- organisor --}}
+            {{#if data.event.organisorName}}
+                <ul class="list-inline mrg-0 btm-mrg-10">
+                    <li>
+                        <i class="fa fa-users fa-3x social social-em"></i>
+                    </li>
+                    <li>
+                        <h4>
+                            {{data.event.organisorName}}
+                        </h4>
+                    </li>
+                </ul>
+            {{/if}}
+           
+            {{!-- social network --}}
+            {{#if (gt data.event.socialNetworkDetails.length 0)}}  
+                <ul class="list-inline mrg-0 btm-mrg-10">
+                {{#each data.event.socialNetworkDetails as |item index|}}
+                    <li>
+                        <a href='{{item.link}}' target="_blank" rel="noopener">
+                            <i class="{{social-network-class item.socialNetworkName}}"></i>
+                        </a>
+                    </li>
+                {{/each}}
+                </ul>
+            {{/if}}
+            {{!-- calendars --}}
+            {{#if data.cal}}
+                {{#calendar-button data.cal onClick=(action "addToCal") as |b|}}
+                    <ul class="list-inline mrg-0 btm-mrg-10">
+                        <li>
+                            <i class="fa fa-calendar fa-2x"></i>
+                        </li>
+                        <li>
+                            {{#b.google}}
+                                {{t "sentence.add-to-google-calendar"}}
+                            {{/b.google}}
+                        </li>
+                        <li>
+                            {{#b.ical}}
+                                {{t "sentence.add-to-ical"}}
+                            {{/b.ical}}
+                        </li>
+                    </ul>
+                {{/calendar-button}}
+            {{/if}}
+
+            {{!-- opening hours --}}
+            {{#if (gt data.event.openingHours.length 0)}}  
+            <h4>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <i class="fa fa-clock-o"/> {{t "field.opening-hours"}}
+                            </td>
+                        </tr>
+                        {{#each data.event.openingHours as |item index|}}
+                        <tr>
+                            <td>
+                            {{moment-format item.day 'dddd'}} {{moment-format item.day 'DD/MM'}}
+                            </td>
+                            <td>
+                            {{moment-format item.from 'HH:mm'}} &rarr; {{moment-format item.to 'HH:mm'}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </h4>
+            {{/if}}
+
+        </div>
+    </div>
+</div>
+
+
+{{!-- associated entities --}}
+<ul class="nav nav-pills">
+ 
+    <li class="active"><a data-toggle="tab" href="#wineries-pill"><h4>{{pill-title (t "nav.wineries") data.wineries.length}}</h4></a></li>
+  {{#if (gt data.products.length 0)}}    
+    <li><a data-toggle="tab" href="#wines-pill"><h4>{{pill-title (t "nav.wines") data.products.length}}</h4></a></li>
+  {{/if}}
+  {{#if (gt data.partners.length 0)}}
+    <li><a data-toggle="tab" href="#partners-pill"><h4>{{pill-title (t "nav.partners") data.partners.length}}</h4></a></li>
+  {{/if}}
+</ul>
+
+<div class="tab-content">
+  <div id="wineries-pill" class="tab-pane fade in active">
+        <div class="col-sm-12"> 
+            {{search/winery-filters
+                data=data.wineryAbstract 
+                setWineryCardWineryFilter="forwardToEventCardOverview"
+                perspective="event"}}
+        </div>
+        {{card/winery/winery-card-list 
+            wineries=data.wineries 
+            perspective='event' 
+            addTitle="false" 
+            perspectiveEntityId=data.event.eventId
+            perspectiveWebPath=data.event.eventWebPath
+            }}
+  </div>
+  {{#if (gt data.products.length 0)}}  
+  <div id="wines-pill" class="tab-pane fade in">
+      {{!-- TODO rename event-wine-card-list to product-wine-card-list --}}
+        {{card/event/event-wine-card-list 
+            data=data
+            perspective='event' 
+            addTitle="false"
+            priceType="event-presale"
+            products=data.products
+            showPurchaseOrder=data.event.hasPurchaseOrder
+            setEventWineFilter="forwardToEventCardOverview"}}
+  </div>
+  {{/if}}
+  {{#if (gt data.partners.length 0)}}
+  <div id="partners-pill" class="tab-pane fade in">
+        {{card/partner/partner-card-list partners=data.partners perspective='event' addTitle="false"}}
+  </div>
+  {{/if}}
+</div>
+
+<br/>
+<h4>
+    {{#link-to 'events.index'}}{{t "sentence.all-events"}}{{/link-to}}
+</h4>
+{{/layout/container/index-layout-container}}

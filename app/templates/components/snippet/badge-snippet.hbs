@@ -1,0 +1,13 @@
+{{#if value}}
+{{#if color-class}}
+<span class="w-badge label {{color-class}}">{{value}}</span>
+{{else}}
+<span class="w-badge label" style="{{myColor}}">{{value}}</span>
+{{/if}}
+{{else}}
+{{#if color-class}}
+<span class="w-badge label {{color-class}}">{{yield}}</span>
+{{else}}
+<span class="w-badge label" style="{{myColor}}">{{yield}}</span>
+{{/if}}
+{{/if}}

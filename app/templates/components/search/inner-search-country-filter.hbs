@@ -1,0 +1,16 @@
+<li class="dropdown-submenu {{countryFilterClass}}">
+    <a class="dropdown-toggle" data-toggle="dropdown">{{t "nav.countries"}}</a>
+    <ul class="dropdown-menu">
+        {{#each countries as |country|}}
+        {{#snippet/li-snippet activate=(eq country.webPath countryWebPath)}}
+            <a role="button" 
+                onclick={{action 'addFilter'}} 
+                class="adv-search-type" 
+                data-value="{{country.webPath}}">
+                {{snippet/flag-icon flagIcon=country.flagIcon size='24'}}
+                {{i18n-default (t (i18n-ref 'ref-data.country-' country.webPath)) country.name}}
+            </a>
+        {{/snippet/li-snippet}}
+        {{/each}}
+    </ul>
+</li>

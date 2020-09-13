@@ -1,0 +1,35 @@
+{{#if (is-after event.toDate)}}   
+    <div class="{{ribbonClass}} red no-print">
+        <span>
+            {{t 'sentence.event-in-past'}} ({{moment-from event.toDate}})
+        </span>
+    </div>
+{{else if (is-before event.fromDate)}}
+    <div class="{{ribbonClass}} base no-print">
+        <span>
+            {{!--t 'sentence.event-in-future'--}} {{moment-from event.fromDate}}
+        </span>
+    </div>
+{{else}}
+    <div class="{{ribbonClass}} orange no-print">
+        <span>
+            {{t 'sentence.event-ongoing'}}
+        </span>
+    </div>
+{{/if}}
+{{#if event.isBio}}
+    <div class="{{ribbonClass}}-2 bio">
+        <span>
+            {{t "field.bio"}}
+        </span>
+    </div>
+{{/if}}
+{{#if (not-eq environment "production")}}
+    {{#if event.entranceFeePresale}}
+        <div class="{{ribbonClass}}-3 orange no-print">
+            <span>
+                {{t "field.remaining-invitations"}} {{eventMS.remainingInvitations}} / {{eventMS.totalInvitations}}
+            </span>
+        </div>
+    {{/if}}
+{{/if}}

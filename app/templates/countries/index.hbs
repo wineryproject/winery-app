@@ -1,0 +1,49 @@
+{{snippet/social-network-snippet title=(t 'nav.countries')}}
+{{#layout/container/index-layout-container}}     
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                <div class='form-group'>
+                    <div class="col-sm-4 w-card-title">
+                        {{t "nav.countries"}}
+                        {{snippet/badge-snippet color-class='label-default' value=model.nbToDisplay}}
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-8 input-group input-group-lg">
+                        {{search/inner-search-filter 
+                            grapeFilter=true
+                            setGrapeFilter="setGrapeFilter"
+                            grapeWebPath=grape
+                            perspective="countries"
+                            }}
+                        <input 
+                            value={{searchFreeText}} 
+                            onKeyUp={{action 'handleInnerFilter' value="target.value"}} 
+                            type="text" 
+                            class="form-control" 
+                            id="adv-search-str" 
+                            name="search" 
+                            autofocus="true" 
+                            placeholder={{t "nav.search"}} />
+                    </div>
+                </div>
+            </h1>
+            {{search/inner-search-pager
+                perspective="countries.index"
+                hasFilter=hasFilter
+                hasGrapeFilter=hasGrapeFilter
+                grape = grape
+                }}
+        </div>
+    </div>
+    <div class="row">
+{{#each model.CountryDescriptionWithInfoOut as |item index|}}
+{{#if item.toDisplay}}
+        <div class="col-sm-6"> 
+{{card/country/country-card-abstract-item data=item}}
+        </div>
+{{/if}}
+{{/each}}
+{{snippet/in-viewport number=index nextInViewport="nextInViewport"}}
+    </div><!-- End row -->
+
+{{/layout/container/index-layout-container}}   

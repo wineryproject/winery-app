@@ -1,0 +1,8 @@
+{{#power-select
+  options=availableLanguages
+  selected=selectedLanguage
+  onchange=(action "select")
+  as |language|
+}}
+  {{snippet/flag-icon flagIcon=language.flagIcon size=24}} <strong>{{language.idiom}}</strong>
+{{/power-select}}

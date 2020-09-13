@@ -1,0 +1,8 @@
+{{#power-select
+  options=availableCountries
+  selected=selectedCountry
+  onchange=(action "select")
+  as |country|
+}}
+  {{snippet/flag-icon flagIcon=country.flagIcon}} <strong>{{country.name}}</strong>
+{{/power-select}}

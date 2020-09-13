@@ -1,0 +1,66 @@
+{{#layout/card/layout-card-abstract}}
+{{#link-to 'countries.regions.region' region.countryWebPath region.webPath class='pull-left'}}
+{{link/region/region-image-first data=region}}
+{{/link-to}}
+
+<div class="clearfix visible-sm"></div>
+<div class="media-body fnt-smaller">
+    <h3 class="media-heading">
+        {{#if (cond perspective '==' 'search')}}
+        {{t "nav.region"}}
+        {{/if}}
+        {{#link-to 'countries.regions.region' region.countryWebPath region.webPath}}{{region.name}}{{/link-to}}
+        {{#if (cond perspective 'in' 'all,grade,grape,search')}}
+            &rarr;
+            {{link/to-country-link data=region}}
+       {{/if}}
+    </h3>
+    <h4>
+    {{#if region.description}}{{t "field.description"}} {{region.description}}<br/>{{/if}}
+
+    {{#if (cond region.nbWineries '>' 0)}}
+        {{snippet/badge-snippet 
+        color-class='label-success'
+        value=region.nbWineries
+        }}
+        <b>{{t "sentence.wineries-registered"}}</b>
+    {{else}}
+        {{#layout/sentence/sentence-no-result}}
+            {{t "sentence.no-winery-register-yet"}}
+        {{/layout/sentence/sentence-no-result}}
+    {{/if}}
+    <br/><br/>
+    {{#if region.appellationNames }}
+        {{#if (cond region.nbOfAppellations '>' 0)}}
+            {{snippet/badge-snippet 
+            color-class='label-success'
+            value=region.nbOfAppellations
+            }}
+        {{/if}}
+        <b>{{t "sentence.appellation-registered"}}</b>  
+        {{link/appellation-token-link appellations=region.appellations}}
+    {{else}}
+        {{#layout/sentence/sentence-no-result}}
+            {{t "sentence.no-appellation-registered-yet"}}
+        {{/layout/sentence/sentence-no-result}}
+    {{/if}}
+    <br/><br/>
+    {{#if region.cepageNames}}
+            {{#if (cond region.nbRegionCepages '>' 0)}}
+            {{snippet/badge-snippet 
+            color-class='label-success'
+            value=region.nbRegionCepages
+            }}
+        {{/if}}
+    {{label/grape/grape-main-label cepages=region.cepages}}
+    {{/if}}
+    <br/>
+{{!-- 
+    {{#if region.wineryCepageNames}}
+    {{t "nav.grapes"}}: {{link/cepage-token-link cepages=region.wineryCepages}}
+    <br/>
+    {{/if}}
+    --}}
+    </h4>
+</div>
+{{/layout/card/layout-card-abstract}}

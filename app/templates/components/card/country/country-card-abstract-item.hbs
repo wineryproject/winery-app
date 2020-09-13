@@ -1,0 +1,47 @@
+{{!-- country-card-abstract-item --}}
+{{#layout/card/layout-card-abstract}}
+
+{{#link-to 'countries.country' data.webPath class='pull-left'}}
+    {{link/country/country-image-link data=data }} {{data?}}
+{{/link-to}}
+
+<div class="media-body fnt-smaller">
+    <h3 class="media-heading"><!-- class="media-heading"-->
+        {{#link-to 'countries.country' data.webPath}}
+            {{#if (cond perspective '==' 'search')}}
+            {{t "nav.country"}} {{data.name}}
+            {{else}}
+            {{i18n-default (t (i18n-ref 'ref-data.country-' data.webPath)) data.name}}
+            {{/if}}
+            {{!--t (i18n-ref 'ref-data.country-' data.name) does not work in autonomous--}}
+            {{snippet/flag-icon flagIcon=data.flagIcon size='48'}}
+        {{/link-to}}
+    </h3>
+    <h4>
+         {{#if (cond data.nbOfRegions '>' 0)}}
+            {{snippet/badge-snippet 
+            color-class='label-success'
+            value=data.nbOfRegions
+            }}
+            <b>{{t "nav.regions"}}</b>
+            <br/><br/>
+        {{/if}}   
+        
+                {{!--duplicate badge count appellation on region-card-abstract--}}
+        {{#if (cond data.nbOfAppellations '>' 0)}}
+            {{snippet/badge-snippet 
+            color-class='label-success'
+            value=data.nbOfAppellations
+            }}
+            <b>{{t "sentence.appellation-registered"}}</b>
+            <br/><br/>
+        {{else}}
+        {{#layout/sentence/sentence-no-result}}
+            {{t "sentence.no-appellation-registered-yet"}}
+        {{/layout/sentence/sentence-no-result}}
+        <br/>
+        {{/if}}
+    </h4>
+</div>
+
+{{/layout/card/layout-card-abstract}}

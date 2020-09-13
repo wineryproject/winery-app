@@ -1,0 +1,30 @@
+{{!--info/images-info.hbs--}}
+{{!-->>pagination '{{pagination}}'--}}
+{{!--use https://idangero.us/swiper/demos/310-thumbs-gallery-loop.html--}}
+<div style=" height:180px; width: 280px;">
+{{#swiper-container pagination=pagination loop=true}} {{!-- size='height: 180px' --}}
+{{#each data as |imageInfo index|}}
+    {{#swiper-slide}}
+    <div style="height:180px; width: 280px;">
+    {{!--link/image-author-link 
+        entity=imageInfo.entity
+        data=imageInfo
+    --}}
+
+
+        <img alt="{{imageInfo.name}}" height="180" width="280"
+        src="{{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg">     
+    {{!-- 
+    <h1>
+        {{info/image-info data=imageInfo}}
+    </h1>
+
+--}}
+    </div>
+{{!--
+    {{link/country/country-image-first data=data.country}}
+--}}
+    {{/swiper-slide}}
+{{/each}}
+{{/swiper-container}}
+</div>

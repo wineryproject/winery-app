@@ -1,0 +1,25 @@
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}
+    <div class="col-sm-12">
+        <h2>{{t "nav.products"}} 
+{{#if (cond products.length '>' 0)}}    
+{{snippet/badge-snippet color-class='label-success' value=products.length}}
+{{/if}}
+        </h2>
+    </div>
+{{/if}}
+{{!--#if (gt products.length 0)--}}  
+{{#if productAbstract.color}}  
+{{card/wine/wine-card-list 
+    products=products 
+    productAbstract=productAbstract 
+    forwardFromWineCardList="setWineCardTabListFilter"}}
+{{else}}
+<br/>
+{{#layout/sentence/sentence-no-result}}
+    {{t "sentence.no-product-register-yet"}}
+{{/layout/sentence/sentence-no-result}}
+<br/>
+    {{#link-to "feedback" (query-params origin="missing-wine")}}{{t "sentence.if-it-misses-one-drop-feedback"}}{{/link-to}}
+{{/if}}
+</div>

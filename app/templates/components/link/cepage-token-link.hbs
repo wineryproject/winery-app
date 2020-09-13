@@ -1,0 +1,13 @@
+{{!-- link/cepage-token-link--}} 
+{{#each cepages as |cepage|}}
+{{!-- used on product item --}}
+{{#if cepage.grade}}
+{{#link-to 'grapes.grape' (format-to-web-path cepage.grade)}}{{cepage.grade}}{{/link-to}}{{#if (eq cepage cepages.lastObject)}}.{{else}}, {{/if}} 
+{{else}}
+{{!-- used on card : overview, abstract--}}
+{{#link-to 'grapes.grape' (format-to-web-path cepage)}}{{cepage}}{{/link-to}}{{#if (eq cepage cepages.lastObject)}}.{{else}}, {{/if}} 
+{{/if}}
+{{/each}}
+{{#if showPercent}}
+{{#if (eq cepages.length 1)}} 100% {{/if}}
+{{/if}}

@@ -1,0 +1,26 @@
+{{#if appellation.composition}}
+{{#if displayLabel}}
+{{#if appellation.anyGrape}}
+{{t "sentence.made-by-any-of-following-grapes"}}<br/>
+{{else}}
+{{t "field.assembly"}}<br/>
+{{/if}}
+{{/if}}
+{{#if appellation.anyGrape}}
+{{#each appellation.composition as |element|}} 
+{{#link-to 'grapes.grape' element.webPath}}{{element.grade}}{{/link-to}}{{!--migrate to webpath--}}
+<br/>
+{{/each}}
+{{else}}
+{{#each appellation.composition as |element|}} 
+{{element.percent}}% 
+{{#link-to 'grapes.grape' element.webPath}}{{element.grade}}{{/link-to}}{{!--migrate to webpath--}}
+{{#if (cond element.operator '==' 'MAX_OPTIONAL')}}max (optional){{/if}}
+{{#if (cond element.operator '==' 'MAX')}}max{{/if}}
+{{#if (cond element.operator '==' 'MIN')}}min{{/if}}
+{{#if (cond element.operator '==' 'MIN_OPTIONAL')}}min (optional){{/if}}
+{{#if (cond element.operator '==' 'MIN_MANDATORY')}}min (mandatory){{/if}}
+<br/>
+{{/each}}
+{{/if}}
+{{/if}}

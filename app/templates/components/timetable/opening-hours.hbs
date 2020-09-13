@@ -1,0 +1,19 @@
+{{! timetable/opening-hours}}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>{{t "field.day"}}</th>
+            <th>{{t "field.from"}}</th>
+            <th>{{t "field.to"}}</th>
+        </tr>
+    </thead> 
+    <tbody>
+        {{#each data.openingHours as |openingHour index|}}
+        <tr>
+            <td>{{t (i18n-ref 'ref-data.day-' openingHour.weekDay)}} {{t (i18n-ref 'ref-data.day-' openingHour.dayMeridium)}}</td>
+            <td>{{openingHour.timeStartHour}}.{{openingHour.timeStartMinute}}</td>
+            <td>{{openingHour.timeEndHour}}.{{openingHour.timeEndMinute}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

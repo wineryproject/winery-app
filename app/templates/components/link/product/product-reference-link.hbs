@@ -1,0 +1,7 @@
+{{#if winery.hasLogo}}
+    {{link/logo-link entity="winery" entityId=winery.id entityWebPath=winery.webPath width=100}}{{!--logo should be square or fix width--}}
+{{/if}}
+{{#link-to 'wineries.winery' winery.webPath }}{{winery.domain}}{{/link-to}}
+&rarr;&nbsp;{{#link-to 'countries.regions.region' winery.countryWebPath winery.regionWebPath}}{{winery.region}}{{/link-to}}&nbsp;
+{{#link-to 'countries.country' winery.countryWebPath}}{{t (i18n-ref 'ref-data.country-' winery.country)}}&nbsp;{{snippet/flag-icon flagIcon=winery.countryFlagIcon size='48'}}{{/link-to}}
+

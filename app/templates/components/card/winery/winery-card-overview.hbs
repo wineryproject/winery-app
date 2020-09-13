@@ -1,0 +1,344 @@
+{{snippet/social-network-snippet title=data.winery.domain addCode=true addPdf=true}}
+{{#layout/container/index-layout-container}}
+<div class="row">
+    <div class="col-md-12">
+        <h1 style="display: inline">
+            {{#if data.winery.hasLogo}}
+                {{link/logo-link entity="winery" entityId=data.winery.id entityWebPath=data.winery.webPath width=100}}{{!--logo should be square or fix width--}}
+            {{/if}}           
+            {{data.winery.domain}} 
+        </h1>
+        <h3 style="display: inline">&nbsp;&rarr;&nbsp;
+            {{#link-to 'countries.regions.region' data.winery.countryWebPath data.winery.regionWebPath}}{{data.winery.region}}{{/link-to}}&nbsp;
+            {{#link-to 'countries.country' data.winery.countryWebPath}}{{t (i18n-ref 'ref-data.country-' data.winery.country)}}&nbsp;{{snippet/flag-icon flagIcon=data.winery.countryFlagIcon size=48}}{{/link-to}}
+        </h3>
+
+    </div>
+    <div class="col-md-12">
+        {{#if data.winery.since}}
+            <h3>
+                {{t "field.since"}} {{data.winery.since}}
+            </h3>
+        {{/if}}
+        <h5>
+            {{snippet/description-panel-snippet data=data.winery i18n="field.winery"}}
+        </h5>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>
+                {{snippet/address-snippet showPhones=true data=data.winery}}
+            </h4>
+            {{!-- map --}}
+            {{#if data.winery.latitude}}
+            <div>
+                    {{!-- google-maps g-map  //FREE-ACCESS-WINERY 3 --}}
+                {{#g-map lat=data.winery.latitude lng=data.winery.longitude zoom=8 as |context|}}
+                    {{#g-map-marker context lat=data.winery.latitude lng=data.winery.longitude 
+                        title=data.winery.name message=data.winery.name as |markerContext|}}
+                        {{#g-map-infowindow markerContext}}
+                        <h5>{{data.winery.domain}}</h5>
+                        {{/g-map-infowindow}}
+                    {{/g-map-marker}}
+                {{/g-map}}
+                    
+            </div>
+            {{/if}}
+{{!--TODO refactor tags 
+    {{#if data.winery.tags}}
+        {{#snippet/panel-snippet heading=(t "field.tags") class="fa fa-tags" }}
+            {{snippet/tag-snippet tags=data.winery.tags}}
+        {{/snippet/panel-snippet}}
+    {{/if}}
+    --}}
+        </div>
+
+        <div class="col-md-6">
+
+            {{#if data.winery.nbOfHectars}}
+                <h4 class="btm-mrg-10">{{t "field.nbOfHectars"}}
+                    {{snippet/badge-snippet value=data.winery.nbOfHectars color-class='label-success'}}
+                </h4>
+            {{/if}}
+            {{!-- is bio, since, certified --}}
+            {{#if data.winery.isBio}}
+                <h5>
+                    <i class="fa fa-leaf fa-2x bio-color"></i>
+                    {{t "field.bio"}} 
+                    {{#if data.winery.isBioSinceYear}}
+                        {{t "field.since"}} {{moment-from-now data.winery.isBioSinceDate locale=locale}} ({{data.winery.isBioSinceYear}}) 
+                    {{/if}}
+                    {{#if data.winery.certifiedBioYear}}
+                        {{t "field.certified"}} {{moment-from-now data.winery.certifiedBioDate locale=locale}} ({{data.winery.certifiedBioYear}})
+                    {{/if}}
+                </h5>
+            {{/if}}
+
+            {{!-- is biodynamic, since, certified --}}
+            {{#if data.winery.isBioDynamic}}
+                <h5>
+                    <i class="fa fa-leaf fa-2x bio-color"></i>
+                    <i class="fa fa-leaf fa-2x bio-color"></i>
+                    {{t "field.bio-dynamic"}} 
+                    {{#if data.winery.isBioDynamicSinceYear}}
+                        {{t "field.since"}} {{moment-from-now data.winery.isBioDynamicSinceDate locale=locale}} ({{data.winery.isBioDynamicSinceYear}}) 
+                    {{/if}}
+                    {{#if data.winery.certifiedBioDynamicYear}}
+                        {{t "field.certified"}} {{moment-from-now data.winery.certifiedBioDynamicDate locale=locale}} ({{data.winery.certifiedBioDynamicYear}})
+                    {{/if}}
+                </h5>
+            {{/if}}
+
+            {{#if data.winery.plantationDensityPerHectar}}
+                <h5>
+                    {{t "field.plantation-density-per-ha"}} 
+                    {{data.winery.plantationDensityPerHectar}}
+                </h5>
+            {{/if}}
+
+            {{#if data.winery.orientation}}
+                <h5>
+                    {{t "field.orientation"}} 
+                    {{data.winery.orientation}}
+                </h5>
+            {{/if}}
+            {{!-- production nb_BOTTLES --}}
+            {{!-- output --}}
+
+            {{!-- harvesting type --}}
+
+
+            {{!-- climat, soil, orientation --}}
+
+
+            {{#if data.winery.cepages}}
+                <h4>{{t "field.cepages"}} 
+                    {{snippet/badge-snippet value=data.winery.cepages.length color-class='label-success'}}
+                </h4>
+                <h5 class="btm-mrg-10">
+                    {{link/cepage-token-link cepages=data.winery.cepages}}
+                </h5>
+            {{/if}}
+
+            {{!-- appellations of the winery not of the products --}}
+            {{#if (cond data.winery.appellationDetails.length '>' 0)}}
+                <h4>{{t "nav.appellations"}}
+                {{!-- can be confusing since it is distinct number of appellation
+                {{snippet/badge-snippet value=data.winery.appellationDetails.length color-class='label-success'}}
+                --}}
+                </h4>
+                {{#each data.winery.appellationDetails as |appellationDetail|}}
+                    {{#if appellationDetail.name}}
+                        <h5 class="btm-mrg-10">
+                            {{snippet/badge-snippet 
+                                color=appellationDetail.colorRgb 
+                                textColor=(color-background appellationDetail.colorName)
+                                value=(i18n-default (t (i18n-ref 'ref-data.color-' appellationDetail.colorName)) appellationDetail.colorName)
+                            }}
+                            {{snippet/badge-snippet 
+                                color-class='label-default' 
+                                value=appellationDetail.acronym}}               
+                            {{#link-to 'appellations.appellation' appellationDetail.webPath}}
+                                {{appellationDetail.name}}
+                            {{/link-to}}
+                        </h5>
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+            {{#if (cond data.products.length '>' 0)}}
+                <h4 class="btm-mrg-10">{{t "nav.products"}} 
+                {{snippet/badge-snippet value=data.products.length color-class='label-success'}}
+                {{#if data.winery.hasPriceRange}}
+                    {{#if data.winery.priceMin}}
+                    {{t "field.from"}} {{data.winery.priceMin}} &euro; 
+                    {{/if}}
+                    {{#if data.winery.priceMax}}
+                        {{t "field.to"}} {{data.winery.priceMax}} &euro;
+                    {{/if}}
+                {{/if}}
+                </h4>
+            {{/if}}
+
+            {{#if data.winery.hasTechnicalSheet}}
+                <h4>
+                    {{i18n-default (t "field.partical-info") "Informations pratiques"}}
+                    {{#link/technical-sheet-link entity="winery" entityId=data.winery.id entityWebPath=data.winery.webPath}}{{/link/technical-sheet-link}}
+                </h4>
+            {{/if}}
+            {{#if data.winery.hasPriceList}}
+                <h4>
+                    {{i18n-default (t "field.price-list") "Liste des prix"}}
+                    {{#link/pdf-artifact-link entity="winery" entityId=data.winery.id entityWebPath=data.winery.webPath artifact="price_list"}}{{/link/pdf-artifact-link}}
+                </h4>
+            {{/if}}
+
+            {{!--links --}}
+            {{#if (or data.winery.websiteUrl data.winery.contactMail) }}
+                    <ul class="list-inline mrg-0 btm-mrg-10">
+                {{#if data.winery.websiteUrl}}
+                        <li>
+                            {{snippet/website-icon-snippet website=data.winery.websiteUrl}}
+                            {{!--<a href="{{data.winery.websiteUrl}}" rel="noopener" target="_blank"><i class="fa fa-external-link"/> {{data.winery.websiteUrl}} </a>--}}
+                        </li>
+                {{/if}}
+                {{#if data.winery.contactMail}}
+                        <li>
+                            {{snippet/email-icon-snippet email=data.winery.contactMail}}
+                        </li>
+                {{/if}}
+                    </ul>
+            {{/if}}
+            {{!-- social network --}}
+            {{#if (gt data.winery.socialNetworkDetails.length 0)}}  
+                    <ul class="list-inline mrg-0 btm-mrg-10">
+                {{#each data.winery.socialNetworkDetails as |item index|}}
+                        <li>
+                            <a href='{{item.link}}' target="_blank" rel="noopener">
+                                <i class="{{social-network-class item.socialNetworkName}}"></i>
+                            </a>
+                        </li>
+                {{/each}}
+                    </ul>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel-group">
+            {{#if data.winery.labelDetails}}
+                <br/>
+                <ul class="list-inline">
+                    {{#each data.winery.labelDetails as |label|}}
+                        <li>
+                            {{link/logo-link entity="label" entityId=label.id entityWebPath=label.webPath width=80}}
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+            {{#if (not-eq environment "production")}}
+                {{#if data.winery.hasGuestHouse}}
+                    {{#snippet/panel-snippet heading=(t "field.hosting-facilities") }}
+                        {{snippet/validation-check-success valid=data.winery.hasGuestHouse}}<br/>
+                    {{/snippet/panel-snippet}}
+                {{/if}}
+            {{/if}}
+            {{!-- image carousel --}}
+            {{!-- //FREE-ACCESS-WINERY 2 remove carousel --}}
+            {{#if (gt data.images.length 0)}}
+                {{#snippet/panel-snippet heading=(t "field.images") class="fa fa-file-photo-o"}}
+                    {{snippet/swiper-snippet data=data.images}}
+                {{/snippet/panel-snippet}}
+            {{/if}}
+
+            {{#if data.winery.hasVisitTimetable}}
+                <b>{{t "field.visit-hours"}}</b> {{snippet/validation-check-success valid=data.winery.hasVisitTimetable}}<br/>
+                {{timetable/opening-hours data=data}}
+            {{/if}}
+
+{{!-- 
+            {{#if data.winery.labelDetails}}
+                {{#snippet/panel-snippet heading=(t "field.labels") class="fa fa-ribbon" }}
+                <ul class="list-unstyled">
+                    {{#each data.winery.labelDetails as |label|}}
+                        {{snippet/logo-snippet label=label}}
+                    {{/each}}
+                </ul>
+                {{/snippet/panel-snippet}}
+            {{/if}}
+--}}
+        {{!--TODO refactor tags --}}
+            {{#if data.winery.tags}}
+            <br/>
+                {{#snippet/panel-snippet heading=(t "field.tags") class="fa fa-tags" }}
+                    {{snippet/tag-snippet tags=data.winery.tags}}
+                {{/snippet/panel-snippet}}
+            {{/if}}
+
+        {{!-- //FREE-ACCESS-WINERY 2 remove code --}}
+            {{#if (not-eq environment "production")}}
+                {{#snippet/panel-snippet heading=(t "nav.code") class="fa fa-code"}}
+                    {{#link-to 'code' (query-params origin=origin entityValue=data.winery.domain entity=(t "field.winery"))}}{{t "sentence.access-code-material"}}{{/link-to}}
+                {{/snippet/panel-snippet}}
+            {{/if}}
+        </div>
+    </div>
+</div>  
+
+{{#if data.winery.pictureSymlinkCore}}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="pad-10  btm-mrg-20 overview"> {{!--brdr box-shad--}}
+            <div class="media pull-left">
+                <a href="#" target="_parent">
+                    {{#if data.winery.pictureSymlinkCore}}
+                        <div class="pull-left" >
+                            {{link/winery/winery-image-link data=data.winery}}
+                        </div>
+                    {{/if}}
+                </a> 
+            
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<ul class="nav nav-pills">
+        <li class="{{tabProducts}}"><a data-toggle="tab" href="#wines-pill"><h4>{{pill-title (t "field.wines") data.products.length}}</h4></a></li>
+    {{#if (gt data.productItemPrices.length 0)}}    
+        <li class="{{tabProductItemPrice}}"><a data-toggle="tab" href="#product-list-pill"><h4>{{pill-title (t "nav.products") data.productItemPrices.length}}</h4></a></li>
+    {{/if}}
+    {{#if (gt data.events.length 0)}}
+        <li class="{{tabEvent}}"><a data-toggle="tab" href="#event-list-pill"><h4>{{pill-title (t "nav.events") data.events.length}}</h4></a></li>
+    {{/if}}
+</ul>
+<div class="tab-content">
+    <div id="wines-pill" class="tab-pane fade in {{tabProducts}}">
+        {{card/wine/wine-card-tab-list 
+            products=data.products 
+            productAbstract=data.productAbstract 
+            perspective='winery' 
+            setWineryOverviewFilter="setWineryOverviewFilter"
+            addTitle="false"}}
+    </div>
+    {{#if (gt data.productItemPrices.length 0)}}    
+        <div id="product-list-pill" class="tab-pane fade in {{tabProductItemPrice}}">
+            {{!-- TODO from winery perspective --}}
+            <br/>
+                {{card/event/event-wine-card-list 
+                    data=data 
+                    products=data.productItemPrices
+                    domainId=data.winery.id
+                    perspective='winery' 
+                    addTitle="false"
+                    priceType="winery"
+                    showFilter=false
+                    showSorter=false
+                    showPurchaseOrder=data.winery.purchaseOrderEnabled
+                    setEventWineFilter="forwardToEventCardOverview"}}
+
+            {{!-- shipping cost--}}    
+            <br/>
+                {{card/shipping-cost/shipping-cost-card-list data=data}}   
+        </div>
+    {{/if}}
+    {{#if (gt data.events.length 0)}}
+        <div id="event-list-pill" class="tab-pane fade in {{tabEvent}}">
+            {{#each data.events as |item index|}}
+            <div class="col-sm-6">
+                {{card/event/event-card-abstract 
+                    eventWebPath=item.eventWebPath 
+                    data=item 
+                    autonomous=true}}
+            </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+
+{{/layout/container/index-layout-container}}

@@ -1,0 +1,18 @@
+
+{{!-- fragment from searchFT + image --}}
+{{!-- TODO add since--}}
+{{!-- TODO add contactPostCode--}}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{#link-to 'wineries.winery' data.webPath}}{{data.domain}}{{/link-to}}</h1> {{!--domainId--}}
+        <p>{{data.country}} {{data.region}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+{{!-- winery-card-abstract-item --}}
+{{card/winery/winery-card-abstract-item data=data}}
+
+    </div>
+</div>

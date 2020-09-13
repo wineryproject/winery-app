@@ -1,0 +1,32 @@
+{{!--vintage-card-list --}}
+{{#if (cond vintages.length '>' 0)}}
+{{#if (cond addTitle '!=' 'false')}}    
+<h3 class="panel-title">{{t "nav.vintages"}}</h3>
+{{/if}}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>{{t "field.year"}}</th>
+            <th>{{t "field.price"}}</th>
+        </tr>
+    </thead>
+    <tbody>
+{{#each vintages as |vintage index|}}
+    {{card/vintage/vintage-card-item data=vintage open=modal forwardToModal="toModal"}}
+{{/each}}
+    </tbody>
+</table>
+{{/if}}
+
+{{modal/product-quantity-picker 
+    modal=modal
+    modalQuantity=modalQuantity
+    modalProductItemId=modalProductItemId
+    modalProductId=modalProductId
+    modalWineryId=modalWineryId
+    modalProductWebPath=modalProductWebPath
+    modalWineryWebPath=modalWineryWebPath
+    modalPriceType='winery'
+    modalDisplayPrice=modalDisplayPrice
+    modalCurrencyName=modalCurrencyName
+}}

@@ -1,0 +1,227 @@
+{{!-- TODO rename event-wine-card-list to product-wine-card-list --}}
+{{#if     
+    (or 
+        (cond perspective 'in' 'event,event-winery')
+        (and 
+            (not-eq perspective 'event')
+            (eq products.0.wineryId domainId)
+        )
+    )
+}} 
+    {{!-- 
+    show is computed early so does not work with ember concurrency 
+    --}}
+    {{!-- 
+    TUTO nasty fix to prevent list been rendered in multiple similar component 
+    Check that list element really belong to the instance of the component
+    --}}
+    {{#if showFilter}}
+        <div class="col-sm-12"> 
+            {{search/product-filters
+                data=data.productAbstract 
+                setWineCardProductFilter="forwardToEventCardOverview"
+                perspective="event"}}
+
+                {{!-- 
+            {{#if (gt products.length 1)}}
+            {{search/product-sorters 
+                data=data.productAbstract.order 
+                setWineCardProductSorter="forwardToEventCardOverviewSorter"
+                perspective="event"}}
+            {{/if}}
+            --}}
+        </div>
+    {{/if}}
+    {{#if (gt products.length 0)}}
+        {{!-- http://jsfiddle.net/TLAV8/ --}}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+        {{#if (and (cond perspective 'in' 'event,event-winery') (eq showLogo true))}}
+                    <th>
+                        {{!-- -1. logo --}}
+                    </th>
+        {{/if}}
+                    <th style="width:6em">
+                        {{!-- -2. year --}}
+                        {{snippet/field-sorter-snippet show=showSorter name=(t "field.year") order=data.productAbstract.order key='year' setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>
+                    <th>
+                        {{!-- -3. product --}}
+                        {{t "field.product"}}
+                    </th>
+        {{#if (and (cond perspective 'in' 'event,event-winery') (eq showOrigin true))}}
+                    <th>
+                        {{!-- -4. origin --}}
+                        {{snippet/field-sorter-snippet show=showSorter name=(t "field.origin") order=data.productAbstract.order key='winery' setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>
+        {{/if}}
+                    <th>
+                        {{!-- caracteristics --}}
+                        {{t "field.caracteristics"}}
+                    </th>
+                    <th>
+                        {{!-- format --}}
+                        {{t "field.format"}}
+                    </th>
+
+                    {{!-- price --}}
+        {{#if (eq perspective 'event')}} {{!-- to replace by showEventPrice showEventPresalePrice show --}}
+                    <th colspan="3">
+                        {{!-- price 3 col--}}
+                        {{t "field.price"}}
+                    </th>
+        {{else if (cond perspective 'in' 'search,winery,region,appellation,grape')}}
+                    <th>
+                        {{t "field.price"}}
+                    </th>
+        {{else if (eq perspective 'event-winery')}}
+        {{!TODO check if in presale condition maybe not that interessing to see delta with winery}}
+                    <th class="col-sm-1 col-md-1">
+                        {{snippet/field-sorter-snippet 
+                            show=showSorter 
+                            name=(t "field.event-price") 
+                            order=data.productAbstract.order 
+                            key='event-price' 
+                            setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>
+        {{/if}}    
+
+
+        {{#if showCustomerQuantity}}      
+                    <th class="col-sm-1 col-md-1">
+                        {{!-- quantity --}}
+                        {{t "field.quantity"}}
+                    </th>
+
+                    <th class="col-sm-1 col-md-1">
+                        {{!-- total --}}
+                        {{t "field.total"}}
+                    </th>
+        {{else if showPurchaseOrder}}
+                    <th class="no-print col-sm-1 col-md-1">
+                        {{!-- shopping-cart --}}
+                    </th>
+        {{/if}}
+                </tr>
+
+        {{!-- sub header for prices --}}        
+        {{#if (and (cond perspective 'in' 'event,event-winery') (eq showPricesRow true))}}
+                <tr>
+                    <th>
+                        {{!-- logo --}}
+                    </th>
+                    <th>
+                        {{!-- year --}}
+                    </th>
+                    <th>
+                        {{!-- product --}}
+                    </th>
+                    <th>{{!-- origin --}}
+                    </th>
+                    <th>{{!-- caracteristics --}}
+                    </th>
+                    <th>{{!-- format --}}
+                    </th>
+                    <th> 
+                        {{snippet/field-sorter-snippet show=showSorter name=(t "field.event-price") order=data.productAbstract.order key='event-price' setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>
+                    <th> 
+                        {{snippet/field-sorter-snippet show=showSorter name=(t "field.pre-order-price") order=data.productAbstract.order key='pre-order-price' setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>
+                    <th> 
+                        {{snippet/field-sorter-snippet show=showSorter name=(t "field.winery") order=data.productAbstract.order key='winery-price' setWineCardProductSorter="forwardToEventCardOverviewSorter"}}
+                    </th>   
+        {{#if showCustomerQuantity}} {{!-- for winery-event --}}
+
+                    <th colspan="2"> 
+                        {{!-- quantity colx2 --}}
+                    </th>
+        {{else if showPurchaseOrder}}
+                    <th class="no-print">
+                        {{!-- compute price normally not used here--}}
+                    </th>
+        {{/if}}
+                </tr>
+        {{/if}}
+            </thead>
+            <tbody>
+        {{#each products as |product index|}}
+            {{card/event/event-wine-card-item 
+                product=product 
+                hasPurchaseOrder=data.event.hasPurchaseOrder
+                perspective=perspective
+                addTitle="false" 
+                open=modal 
+                showLogo=showLogo
+                showOrigin=showOrigin
+                showEventPrice=showEventPrice
+                showEventPresalePrice=showEventPresalePrice
+                showWineryPrice=showWineryPrice
+                showPurchaseOrder=showPurchaseOrder
+                showCustomerQuantity=showCustomerQuantity
+                isEditableEventPrice=isEditableEventPrice
+                isEditableCustomerQuantity=isEditableCustomerQuantity
+                forwardToModal="toModal"}}
+        {{/each}}
+            </tbody>
+        </table>
+        {{#if showCustomerQuantity}}
+        {{#if totalPrice}}
+        <div class="btn btn-primary pull-right">
+            <b>{{t "field.total"}} {{totalPriceDisplay}} &euro;</b>
+        </div>
+        <br/>
+        {{/if}}
+        {{/if}}
+        {{!--or load from cart at on init or on display--}}
+        {{!//TODO MODAL-WITH-OBJECT to refactor}}
+        {{modal/product-quantity-picker 
+            modal=modal
+            modalQuantity=modalQuantity
+            modalProductItemId=modalProductItemId
+            modalProductId=modalProductId
+            modalWineryId=modalWineryId
+            modalProductWebPath=modalProductWebPath
+            modalWineryWebPath=modalWineryWebPath
+            modalPriceType=modalPriceType
+            modalEventId=modalEventId
+            modalDisplayPrice=modalDisplayPrice
+            modalCurrencyName=modalCurrencyName
+        }}
+    {{else}}
+        {{#layout/sentence/sentence-no-result}}
+            {{t "sentence.no-product-at-event"}}
+        {{/layout/sentence/sentence-no-result}}
+        <br/>
+        {{#if (eq locale 'fr')}}
+            <h3 class="w-feature">Le vignoble peut ajouter les products en vente à l'événement et ainsi</h3>
+            <h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Améliorer la visibilité et la vente (prix des bouteilles en pré-vente et à l'événement)</li>
+                    <li class="list-group-item">Ouvrir la prévente aux futurs clients (Le client commande à l'avance puis paye et recupère le colis)</li>
+                    <li class="list-group-item">Afficher les slides des produits</li>
+                    <li class="list-group-item">Imprimer et partager sur les réseaux sociaux</li>
+                </ul>
+            </h4>
+
+        {{else}}
+            <h3 class="w-feature">The winery can add products for this event in order to</h3>
+            <h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Improve winery visibility and share sale info (bottle price at event, in presale)</li>
+                    <li class="list-group-item">Recieve presale notification (the client can order in presale then pays and collect the parcel at the event)</li>
+                    <li class="list-group-item">Display slides of products</li>
+                    <li class="list-group-item">Print or share on social networks</li>
+                </ul>
+            </h4>
+        {{/if}}
+
+        {{#link-to 'features.winery'}}
+            <i class="fa fa-certificate" style="color:orange"></i>
+            {{t 'sentence.winery-event-features'}}
+        {{/link-to}}
+                
+    {{/if}}
+
+{{/if}}

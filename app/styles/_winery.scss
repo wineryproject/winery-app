@@ -1,0 +1,460 @@
+/*
+* image caption
+*/
+/* Container holding the image and the text */
+@import "abstracts/variables";
+
+.img-caption-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+/* Bottom left text */
+.img-caption-author-container {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+.img-caption-author {
+    position: relative;
+    bottom: 20px;
+    left: 0px;
+    //padding: 15px;
+    width: 100%;
+}
+
+.img-caption-bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+
+/* Top left text */
+.img-caption-top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+/* Top right text */
+.img-caption-top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+/* Bottom right text */
+.img-caption-bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+/* Centered text */
+.img-caption-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+//image
+.img-caption-container>img{display:block;height:auto;width:100%;position:relative;box-shadow:0 1px 3px rgba(0,0,30,.3);cursor:pointer;background:linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef),linear-gradient(45deg,#efefef 25%,transparent 25%,transparent 75%,#efefef 75%,#efefef);background-position:0 0,10px 10px;background-color:#fff;background-size:21px 21px}
+.img-caption-container h1
+{
+    margin-top: 0px;
+    position:absolute;top:0;left:0;right:0;opacity:0;z-index:100;text-align:left;font-size:16px;text-transform:capitalize;transition:.3s;background:linear-gradient(to bottom,rgba(0,0,0,.5) 0,rgba(0,0,0,0) 100%);height:46px;line-height:46px;overflow:hidden;padding:0 10px;}
+.img-caption-container h1 span{float:right;display:inline-block;padding:9px 8px 5px 10px;background:rgba(0,0,0,.5);line-height:1;border-radius:30px;cursor:pointer;opacity:.8;margin:7px 0 0 15px}
+.img-caption-container h1 span:hover{opacity:1}
+.img-caption-container:hover h1,#media_container.init h1{opacity:1}
+.img-caption-container h1 a{color:#fff;padding:4px;border-radius:2px;text-decoration:none;transition:.3s}
+.img-caption-container h1 a:hover{color:#fff;background:rgba(255,255,255,.3)}
+.img-caption-container h1 a.award{padding:3px 5px}
+
+//my masonry
+//*, *:before, *:after {box-sizing:  border-box !important;}
+
+
+.row-masonry {
+ -moz-column-width: 18em;
+ -webkit-column-width: 18em;
+ -moz-column-gap: 1em;
+ -webkit-column-gap:1em; 
+  
+}
+
+.item-masonry {
+ display: inline-block;
+ padding:  .25rem;
+ width:  100%; 
+}
+
+.well-masonry {
+ position:relative;
+ display: block;
+}
+
+/*
+* end image caption
+*/
+
+.card-label {
+    font-weight: bold;
+}
+
+
+/**** LAYOUT ****/
+.list-inline>li {
+    padding: 0 10px 0 0;
+}
+.container-pad {
+    padding: 30px 15px;
+}
+
+/**** MODULE ****/
+.box-shad {
+    -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+    box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+}
+.brdr {
+    border: 1px solid #ededed;
+}
+
+/* Font changes */
+.fnt-medium {
+    font-size: 1.53em;
+}
+.fnt-smaller {
+    font-size: .9em;
+}
+.fnt-lighter {
+    color: #bbb;
+}
+
+/* Padding - Margins */
+.pad-10 {
+    padding: 10px!important;
+}
+.mrg-0 {
+    margin: 0!important;
+}
+.btm-mrg-10 {
+    margin-bottom: 10px!important;
+}
+.btm-mrg-20 {
+    margin-bottom: 20px!important;
+}
+
+/* Color  */
+.clr-535353 {
+    color: #535353;
+}
+
+/* CARDS */
+.w-card:hover {
+    background-color: $color-hover;
+    //padding: 4px;
+}
+
+/**** MEDIA QUERIES ****/
+@media only screen and (max-width: $media-sizebig-pixel) {
+    #property-listings .property-listing {
+        padding: 5px!important;
+    }
+    #property-listings .property-listing a {
+        margin: 0;
+    }
+    #property-listings .property-listing .media-body {
+        padding: 10px;
+    }
+}
+
+@media only screen and (min-width: $media-sizebig-plus-one-pixel) {
+    #property-listings .property-listing img {
+        max-width: 300px;
+    }
+
+    #property-listings .overview img {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: $media-sizebig-pixel) {
+    .w-badge{
+        //font-size: 20px; 
+        padding: 4px;
+    }
+}
+
+// badge
+.badge-notify{
+   //background:red;
+   position:relative;
+   top: 10px;
+   left: -10px;
+}
+
+.w-badge-danger {
+    background:$bs-danger-color;
+}
+
+.w-badge-info {
+    background:$bs-danger-info;
+}
+
+@media (max-width: $media-sizebig-pixel) {
+    .w-card-title{padding-bottom: 10px;}
+}
+
+@mixin font-face($name) {
+  @font-face {
+    font-family: $name;
+    src:  url("fonts/#{$name}.eot?") format("eot"),
+	  url("fonts/#{$name}.woff2") format("woff2"),
+	  url("fonts/#{$name}.woff") format("woff");
+  }
+}
+
+// custom fonts https://discuss.emberjs.com/t/how-to-add-a-custom-font/11169/4
+//@include font-face('your-font-name');
+/*
+body {
+    font-family: 'your-font-name';
+}
+*/
+@include font-face('winyicon');
+
+.wicon {
+	//line-height: 1;
+}
+
+.wicon:before {
+	font-family: winyicon !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.wicon-grape-6:before {
+	content: "\f101";
+}
+
+.wicon-bottle:before {
+	content: "\f102";
+}
+
+.w-circle {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #888;
+    padding: 0.5em 0.6em;
+}
+
+.gm-style {
+    position: relative;
+    padding-bottom: 75%; // This is the aspect ratio
+    height: 0;
+    overflow: hidden;
+}
+.gm-style iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+//filter
+//pager
+
+.w-filter-pager {
+    font-weight: bold;
+    background-color: lightgrey;
+}
+
+#watermark {
+  color: grey;//#d0d0d0;
+  background-repeat: repeat-x;
+  font-size: 30pt;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity:0.4;
+  z-index: -1;
+  left:100px;
+  top:-200px;
+}
+
+//swiper
+.swiper-snippet {
+    height:400px; 
+    width: 600px;
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+}
+
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+.gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.gallery-thumbs .swiper-slide {
+    height: 100%;
+    opacity: 0.4;
+}
+.gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+}
+
+//@media only screen and (min-width: $media-sizebig-plus-one-pixel) {
+@media only screen and (min-width: $media-desktop-min) {
+    .swiper-holder {
+        height: 400px;
+        width: 600px;
+    }
+}
+
+@media only screen and (max-width: $media-tablet-max) and (min-width: $media-tablet-min) {
+    .swiper-holder {
+        height: 300px;
+        width: 450px;
+    }
+}
+
+@media only screen and (max-width: $media-mobile-max) {
+    .swiper-holder {
+        height: 200px;
+        width: 300px;
+    }
+}
+
+
+@media only screen and (max-width: $media-mobile-max) {
+    .btn-media {
+        font-size: 0;
+    }
+    .btn-media i {
+        font-size: 16px;
+    }
+}
+
+.integer-snipper {
+    width: 150px;
+}
+
+//arrow-colors
+.arrow-red {
+    color: $arrow-red;
+}
+
+.arrow-green {
+    color: $arrow-green;
+}
+
+.arrow-black {
+    color: $arrow-black;
+}
+
+// mobile link in menu
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+@media (min-width: 979px) {
+    ul.nav li.dropdown:hover > ul.dropdown-menu {
+        display: block;
+    }
+}
+
+@media print {
+  a[href]:after {
+      content: none !important;
+  }
+  .footer, .no-print, .btn{
+      display: none;
+  }
+}
+
+//https://stackoverflow.com/questions/24369197/how-to-add-static-text-inside-an-input-form
+
+.input-group-addon-small {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.margin-inner-list {
+    margin-top: 15px;
+}
+
+.bio-color {
+    color: $bio-color;
+}
+
+.w-font-bold {
+    font-weight: bold;
+}
+
+.w-background-gray {
+    background-color:lightgray;
+}
+
+//newsletter
+.newsletter {
+    padding: 80px 0;
+    //background: #19beda;
+    background: grey;
+}
+
+.newsletter .content {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2; 
+}
+
+.newsletter .content h2 {
+    color: #243c4f;
+    margin-bottom: 40px; }
+    .newsletter .content .form-control {
+    height: 50px;
+    border-color: #ffffff;
+    border-radius:0;
+}
+
+.newsletter .content.form-control:focus {
+    box-shadow: none;
+    border: 2px solid #243c4f;
+}
+
+.newsletter .content .btn {
+    min-height: 50px; 
+    border-radius:0;
+    background: #243c4f;
+    color: #fff;
+    font-weight:600;
+}
+
+.stat-btn {
+    background-color:transparent;
+    color:black;
+}

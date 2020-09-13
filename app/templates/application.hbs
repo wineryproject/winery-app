@@ -1,5 +1,16 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
-
+{{head-layout}}
+{{#if ribbonLabel}}
+<a class="github-fork-ribbon" data-ribbon="{{ribbonLabel}}" href="#" title="{{ribbonLabel}}"></a>
+{{/if}}
+{{to-top}}
+{{notification-container position="top-right"}}
+{{nav-bar}}
 {{outlet}}
+{{nav-footer}}
+{{snippet/cookies-warning-snippet}}
+<div id="destination">
+
+    <!-- ember-wormhole -->
+
+</div>
+<!--{{outlet 'modal'}}-->

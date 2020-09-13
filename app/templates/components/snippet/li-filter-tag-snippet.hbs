@@ -1,0 +1,21 @@
+{{!-- li-filter-tag-snippet 
+> data: with name, nb; 
+> filterAction for action, 
+> dataType for data-type
+> i18n for tag translation :  ex 'ref-data.bubbleness-' data.name
+> styleHighlight : for active or not
+--}}
+<li class={{tagClass}}>
+    <a class={{backgroundClass}} onclick={{action 'forwardActionFilter'}} data-value="{{data.name}}" data-type={{dataType}}>
+    <span>
+    {{#if i18nValue}}
+        {{i18n-default (t i18nValue)}}
+    {{else if data.displayName}}
+        {{data.displayName}}
+    {{else}}
+        {{data.name}}
+    {{/if}}
+    {{snippet/badge-snippet color-class=badgeClass value=data.nb}}
+    </span>
+    </a>
+</li>

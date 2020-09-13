@@ -1,0 +1,64 @@
+{{!--TODO group with filtering and grouping 
+
+{{#masonry-grid items=searchResult.result as |item|}}
+  >>> item {{item.entityWebPath}}
+{{/masonry-grid}}
+
+<br/>
+<div class='row-masonry'>
+{{#each searchResult.result as |result|}}
+<div class="item-masonry">
+<div class="well-masonry"> 
+    
+   {{#if (cond result.entity '==' 'country')}}
+    Country !!
+{{#link-to 'countries.country' result.webPath class='pull-left'}}
+    {{link/country/country-image-link data=result}}
+{{/link-to}}
+
+
+   {{/if}}
+</div>
+</div>
+{{/each}}
+</div>
+
+
+--}}
+<br/>
+
+{{#each searchResult.result as |result|}}
+  {{#if (cond result.entity 'in' 'winery,product,country,region,lieu_dit,cepage,ref_appelation')}}
+   <div class="col-sm-6"> 
+   {{#if (cond result.entity '==' 'winery')}}
+     {{card/winery/winery-card-abstract-item perspective='search' wineryWebPath=result.entityWebPath autonomous=true}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'product')}}
+     {{card/wine/wine-card-abstract perspective='search' id=result.entityId productWebPath=result.entityWebPath autonomous=true}}{{!-- potential duplicate --}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'country')}}
+     {{card/country/country-card-abstract-item countryId=result.entityId countryWebPath=result.entityWebPath autonomous=true}}{{!-- region-card-abstract should be bi (active if autonomous/ passive if data provide) by default passive--}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'region')}}
+     {{card/region/region-card-abstract perspective='search' regionWebPath=result.entityWebPath autonomous=true}}{{!-- region-card-abstract should be bi (active if autonomous/ passive if data provide) by default passive--}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'lieu_dit')}}
+     {{card/place/place-card-abstract perspective='search' placeWebPath=result.entityWebPath autonomous=true}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'cepage')}}
+     {{card/grape/grape-card-abstract perspective='search' grapeWebPath=result.entityWebPath autonomous=true}}{{!-- region-card-abstract should be bi (active if autonomous/ passive if data provide) by default passive--}}
+   {{/if}}
+   {{#if (cond result.entity '==' 'ref_appelation')}}
+     {{card/appellation/appellation-card-abstract-item perspective='search' appellationWebPath=result.entityWebPath autonomous=true}}{{!-- region-card-abstract should be bi (active if autonomous/ passive if data provide) by default passive--}}
+   {{/if}} 
+   {{!--
+   {{#if (cond result.entity 'not_in' 'lieu_dit,winery,country,region,cepage,ref_appelation,product')}}
+     {{result.entity}} {{result.name}} card not yet implemented
+   {{/if}}
+   --}}
+   </div>
+  {{/if}} 
+{{/each}}
+
+{{!-- --}}
+

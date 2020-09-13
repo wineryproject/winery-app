@@ -1,0 +1,38 @@
+<div class="row">
+{{#if (cond addTitle '!=' 'false')}}
+    <div class="col-sm-12">
+        <h2>{{t "nav.places"}} {{#if (cond perspective '==' 'region')}}{{/if}}
+{{#if (cond places.length '>' 0)}}    
+            {{snippet/badge-snippet color-class='label-success' value=places.length}}
+{{/if}}
+        </h2>
+    </div>
+{{/if}}
+{{#if (cond places.length '>' 0)}}
+    <div class="col-sm-6">   
+{{#each places as |place index|}}
+{{#if (cond index '%' 2)}}
+{{!-- TODO create component product-card-overview --}}
+{{card/place/place-card-abstract data=place perspective=perspective}}
+{{/if}}
+{{/each}}
+    </div>
+    <div class="col-sm-6">   
+{{#each places as |place index|}}
+{{#if (cond (add index 1) '%' 2)}}
+{{!-- TODO create component product-card-overview --}}
+{{card/place/place-card-abstract data=place perspective=perspective}}
+{{/if}}
+{{/each}}
+    </div>
+{{else}}
+    <div class="col-sm-6">
+    {{#layout/sentence/sentence-no-result}}
+        {{t "sentence.no-place-register-yet"}}
+    {{/layout/sentence/sentence-no-result}}
+    <br/>
+    {{#link-to "feedback" (query-params origin="missing-place")}}{{t "sentence.if-it-misses-one-drop-feedback"}}
+    {{/link-to}}
+    </div>
+{{/if}}
+</div>

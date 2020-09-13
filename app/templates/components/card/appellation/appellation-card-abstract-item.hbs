@@ -1,0 +1,37 @@
+{{#layout/card/layout-card-abstract}}
+{{#if hasRibbon}}
+creationDate : {{data.creationDate}}
+lastModification : {{data.lastModification}}
+
+<div class="ribbon red"><span>{{t "field.new"}}</span></div>
+{{/if}}
+{{#link-to 'appellations.appellation' data.webPath class='pull-left'}}
+{{link/appellation/appellation-image-link data=data}}
+{{/link-to}}
+<div class="clearfix visible-sm"></div>
+<div class="media-body fnt-smaller">
+    <a href="#" target="_parent"></a>
+    <h3 class="media-heading">
+        {{#if (cond perspective '==' 'search')}}
+            {{t "field.appellation"}}
+        {{/if}}
+        {{#link-to 'appellations.appellation' data.webPath}}
+            {{data.name}} 
+        {{/link-to}} 
+        {{snippet/badge-snippet 
+            color=data.colorRgb 
+            value=(i18n-default (t (i18n-ref 'ref-data.color-' data.colorName)) data.colorName)
+            }}
+        {{#if (cond perspective 'in' 'all,grade,grape,search')}}
+        <br/>
+       {{link/to-region-link data=data}} &rarr;&nbsp;{{link/to-country-link data=data}}  
+        {{/if}}
+    </h3>
+    <h5>{{snippet/badge-snippet color-class='label-default' value=data.appellationClassificationAcronym}} {{data.appellationClassificationName}}</h5>
+    <h5>
+{{table/appellation/appellation-composition-table appellation=data}}
+    </h5>
+    <h4 class="media-heading">
+    </h4>
+</div>
+{{/layout/card/layout-card-abstract}}

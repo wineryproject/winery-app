@@ -1,0 +1,13 @@
+        {{!--<span data-href="/fr/service/report/photo/2860941/" title="Signaler"><i class="icon icon_flag"></i></span>--}}
+{{#if data.authorAlias}}
+{{#if data.authorRightUrl}}
+<a href="{{data.authorRightUrl}}">{{data.authorAlias}}</a>
+{{else}}
+<a href="#">{{data.authorAlias}}</a>
+{{/if}}
+{{/if}}
+{{#if data.originSiteUrl}}
+<a href="{{data.originSiteUrl}}" target="_blank" rel="noopener" class="glyphicon glyphicon-link"></a>
+{{else}}
+<a href="{{data.authorRightUrl}}" target="_blank" rel="noopener" class="glyphicon glyphicon-link"></a>
+{{/if}}

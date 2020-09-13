@@ -1,0 +1,24 @@
+{{!-- wine-card-list --}}
+{{!-- double loop allows rendering like masonry --}}
+<div class="col-sm-12"> 
+    {{search/product-filters 
+        data=productAbstract 
+        setWineCardProductFilter="setWineCardProductFilter"
+        perspective="wine"}}
+</div>
+{{#if (gt products.length 0)}}  
+<div class="col-sm-6"> 
+{{#each products as |item index|}}
+{{#if (cond index '%' 2)}}
+{{card/wine/wine-card-abstract product=item}}
+{{/if}}
+{{/each}}
+</div>
+<div class="col-sm-6"> 
+{{#each products as |item index|}}
+{{#if (cond (add index 1) '%' 2)}}
+{{card/wine/wine-card-abstract product=item}}
+{{/if}}
+{{/each}}
+</div>
+{{/if}}

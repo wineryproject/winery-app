@@ -1,0 +1,5 @@
+  <label class="col-md-4 control-label" for="{{name}}">{{snippet/validation-check-success isValid=isValid}}
+      {{label}}{{#if required}}&nbsp;*{{/if}}</label>  
+  <div class="col-md-8">
+  {{input id=name name=name type="text" value=modelValue class="form-control" placeholder=placeHolder autofocus=autofocus required=required}}
+  </div>

@@ -1,0 +1,52 @@
+{{snippet/social-network-snippet title=(t 'nav.grapes')}}
+{{#layout/container/index-layout-container}}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>
+                <div class='form-group'>
+                    <div class="col-sm-4 w-card-title">
+                        {{t "nav.grapes"}}
+                        {{snippet/badge-snippet color-class='label-default' value=model.nbToDisplay}}
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-8 input-group input-group-lg">
+                        {{search/inner-search-filter 
+                            countryFilter=true 
+                            setCountryFilter="setCountryFilter"
+                            perspective="grapes"
+                            colorFilter=true
+                            setColorFilter="setColorFilter"
+                            color=color
+                            }}
+                        <input 
+                            value={{searchFreeText}} 
+                            onKeyUp={{action 'handleInnerFilter' value="target.value"}} 
+                            type="text" 
+                            class="form-control" 
+                            id="adv-search-str" 
+                            name="search" 
+                            autofocus="true" 
+                            placeholder={{t "nav.search"}} />
+                    </div>
+                </div>
+            </h1>
+            {{search/inner-search-pager
+                perspective="grapes"
+                hasFilter=hasFilter 
+                hasCountryFilter=hasCountryFilter
+                country = country
+                hasColorFilter = hasColorFilter
+                color = color
+                }}
+        </div>
+    </div>
+    
+    <div class="row">
+{{#each model.CepageDescriptionOut as |item index|}}
+{{#if item.toDisplay}}
+        <div class="col-sm-6"> 
+{{card/grape/grape-card-abstract data=item}}
+         </div>
+{{/if}}
+{{/each}}
+    </div><!-- End row -->
+{{/layout/container/index-layout-container}}

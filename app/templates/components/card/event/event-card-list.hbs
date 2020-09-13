@@ -1,0 +1,24 @@
+{{#if (gt data.events.length 0)}}
+    {{#if (media 'isMobile')}}
+        {{#each data.events as |item index|}}
+            <div class="col-sm-6">
+                {{card/event/event-card-abstract data=item}}
+            </div>
+        {{/each}}
+    {{else}}
+        <div class="col-sm-6"> 
+            {{#each data.events as |item index|}}
+                {{#if (cond index '%' 2)}}
+                    {{card/event/event-card-abstract data=item}}
+                {{/if}}
+            {{/each}}
+        </div>
+        <div class="col-sm-6"> 
+            {{#each data.events as |item index|}}
+                {{#if (cond (add index 1) '%' 2)}}
+                    {{card/event/event-card-abstract data=item}}
+                {{/if}}
+            {{/each}}
+        </div>
+    {{/if}}
+{{/if}}

@@ -1,0 +1,65 @@
+{{#layout/container/index-layout-container}}
+    <div class="page-header" id="searchContainer">
+        {{#if (not-eq environment "production")}}
+        {{info/mission-statement}}
+        {{/if}}
+        <br/>
+        <div class="row">
+            <div class="col-lg-12">
+                <form {{action 'search' aSearchFreeText on='submit'}}>
+                    <div class='form-group'>
+
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="adv-search-drop">
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+
+                            <ul class="dropdown-menu">
+                                {{#each optionFilterDdl as |option|}}
+                                   <li class="{{option.class}}">
+                                       <a role="button" onclick={{action 'addFilter'}} class="adv-search-type" data-value="{{option.key}}" data-i18n="{{option.i18n}}">{{option.value}}</a>
+                                   </li>
+                                {{/each}}
+                            </ul>
+                        </span>
+                        
+                        {{input value=aSearchFreeText type="text" class="form-control" id="adv-search-str" name="search" autofocus="true" placeholder=(t "sentence.search-placeholder")}}
+                        
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" id="search-button" disabled={{isDisabled}}>
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                        </div>
+                        {{#if hasFilter}}
+                        <div class="input-group input-group-lg">
+                            <ul class="pager">
+                            {{#each filterHolder.filters as |filter|}}
+                                <li class="filter-tag">
+                                    <a>
+                                        <span>{{filter}}</span>&nbsp;
+                                        <span onclick={{action 'removeFilter' preventDefault=true bubble=false}} data-filter='{{filter}}' class="fa fa-remove filter-tag"></span>
+                                    </a>
+                                 </li>
+                            {{/each}}
+                            </ul>
+                        </div>
+                        {{/if}}
+                        <div class="input-group input-group-lg">
+                            <br/>
+                            {{search/search-result searchResult=model}}
+                        </div>
+
+                        {{!--https://codepen.io/scottzirkel/pen/yNxNME--}}
+                        
+                         <hr class="hr-text" data-content="{{t "field.suggestions"}}">
+                        <div class="input-group input-group-lg">
+                            {{suggestion/home-page-suggestion}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{{/layout/container/index-layout-container}}

@@ -1,0 +1,16 @@
+{{#layout/card/layout-card-abstract}}
+{{snippet/ribbon-snippet date=data.creationDate beforeNbDays='20' label=(t "field.new")}}
+<h3 class="media-heading">
+    {{#if (cond perspective '==' 'search')}}
+    {{t "field.place"}}
+    {{/if}}
+    {{link/place/place-reference-link data=data perspective=perspective flag-size='48'}}
+</h3>
+<div class="pad-10  btm-mrg-20 property-listing"> {{!--brdr box-shad--}}
+
+        <a class="pull-left" href="#" target="_parent">
+            {{link/place/place-image-first data=data}}
+        </a>
+
+</div>
+{{/layout/card/layout-card-abstract}}

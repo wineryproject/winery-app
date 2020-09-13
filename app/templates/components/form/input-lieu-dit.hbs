@@ -1,0 +1,8 @@
+{{#power-select
+  options=availableLieuDits
+  selected=selectedLieuDit
+  onchange=(action "select")
+  as |lieuDit|
+}}
+  <strong>{{lieuDit.name}}</strong>
+{{/power-select}}

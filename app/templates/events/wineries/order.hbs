@@ -1,0 +1,129 @@
+{{#layout/card/layout-card-overview}}
+{{#layout/container/index-layout-container}}
+{{#if model.hasWineryEventOwnership}}
+<div class="row">
+    <div class="col-sm-6">
+{{card/event/event-card-abstract data=model.event}}
+    </div>
+    <div class="col-sm-6">
+{{card/winery/winery-card-abstract-item data=model.winery}}
+    </div>
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-sm-6">
+        <legend>{{t "field.customer"}}</legend>
+        <div class="form-horizontal">
+            {{!-- 
+            <div class="form-group">
+                <button type="button" {{action "scan"}} class="btn btn-success">  
+                    {{t "action.scan-invoice"}} <span class="fa fa-envelope">
+                    </span>
+                </button> 
+            </div>
+            --}}
+            {{form/customer/input-customer model=model}}
+            {{!--
+            <div class="form-group">
+                {{form/form-input isValid=isValidCustomerFirstName name='firstName' label=(t "field.first-name") modelValue=model.firstName placeHolder=(t "field.first-name")}}
+            </div>
+            <div class="form-group">
+                {{form/form-input isValid=isValidCustomerLastName name='lastName' label=(t "field.last-name") modelValue=model.lastName placeHolder=(t "field.last-name")}}
+            </div>
+            <div class="form-group">
+                {{form/input-email isValid=isValidCustomerEmail modelValue=model.email required='true'}}
+            </div>
+             --}}
+            <div class="form-group">
+                {{form/form-input isValid=isValidCustomerVat name='vat' label=(t "field.vat-number") modelValue=model.winery.vat placeHolder=(t "field.vat-number")}}
+            </div>
+            <div class="form-group">
+                {{t 'sentence.add-company-address'}}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <legend>{{t "field.winery"}}</legend>
+        <div class="form-horizontal">
+            <div class="form-group">
+                {{form/form-input isValid=isValidDomain name='domain' label=(t "field.domain") modelValue=model.winery.domain placeHolder=(t "field.domain")}}
+            </div>
+            <div class="form-group">
+                {{form/form-input isValid=isValidWineryVat name='vat' label=(t "field.vat-number") modelValue=model.winery.vat placeHolder=(t "field.vat-number")}}
+            </div>
+            <div class="form-group">
+                {{form/input-email isValid=isValidWineryEmail modelValue=model.winery.contactEmail required='true'}}
+            </div>
+        </div>
+        {{snippet/address-snippet showPhones=true data=model.winery}}
+    </div>
+    
+</div>
+</div>
+
+<div class="row">
+    {{card/event/event-wine-card-list 
+        data=model
+        perspective='event-winery' 
+        addTitle="false"
+        priceType="event"
+        products=model.products 
+        showPurchaseOrder=false
+        showSorter=false
+        showLogo=false
+        showOrigin=false
+        showPricesRow=false
+        showEventPrice=true
+        showEventPresalePrice=false
+        showWineryPrice=false
+        showFilter=false
+        isEditableEventPrice=false
+        showCustomerQuantity=true
+        isEditableCustomerQuantity=false
+        setEventWineFilter="forwardToEventCardOverview"}}
+</div>
+{{!-- 
+<h1>
+    Enter Customer info
+</h1>
+<h2>
+    Fill info
+    private or company
+</h2>
+<h2>
+    Scan ticket if event use ticking QR
+</h2>
+
+<h1>
+    Override your info
+</h1>
+<h2>
+    Address, VAT
+</h2>
+
+<h2>
+    Invoice Number
+</h2>
+<h1>
+    Summary list and price
+</h1>
+--}}
+<div class="row">
+    <div class="container">
+        <button type="button" {{action "invoice"}} class="btn btn-success">  
+            {{t "action.send-invoice"}} <span class="fa fa-envelope">
+            </span>
+        </button>
+
+        {{!--Print Product grid pdf (fix price): just add number --}} 
+        <button type="button" {{action "printInvoice"}} class="btn btn-success">  
+            {{t "action.print-invoice"}} <span class="glyphicon glyphicon-print">
+            </span>
+        </button>
+    </div>
+</div>
+{{else}}
+    Not Allowed
+{{/if}}
+{{/layout/container/index-layout-container}}
+{{/layout/card/layout-card-overview}}

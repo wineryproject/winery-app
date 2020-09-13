@@ -1,0 +1,6 @@
+{{#layout/card/layout-card-overview}}
+{{!-- normally only one --}}
+{{card/wine/wine-card-overview product=model.product winery=model.winery vintages=model.vintages conservationProcessings=model.conservationProcessings}}
+<br/>
+{{#link-to 'wineries.products.index' model.winery.webPath }}{{t "sentence.all-products"}}{{/link-to}}
+{{/layout/card/layout-card-overview}}

@@ -1,0 +1,7 @@
+{{!-- TODO remove ribbon-snippet--}}
+{{#if (not-eq environment "production")}}
+{{#if (cond (number-of-days date) '<' beforeNbDays)}} 
+<div class="ribbon red"><span>{{label}} {{moment-from-now date locale=locale}}
+    {{!--moment-diff (now) data.creationDate precision='day' float=true--}}</span></div>
+{{/if}}
+{{/if}}

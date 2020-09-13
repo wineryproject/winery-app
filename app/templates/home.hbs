@@ -1,0 +1,95 @@
+{{snippet/social-network-snippet title=(t 'nav.blog')}}
+<div class="container-fluid">
+    <div class="container container-pad">
+        <h1 class="w-feature">
+            {{t "nav.events"}}
+        </h1>
+
+        {{wp/desc/event-desc}}
+
+        <h2>
+            {{#if (gt model.eventSummary.length 0)}}
+                <div class="row">
+                    <div class="col-md-12">
+                    {{#each model.eventSummary as |item index|}}    
+                        {{snippet/flag-icon flagIcon=(country-flag item.venueCountryWebPath) size='48'}} &nbsp;
+                        {{i18n-default (t (i18n-ref 'ref-data.country-' item.venueCountryWebPath)) item.venueCountryName}}                       
+                            {{#if (gt item.nbFutureEvents 0)}}
+                                <h3>
+                                {{#link-to 'events.index' (query-params country=item.venueCountryWebPath timeline='FUTURE')}}
+                                    {{t "sentence.next-events"}} {{snippet/badge-snippet color-class='label-default' value=item.nbFutureEvents}}
+                                {{/link-to}}
+                                </h3>
+                            {{/if}}
+                            {{#if (gt item.nbPastEvents 0)}}
+                                <h3>
+                                {{#link-to 'events.index' (query-params country=item.venueCountryWebPath timeline='PAST' orderBy='from_date_desc')}}
+                                    {{t "sentence.previous-events"}} {{snippet/badge-snippet color-class='label-default' value=item.nbPastEvents}}
+                                {{/link-to}}
+                                </h3>
+                            {{/if}}
+                            {{#if (gt item.nbCurrentEvents 0)}}
+                                <h3>
+                                {{#link-to 'events.index' (query-params country=item.venueCountryWebPath timeline='CURRENT')}}
+                                    {{t "sentence.current-events"}} {{snippet/badge-snippet color-class='label-default' value=item.nbCurrentEvents}}
+                                {{/link-to}}
+                                </h3>
+                            {{/if}}
+                        <hr/>
+                    {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+        </h2>
+
+        <h1 class="w-feature">
+            {{t "nav.wineries"}}
+        </h1>
+        {{wp/desc/winery-desc}}
+
+        <h2>
+            {{#if (gt model.wineryCountrySummary.length 0)}}
+                <div class="row">
+                    <div class="col-md-12">
+                    {{#each model.wineryCountrySummary as |item index|}}
+                        {{#link-to 'wineries.index' (query-params country=item.countryWebPath)}}
+                            {{snippet/flag-icon flagIcon=(country-flag item.countryWebPath) size='48'}} &nbsp;
+                            {{i18n-default (t (i18n-ref 'ref-data.country-' item.countryWebPath)) item.countryName}}
+                            {{snippet/badge-snippet color-class='label-default' size='48' value=item.nbWineriesPerCountry}}
+                        {{/link-to}}
+                        <h3>
+                        {{#each model.wineryRegionSummary as |region|}}
+                            {{#if (eq item.countryWebPath region.countryWebPath)}}
+                                {{#link-to 'wineries.index' (query-params country=item.countryWebPath region=region.regionWebPath)}}
+                                    {{region.regionName}}          
+                                {{/link-to}}                  
+                                {{snippet/badge-snippet color-class='label-default' size='48' value=region.nbWineriesPerRegion}}
+                            {{/if}}
+                        {{/each}}
+                        </h3>
+                        <hr/>
+                    {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+        </h2>
+
+        <h1 class="w-feature">
+            {{#link-to 'stats.index'}}
+                {{t "nav.stats"}}
+            {{/link-to}}
+        </h1>
+        
+        <hr/>
+
+        <h1 class="w-feature">
+            {{#link-to 'blog.index'}}
+                {{t "nav.blog"}}
+            {{/link-to}}
+        </h1>
+        {{#if (not-eq environment "production")}}
+            <hr/>
+            {{snippet/newsletter-snippet}}
+        {{/if}}
+    </div>
+</div>

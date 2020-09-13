@@ -1,0 +1,36 @@
+{{!--snippet/swiper-snippet.hbs--}}
+<div class="swiper-holder swiper-snippet">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+
+{{!-- 
+https://stackoverflow.com/questions/30460681/changing-image-src-depending-on-screen-size
+<picture>
+    <source media="(min-width: 900px)" srcset="BigImage.png">
+    <source media="(min-width: 480px)" srcset="MediumImage.png">
+    <img src="OtherImage.png" alt="IfItDoesntMatchAnyMedia">
+</picture>
+
+
+{{#each data as |imageInfo index|}}
+<div class="swiper-slide">
+<picture>
+    <source media="(min-width: 900px)" srcset="{{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg">
+    <source media="(min-width: 480px)" srcset="{{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg">
+ </picture>   
+</div>
+{{/each}}  
+--}}
+{{!--  --}}
+{{#each data as |imageInfo index|}}
+    <div class="swiper-slide" style="background-image:url({{imageUrl}}/{{imageInfo.entity}}/{{imageInfo.id}}_{{imageInfo.webPath}}/{{imageInfo.pictureSymlinkCore}}.jpg)"></div>
+{{/each}}  
+
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination swiper-pagination-white"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next swiper-button-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div>
+  </div>
+</div>

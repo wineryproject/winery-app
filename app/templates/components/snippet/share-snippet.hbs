@@ -1,0 +1,63 @@
+{{!-- https://bootsnipp.com/snippets/featured/share-on-social-networks --}}
+{{!-- todo remove use share/social-network-snippet --}}
+<div class="mobile-social-share">
+    <div id="socialShare" class="btn-group share-group">
+        <a data-toggle="dropdown" class="btn btn-info">
+                <i class="fa fa-share-alt"></i>
+        </a>
+        <button href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle share">
+            <span class="caret"></span>
+        </button>
+        
+        <ul class="dropdown-menu">
+            <li>
+                {{#share/twitter-share 
+                    title=title 
+                    via="WineryProject"
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/twitter-share}}
+            </li>
+            <li>
+                {{#share/facebook-share 
+                    quote=title 
+                }}{{/share/facebook-share}}
+            </li>
+            <li>
+                {{#share/linkedin-share 
+                    title=title 
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/linkedin-share}}
+            </li>
+            <li>
+                {{#share/pinterest-share 
+                    title=title 
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/pinterest-share}}
+            </li>
+{{#if (not-eq environment "production")}}
+{{#if isCodeEnabled}}
+            <li>
+                {{#share/code-share 
+                    title=title 
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/code-share}}
+            </li>
+{{/if}}
+{{#if isPdfEnabled}}
+            <li>
+                {{#share/pdf-share 
+                    title=title 
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/pdf-share}}
+            </li>
+{{/if}}
+{{/if}}
+            <li>
+                {{#share/email-share 
+                    title=title 
+                    hashtags="wineryproject, winelovers" 
+                }}{{/share/email-share}}
+            </li>
+        </ul>
+    </div>
+</div>

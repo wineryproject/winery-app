@@ -1,0 +1,60 @@
+<aside id="sticky-social" class="no-print" style="z-index : 10" >
+    <ul>
+         <li>
+            {{share/twitter-share 
+                title=title 
+                via="WineryProject"
+                hashtags="wineryproject, winelovers" 
+                shareAltIntro=(t 'action.share-on-twitter')
+            }}
+        </li>
+        <li>
+            {{share/facebook-share 
+                quote=title 
+                title=title 
+                shareAltIntro=(t 'action.share-on-facebook')
+            }}
+        </li>
+        <li>
+            {{share/linkedin-share 
+                title=title 
+                hashtags="wineryproject, winelovers" 
+                shareAltIntro=(t 'action.share-on-linkedin')
+            }}
+        </li>
+        <li>
+            {{share/pinterest-share 
+                title=title 
+                hashtags="wineryproject, winelovers" 
+                shareAltIntro=(t 'action.share-on-pinterest')
+            }}
+        </li>
+{{#if (not-eq environment "production")}}
+{{#if isCodeEnabled}}
+        <li>
+            {{share/code-share 
+                title=title 
+                hashtags="wineryproject, winelovers"
+                shareAltIntro=(t 'action.share-code')
+            }}
+        </li>
+{{/if}}
+{{#if isPdfEnabled}}
+        <li>
+            {{share/pdf-share 
+                title=title 
+                hashtags="wineryproject, winelovers" 
+                shareAltIntro=(t 'action.get-pdf')
+            }}
+        </li>
+{{/if}}
+{{/if}}
+        <li>
+            {{share/email-share 
+                title=title 
+                hashtags="wineryproject, winelovers" 
+                shareAltIntro=(t 'action.share-by-mail')
+            }}
+        </li>
+    </ul>
+</aside>

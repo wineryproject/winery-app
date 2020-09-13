@@ -1,0 +1,19 @@
+
+{{form/form-input name='street1' label=(t "field.street1") required='true' modelValue=model.street1 placeHolder=(t "field.street1")}}
+{{form/form-input name='street2' label=(t "field.street2") modelValue=model.street2 placeHolder=(t "field.street2")}}
+{{form/form-input name='place' label=(t "field.place") required='true' modelValue=model.place placeHolder=(t "field.place")}}
+
+<!-- Text input-->
+<div class="form-group">
+<label class="col-sm-4 control-label" for="textinput">{{t "field.state"}}</label>
+<div class="col-sm-2">
+    {{input id="state" name="state" type="text" value=model.state class="form-control" placeholder=(t "field.state") }}
+</div>
+
+<label class="col-sm-2 control-label" for="textinput">{{t "field.zip"}}</label>
+<div class="col-sm-4">
+    {{input type="number" id="postCode" name="postCode" value=model.postCode class="form-control" placeholder=(t "field.postCode") }}
+</div>
+</div>
+
+

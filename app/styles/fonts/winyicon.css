@@ -1,0 +1,25 @@
+@font-face {
+	font-family: "winyicon";
+	src: url("winyicon.eot?e4ec294d2afd6f5962f370904f9dd037?#iefix") format("embedded-opentype"),
+url("winyicon.woff2?e4ec294d2afd6f5962f370904f9dd037") format("woff2"),
+url("winyicon.woff?e4ec294d2afd6f5962f370904f9dd037") format("woff");
+}
+
+.wicon {
+	line-height: 1;
+}
+
+.wicon:before {
+	font-family: winyicon !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.wicon-grape-6:before {
+	content: "\f101";
+}
+
+.wicon-bottle:before {
+	content: "\f102";
+}
